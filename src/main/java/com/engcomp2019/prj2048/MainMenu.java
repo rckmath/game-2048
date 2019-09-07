@@ -10,13 +10,10 @@ import javax.swing.JLabel;
 
 /**
  *
- * @author erick
+ * @author erick / rckmath
  */
 public class MainMenu extends JFrame {
-
-    /**
-     * Creates new form MainMenu
-     */
+    
     public MainMenu() {
         initComponents();
         getContentPane().add(new JLabel("Teste"));
