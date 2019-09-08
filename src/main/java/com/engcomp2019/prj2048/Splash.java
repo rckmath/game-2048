@@ -20,7 +20,7 @@ import javax.swing.Timer;
 public class Splash extends JFrame {
 
     private static JLabel lblArt;   // Label que definiremos nossa imagem
-    private final ImageIcon imgArt = new ImageIcon("src\\main\\java\\com\\engcomp2019\\imgs\\originalSplash.gif");       // Onde carregaremos nossa imagem
+    private final ImageIcon imgArt = new ImageIcon("src\\main\\java\\com\\engcomp2019\\imgs\\finalSplash.gif");       // Onde carregaremos nossa imagem
     //private final ImageIcon imgArt = new ImageIcon("src\\main\\java\\com\\engcomp2019\\imgs\\leoSplash.gif");       // Onde carregaremos nossa imagem
     public JProgressBar progressBar = new JProgressBar();   // Progress bar
 
@@ -37,7 +37,7 @@ public class Splash extends JFrame {
 
         // Sleep de 3,75 segundos
         try {
-            Thread.sleep(3750);
+            Thread.sleep(3250);
         } catch (InterruptedException ex) {
             System.err.println("ERROR: " + ex);
         }
@@ -52,8 +52,8 @@ public class Splash extends JFrame {
         addWindowListener(new WindowAdapter() {
             @Override
             public void windowActivated(WindowEvent arg0) {
-                // Carrega nossa barra em 3,5 seg
-                final Timer t = new Timer(35, (ActionEvent e) -> {
+                // Carrega nossa barra em 3 seg
+                final Timer t = new Timer(30, (ActionEvent e) -> {
                     // Incrementa a progress bar a cada "rodada" de timer
                     progressBar.setValue(progressBar.getValue() + 1);
                     if (progressBar.getValue() == 100) {
@@ -78,7 +78,7 @@ public class Splash extends JFrame {
         progressBar.setStringPainted(false);
         progressBar.setBorderPainted(false);
         progressBar.setBackground(Color.black);
-        progressBar.setForeground(new Color(51, 255, 51));
+        progressBar.setForeground(new Color(255, 150, 0));
         progressBar.setBounds(0, 196, 512, 5);
         getContentPane().add(progressBar); // Adicionando a barra de progresso na janela/frame 
     }
