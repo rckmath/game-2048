@@ -35,7 +35,7 @@ public class Splash extends JFrame {
         s.setLocationRelativeTo(null);
         s.setVisible(true);
 
-        // Sleep de 3,75 segundos
+        // Sleep de 3,25 segundos
         try {
             Thread.sleep(3250);
         } catch (InterruptedException ex) {
@@ -46,9 +46,10 @@ public class Splash extends JFrame {
         s.dispose();
     }
 
-    // Construtor contendo a função responsável por carregar os dados da janela (layout e imagem)
+    /* Construtor contendo a função responsável por carregar
+    os dados da janela (layout, imagem) além de definir o timer */
     public Splash() {
-        //Ativa a progress bar quando a janela estive ativa
+        //Ativa a progress bar quando a janela estiver ativa
         addWindowListener(new WindowAdapter() {
             @Override
             public void windowActivated(WindowEvent arg0) {
