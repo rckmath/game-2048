@@ -1,5 +1,6 @@
 package com.engcomp2019.prj2048;
 
+import com.engcomp2019.gui.*;
 import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.WindowAdapter;
@@ -18,10 +19,9 @@ import javax.swing.Timer;
 /* Meramente visual e não condiz com o tempo de carregamento do jogo */
 // Classe Splash que herda de JFrame
 public class Splash extends JFrame {
-
-    private static JLabel lblArt;   // Label que definiremos nossa imagem
     private final ImageIcon imgArt = new ImageIcon("src\\main\\java\\com\\engcomp2019\\imgs\\finalSplash.gif");       // Onde carregaremos nossa imagem
     //private final ImageIcon imgArt = new ImageIcon("src\\main\\java\\com\\engcomp2019\\imgs\\leoSplash.gif");       // Onde carregaremos nossa imagem
+    private static JLabel lblArt;   // Label que definiremos nossa imagem
     public JProgressBar progressBar = new JProgressBar();   // Progress bar
 
     public static void main(String arg[]) {
@@ -88,7 +88,9 @@ public class Splash extends JFrame {
     @Override
     public void dispose() {
         super.dispose();
-        MainMenu frame = new MainMenu();
-        frame.setVisible(true);
+        MainMenu oFrame = new MainMenu();
+        //Container c = oFrame.getContentPane();
+        //c.setBackground(new Color(0, 0, 0, 255));
+        oFrame.setVisible(true);
     }
 }
