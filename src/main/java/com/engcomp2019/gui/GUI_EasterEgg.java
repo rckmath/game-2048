@@ -5,14 +5,17 @@ import javax.swing.ImageIcon;
 
 /**
  *
- * @author erick
+ * @author erick / rckmath
  */
 public class GUI_EasterEgg extends javax.swing.JFrame {
+
     private final DragWindow drag = new DragWindow();
-    private final ImageIcon imgFrame = new ImageIcon("src\\main\\java\\com\\engcomp2019\\imgs\\frames\\frameBackground.png");
+    private final ImageIcon imgFrame = new ImageIcon("src/main/java/com/engcomp2019/imgs/frames/frameBackground.png");
 
     public GUI_EasterEgg() {
         initComponents();
+        setResizable(false);
+        setLocationRelativeTo(null);
     }
 
     @SuppressWarnings("unchecked")

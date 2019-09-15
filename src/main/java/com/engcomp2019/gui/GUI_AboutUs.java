@@ -1,6 +1,6 @@
 package com.engcomp2019.gui;
 
-import com.engcomp2019.core.DragWindow;
+import com.engcomp2019.core.*;
 import java.awt.Desktop;
 import java.io.IOException;
 import java.net.URI;
@@ -8,6 +8,7 @@ import java.net.URISyntaxException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.ImageIcon;
+import javax.swing.JFrame;
 import org.netbeans.lib.awtextra.AbsoluteConstraints;
 
 /**
@@ -16,23 +17,32 @@ import org.netbeans.lib.awtextra.AbsoluteConstraints;
  */
 public class GUI_AboutUs extends javax.swing.JFrame {
 
+    private final JFrame previousFrame;
     private final DragWindow drag = new DragWindow();
-    private final ImageIcon imgFrame = new ImageIcon("src\\main\\java\\com\\engcomp2019\\imgs\\frames\\frameAbout.png");
-    private final ImageIcon imgGitDef = new ImageIcon("src\\main\\java\\com\\engcomp2019\\imgs\\buttons\\btnGitDef.png");
-    private final ImageIcon imgGitHov = new ImageIcon("src\\main\\java\\com\\engcomp2019\\imgs\\buttons\\btnGitHover.png");
-    private final ImageIcon imgGitPre = new ImageIcon("src\\main\\java\\com\\engcomp2019\\imgs\\buttons\\btnGitPressed.png");
+    private final ImageIcon imgFrame = new ImageIcon("src/main/java/com/engcomp2019/imgs/frames/frameAbout.png");
+    private final ImageIcon imgGitDef = new ImageIcon("src/main/java/com/engcomp2019/imgs/buttons/btnGitDef.png");
+    private final ImageIcon imgGitHov = new ImageIcon("src/main/java/com/engcomp2019/imgs/buttons/btnGitHover.png");
+    private final ImageIcon imgGitPre = new ImageIcon("src/main/java/com/engcomp2019/imgs/buttons/btnGitPressed.png");
 
-    public GUI_AboutUs() {
+    /**
+     * Constroi o frame "Sobre" e desativa o frame atual
+     *
+     * @param pPreviousFrame Recebe o frame atual
+     */
+    public GUI_AboutUs(JFrame pPreviousFrame) {
+        // Desativa o frame anterior para bloqueá-lo enquanto não fechar este
+        previousFrame = pPreviousFrame;
+        previousFrame.setEnabled(false);
+
+        // Inicializa este frame
         initComponents();
         setResizable(false);
         setLocationRelativeTo(null);
 
         btnGit.setIcon(imgGitDef);
-        btnGit.setBounds(105, 160, 194, 86);
         add(btnGit, new AbsoluteConstraints(105, 160, -1, -1));
 
         frameBackground.setIcon(imgFrame);
-        frameBackground.setBounds(0, 0, 400, 300);
         add(frameBackground, new AbsoluteConstraints(0, 0, -1, -1));
     }
 
@@ -99,8 +109,8 @@ public class GUI_AboutUs extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnCloseMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnCloseMouseReleased
-        setVisible(false);
-        super.dispose();
+        previousFrame.setEnabled(true);
+        new Close(this, false).frame();
     }//GEN-LAST:event_btnCloseMouseReleased
 
     private void frameDragMouseDragged(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_frameDragMouseDragged

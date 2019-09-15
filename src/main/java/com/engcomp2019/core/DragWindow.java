@@ -1,6 +1,5 @@
 package com.engcomp2019.core;
 
-import com.engcomp2019.core.Drag;
 import java.awt.Frame;
 import javax.swing.JOptionPane;
 
@@ -28,7 +27,7 @@ public class DragWindow extends Drag {
     @Override
     public void setCoord() {
         try {
-            frame.setLocation(super.x - super.xMouse, super.y - super.yMouse);
+            frame.setLocation(super.getX() - super.getxMouse(), super.getY() - super.getyMouse());
         } catch (Exception e) {
             System.err.println("ERRO: " + e);
             JOptionPane.showMessageDialog(null, "Erro desconhecido!", "ERRO", JOptionPane.ERROR_MESSAGE);

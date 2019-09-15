@@ -17,12 +17,12 @@ public class DragTile extends Drag {
     
     /* METODOS */
     public void setFinal(){
-        if(super.x - super.xMouse > super.y - super.yMouse){
-            finalX = super.x - super.xMouse;
-            finalY = super.y;
+        if(super.getX() - super.getxMouse() > super.getY() - super.getyMouse()){
+            finalX = super.getX() - super.getxMouse();
+            finalY = super.getY();
         } else {
-            finalX = super.x;
-            finalY = super.y - super.yMouse;
+            finalX = super.getX();
+            finalY = super.getY() - super.getyMouse();
         }
     }
     

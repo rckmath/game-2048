@@ -16,12 +16,11 @@ import javax.swing.Timer;
  * @author erick / rckmath
  */
 
-/* Meramente visual e não condiz com o tempo de carregamento do jogo */
-// Classe Splash que herda de JFrame
+/* Splash meramente visual e não condiz com o tempo de carregamento do jogo */
 public class Main extends JFrame {
 
-    private final ImageIcon imgArt = new ImageIcon("src\\main\\java\\com\\engcomp2019\\imgs\\frames\\finalSplash.gif");       // Onde carregaremos nossa imagem
-    //private final ImageIcon imgArt = new ImageIcon("src\\main\\java\\com\\engcomp2019\\imgs\\leoSplash.gif");       // Onde carregaremos nossa imagem
+    private final ImageIcon imgArt = new ImageIcon("src/main/java/com/engcomp2019/imgs/elements/gameLogoFinal.gif");     // Onde carregaremos nossa imagem
+    //private final ImageIcon imgArt = new ImageIcon("src/main/java/com/engcomp2019/imgs/leoSplash.gif");     // Onde carregaremos nossa imagem
     private static JLabel lblArt;   // Label que definiremos nossa imagem
     public JProgressBar progressBar = new JProgressBar();   // Progress bar
 
@@ -31,14 +30,14 @@ public class Main extends JFrame {
 
         // Propriedades da nossa janela splash (tamanho, etc)
         s.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-        s.setSize(512, 201);
+        s.setSize(580, 150);
         s.setUndecorated(true);
         s.setLocationRelativeTo(null);
         s.setVisible(true);
 
-        // Sleep de 3,25 segundos
+        // Sleep de 2,475 segundos
         try {
-            Thread.sleep(0);
+            Thread.sleep(2475);
         } catch (InterruptedException ex) {
             System.err.println("ERRO: " + ex);
         }
@@ -54,8 +53,8 @@ public class Main extends JFrame {
         addWindowListener(new WindowAdapter() {
             @Override
             public void windowActivated(WindowEvent arg0) {
-                // Carrega nossa barra em 3 seg
-                final Timer t = new Timer(30, (ActionEvent e) -> {
+                // Carrega nossa barra em 2,3 seg
+                final Timer t = new Timer(23, (ActionEvent e) -> {
                     // Incrementa a progress bar a cada "rodada" de timer
                     progressBar.setValue(progressBar.getValue() + 1);
                     if (progressBar.getValue() == 100) {
@@ -67,22 +66,22 @@ public class Main extends JFrame {
         });
 
         // Padrao de layout do pane ativo como nulo
-        getContentPane().setLayout(null);
+        this.setLayout(null);
 
         // Adicionando a imagem no label e definindo o tamanho
         lblArt = new JLabel(imgArt);
-        lblArt.setBounds(0, 0, 512, 196);
+        lblArt.setBounds(0, 0, 580, 145);
 
         // Adicionando a label (nossa imagem) na janela/frame
-        getContentPane().add(lblArt);
+        this.add(lblArt);
 
         // Setando nossa barra de progresso
         progressBar.setStringPainted(false);
         progressBar.setBorderPainted(false);
         progressBar.setBackground(Color.black);
-        progressBar.setForeground(new Color(255, 150, 0));
-        progressBar.setBounds(0, 196, 512, 5);
-        getContentPane().add(progressBar); // Adicionando a barra de progresso na janela/frame 
+        progressBar.setForeground(new Color(255, 255, 255));
+        progressBar.setBounds(0, 145, 580, 5);
+        this.add(progressBar); // Adicionando a barra de progresso na janela/frame 
     }
 
     // Fechar splash e chamar nossa tela principal do jogo
