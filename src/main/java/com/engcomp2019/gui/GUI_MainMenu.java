@@ -1,49 +1,48 @@
 package com.engcomp2019.gui;
 
+import com.engcomp2019.core.DragWindow;
+import com.engcomp2019.audio.Audio;
 import java.awt.Color;
 import java.awt.Frame;
 import java.awt.Toolkit;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseMotionAdapter;
 import java.awt.event.WindowEvent;
-import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
-import javax.swing.JLabel;
 import org.netbeans.lib.awtextra.AbsoluteConstraints;
 
 /**
  *
  * @author erick / rckmath
  */
-public class MainMenu extends JFrame {
+public class GUI_MainMenu extends JFrame {
     private final DragWindow drag = new DragWindow();
+    private final ImageIcon imgFrame = new ImageIcon("src\\main\\java\\com\\engcomp2019\\imgs\\frames\\frameBackground.png");
+    private final ImageIcon imgLogo = new ImageIcon("src\\main\\java\\com\\engcomp2019\\imgs\\elements\\gameLogo.gif");
+    private final ImageIcon imgMenu = new ImageIcon("src\\main\\java\\com\\engcomp2019\\imgs\\elements\\mainMenuDropdown.png");
+    private final ImageIcon imgBtnDef = new ImageIcon("src\\main\\java\\com\\engcomp2019\\imgs\\buttons\\btnDefault.png");
+    private final ImageIcon imgBtnHov = new ImageIcon("src\\main\\java\\com\\engcomp2019\\imgs\\buttons\\btnHover.png");
+    private final ImageIcon imgBtnPre = new ImageIcon("src\\main\\java\\com\\engcomp2019\\imgs\\buttons\\btnPressed.png");
+    private Boolean menuActive = false;
     
-    /*private int xMouse;
-    private int yMouse;*/
-
-    private final ImageIcon imgFrame = new ImageIcon("src\\main\\java\\com\\engcomp2019\\imgs\\frameBackground.png");
-    private final ImageIcon imgLogo = new ImageIcon("src\\main\\java\\com\\engcomp2019\\imgs\\mainMenu.gif");
-    private final ImageIcon imgBtnDef = new ImageIcon("src\\main\\java\\com\\engcomp2019\\imgs\\btnDefault.png");
-    private final ImageIcon imgBtnHov = new ImageIcon("src\\main\\java\\com\\engcomp2019\\imgs\\btnHover.png");
-    private final ImageIcon imgBtnPre = new ImageIcon("src\\main\\java\\com\\engcomp2019\\imgs\\btnPressed.png");
-
-    public MainMenu() {
+    public GUI_MainMenu() {
         // Propriedades da janela e inicialização dos componentes
         initComponents();
         setResizable(false);
         setLocationRelativeTo(null);
+        
+        menuDropdown.setIcon(imgMenu);
+        menuDropdown.setBounds(39, 20, 130, 57);
+        add(menuDropdown, new AbsoluteConstraints(39, 20, -1, -1));
+        menuDropdown.setVisible(false);
         
         btnStart.setIcon(imgBtnDef);
         btnStart.setBounds(210, 360, 384, 128);
         add(btnStart, new AbsoluteConstraints(210, 360, -1, -1));
 
         gameLogo.setIcon(imgLogo);
-        gameLogo.setBounds(212, 110, 373, 172);
-        add(gameLogo, new AbsoluteConstraints(212, 110, -1, -1));
+        gameLogo.setBounds(111, 100, 580, 145);
+        add(gameLogo, new AbsoluteConstraints(111, 100, -1, -1));
 
-        //frameBackground = new JLabel(imgFrame);
         frameBackground.setIcon(imgFrame);
         frameBackground.setBounds(0, 0, 800, 576);
         add(frameBackground, new AbsoluteConstraints(0, 0, -1, -1));
@@ -53,27 +52,42 @@ public class MainMenu extends JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        exitGame = new javax.swing.JLabel();
+        gameSettings = new javax.swing.JLabel();
+        newGame = new javax.swing.JLabel();
+        menuDropdown = new javax.swing.JLabel();
         gameLogo = new javax.swing.JLabel();
         btnMinimize = new javax.swing.JLabel();
         btnClose = new javax.swing.JLabel();
+        btnFile = new javax.swing.JLabel();
+        btnAbout = new javax.swing.JLabel();
         frameDrag = new javax.swing.JLabel();
         btnStart = new javax.swing.JLabel();
         frameBackground = new javax.swing.JLabel();
-        menuBar = new javax.swing.JMenuBar();
-        menuList = new javax.swing.JMenu();
-        menuOpNovoJogo = new javax.swing.JMenuItem();
-        menuOpConfig = new javax.swing.JMenuItem();
-        menuOpQuit = new javax.swing.JMenuItem();
-        menuAbout = new javax.swing.JMenu();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        setName("mainMenu"); // NOI18N
         setUndecorated(true);
-        setPreferredSize(new java.awt.Dimension(800, 576));
+        addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseReleased(java.awt.event.MouseEvent evt) {
+                formMouseReleased(evt);
+            }
+        });
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
+        exitGame.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseReleased(java.awt.event.MouseEvent evt) {
+                exitGameMouseReleased(evt);
+            }
+        });
+        getContentPane().add(exitGame, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 60, 130, 18));
+        getContentPane().add(gameSettings, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 40, 130, 18));
+        getContentPane().add(newGame, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 20, 130, 18));
+        getContentPane().add(menuDropdown, new org.netbeans.lib.awtextra.AbsoluteConstraints(39, 20, 130, 57));
+
         gameLogo.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
-        getContentPane().add(gameLogo, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 110, -1, -1));
+        getContentPane().add(gameLogo, new org.netbeans.lib.awtextra.AbsoluteConstraints(111, 100, -1, -1));
 
         btnMinimize.setBackground(new java.awt.Color(255, 255, 255));
         btnMinimize.setForeground(new java.awt.Color(255, 255, 255));
@@ -106,6 +120,20 @@ public class MainMenu extends JFrame {
         });
         getContentPane().add(btnClose, new org.netbeans.lib.awtextra.AbsoluteConstraints(768, 7, 24, 24));
 
+        btnFile.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseReleased(java.awt.event.MouseEvent evt) {
+                btnFileMouseReleased(evt);
+            }
+        });
+        getContentPane().add(btnFile, new org.netbeans.lib.awtextra.AbsoluteConstraints(36, 0, 70, 18));
+
+        btnAbout.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseReleased(java.awt.event.MouseEvent evt) {
+                btnAboutMouseReleased(evt);
+            }
+        });
+        getContentPane().add(btnAbout, new org.netbeans.lib.awtextra.AbsoluteConstraints(112, 0, 50, 18));
+
         frameDrag.setPreferredSize(new java.awt.Dimension(41, 18));
         frameDrag.addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
             public void mouseDragged(java.awt.event.MouseEvent evt) {
@@ -115,6 +143,9 @@ public class MainMenu extends JFrame {
         frameDrag.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mousePressed(java.awt.event.MouseEvent evt) {
                 frameDragMousePressed(evt);
+            }
+            public void mouseReleased(java.awt.event.MouseEvent evt) {
+                frameDragMouseReleased(evt);
             }
         });
         getContentPane().add(frameDrag, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 800, 18));
@@ -140,56 +171,6 @@ public class MainMenu extends JFrame {
         frameBackground.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         frameBackground.setPreferredSize(new java.awt.Dimension(800, 576));
         getContentPane().add(frameBackground, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
-
-        menuBar.setBackground(new java.awt.Color(0, 0, 0));
-        menuBar.setForeground(new java.awt.Color(255, 255, 255));
-        menuBar.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
-
-        menuList.setBackground(new java.awt.Color(0, 0, 0));
-        menuList.setForeground(new java.awt.Color(255, 255, 255));
-        menuList.setText("Arquivo");
-
-        menuOpNovoJogo.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_N, java.awt.event.InputEvent.SHIFT_MASK));
-        menuOpNovoJogo.setBackground(new java.awt.Color(0, 0, 0));
-        menuOpNovoJogo.setForeground(new java.awt.Color(255, 255, 255));
-        menuOpNovoJogo.setText("Novo jogo");
-        menuOpNovoJogo.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                menuOpNovoJogoActionPerformed(evt);
-            }
-        });
-        menuList.add(menuOpNovoJogo);
-
-        menuOpConfig.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_H, java.awt.event.InputEvent.ALT_MASK));
-        menuOpConfig.setBackground(new java.awt.Color(0, 0, 0));
-        menuOpConfig.setForeground(new java.awt.Color(255, 255, 255));
-        menuOpConfig.setText("Configurações");
-        menuOpConfig.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                menuOpConfigActionPerformed(evt);
-            }
-        });
-        menuList.add(menuOpConfig);
-
-        menuOpQuit.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_Q, java.awt.event.InputEvent.CTRL_MASK));
-        menuOpQuit.setBackground(new java.awt.Color(0, 0, 0));
-        menuOpQuit.setForeground(new java.awt.Color(255, 255, 255));
-        menuOpQuit.setText("Sair");
-        menuOpQuit.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                menuOpQuitActionPerformed(evt);
-            }
-        });
-        menuList.add(menuOpQuit);
-
-        menuBar.add(menuList);
-
-        menuAbout.setBackground(new java.awt.Color(0, 0, 0));
-        menuAbout.setForeground(new java.awt.Color(255, 255, 255));
-        menuAbout.setText("Sobre");
-        menuBar.add(menuAbout);
-
-        setJMenuBar(menuBar);
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -225,10 +206,12 @@ public class MainMenu extends JFrame {
 
     private void frameDragMouseDragged(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_frameDragMouseDragged
         drag.setCoordenates(evt);
-        drag.setNewPosition(this);
+        drag.setFrame(this);
+        drag.setCoord();
     }//GEN-LAST:event_frameDragMouseDragged
 
     private void frameDragMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_frameDragMousePressed
+        frameDrag.setCursor(new java.awt.Cursor(java.awt.Cursor.MOVE_CURSOR));
         drag.setMouseCoordenates(evt);
     }//GEN-LAST:event_frameDragMousePressed
 
@@ -246,37 +229,53 @@ public class MainMenu extends JFrame {
 
     private void btnStartMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnStartMouseReleased
         btnStart.setIcon(imgBtnHov);
+        Audio a = new Audio();
+        a.play("src\\main\\java\\com\\engcomp2019\\audio\\pula.wav");
     }//GEN-LAST:event_btnStartMouseReleased
 
-    private void menuOpConfigActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuOpConfigActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_menuOpConfigActionPerformed
+    private void frameDragMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_frameDragMouseReleased
+        frameDrag.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+    }//GEN-LAST:event_frameDragMouseReleased
 
-    private void menuOpNovoJogoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuOpNovoJogoActionPerformed
-       
-    }//GEN-LAST:event_menuOpNovoJogoActionPerformed
+    private void btnAboutMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnAboutMouseReleased
+        GUI_AboutUs frameAbout = new GUI_AboutUs();
+        frameAbout.setVisible(true);
+    }//GEN-LAST:event_btnAboutMouseReleased
 
-    private void menuOpQuitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuOpQuitActionPerformed
-        // Comandos para garantir que fecharemos nosso programa completamente
-        WindowEvent wev = new WindowEvent(this, WindowEvent.WINDOW_CLOSING);
-        Toolkit.getDefaultToolkit().getSystemEventQueue().postEvent(wev);
-        setVisible(false);
-        super.dispose();
-        System.exit(0);
-    }//GEN-LAST:event_menuOpQuitActionPerformed
+    private void btnFileMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnFileMouseReleased
+        if(menuActive){
+            menuDropdown.setVisible(false);
+            menuActive = false;
+        } else{
+            menuDropdown.setVisible(true);
+            menuActive = true;
+        }
+    }//GEN-LAST:event_btnFileMouseReleased
+
+    private void formMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_formMouseReleased
+        if(menuActive){
+            menuDropdown.setVisible(false);
+            menuActive = false;
+        }
+    }//GEN-LAST:event_formMouseReleased
+
+    private void exitGameMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_exitGameMouseReleased
+        GUI_Exit frameExit = new GUI_Exit();
+        frameExit.setVisible(true);
+    }//GEN-LAST:event_exitGameMouseReleased
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JLabel btnAbout;
     private javax.swing.JLabel btnClose;
+    private javax.swing.JLabel btnFile;
     private javax.swing.JLabel btnMinimize;
     private javax.swing.JLabel btnStart;
+    private javax.swing.JLabel exitGame;
     private javax.swing.JLabel frameBackground;
     private javax.swing.JLabel frameDrag;
     private javax.swing.JLabel gameLogo;
-    private javax.swing.JMenu menuAbout;
-    private javax.swing.JMenuBar menuBar;
-    private javax.swing.JMenu menuList;
-    private javax.swing.JMenuItem menuOpConfig;
-    private javax.swing.JMenuItem menuOpNovoJogo;
-    private javax.swing.JMenuItem menuOpQuit;
+    private javax.swing.JLabel gameSettings;
+    private javax.swing.JLabel menuDropdown;
+    private javax.swing.JLabel newGame;
     // End of variables declaration//GEN-END:variables
 }

@@ -18,15 +18,16 @@ import javax.swing.Timer;
 
 /* Meramente visual e não condiz com o tempo de carregamento do jogo */
 // Classe Splash que herda de JFrame
-public class Splash extends JFrame {
-    private final ImageIcon imgArt = new ImageIcon("src\\main\\java\\com\\engcomp2019\\imgs\\finalSplash.gif");       // Onde carregaremos nossa imagem
+public class Main extends JFrame {
+
+    private final ImageIcon imgArt = new ImageIcon("src\\main\\java\\com\\engcomp2019\\imgs\\frames\\finalSplash.gif");       // Onde carregaremos nossa imagem
     //private final ImageIcon imgArt = new ImageIcon("src\\main\\java\\com\\engcomp2019\\imgs\\leoSplash.gif");       // Onde carregaremos nossa imagem
     private static JLabel lblArt;   // Label que definiremos nossa imagem
     public JProgressBar progressBar = new JProgressBar();   // Progress bar
 
     public static void main(String arg[]) {
         // Criando janela do nosso splash
-        Splash s = new Splash();
+        Main s = new Main();
 
         // Propriedades da nossa janela splash (tamanho, etc)
         s.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
@@ -37,9 +38,9 @@ public class Splash extends JFrame {
 
         // Sleep de 3,25 segundos
         try {
-            Thread.sleep(3250);
+            Thread.sleep(0);
         } catch (InterruptedException ex) {
-            System.err.println("ERROR: " + ex);
+            System.err.println("ERRO: " + ex);
         }
 
         // Da um dispose/fecha nosso frame splash
@@ -48,7 +49,7 @@ public class Splash extends JFrame {
 
     /* Construtor contendo a função responsável por carregar
     os dados da janela (layout, imagem) além de definir o timer */
-    public Splash() {
+    public Main() {
         //Ativa a progress bar quando a janela estiver ativa
         addWindowListener(new WindowAdapter() {
             @Override
@@ -67,14 +68,14 @@ public class Splash extends JFrame {
 
         // Padrao de layout do pane ativo como nulo
         getContentPane().setLayout(null);
-        
+
         // Adicionando a imagem no label e definindo o tamanho
         lblArt = new JLabel(imgArt);
         lblArt.setBounds(0, 0, 512, 196);
-        
+
         // Adicionando a label (nossa imagem) na janela/frame
         getContentPane().add(lblArt);
-        
+
         // Setando nossa barra de progresso
         progressBar.setStringPainted(false);
         progressBar.setBorderPainted(false);
@@ -88,9 +89,7 @@ public class Splash extends JFrame {
     @Override
     public void dispose() {
         super.dispose();
-        MainMenu oFrame = new MainMenu();
-        //Container c = oFrame.getContentPane();
-        //c.setBackground(new Color(0, 0, 0, 255));
+        GUI_MainMenu oFrame = new GUI_MainMenu();
         oFrame.setVisible(true);
     }
 }

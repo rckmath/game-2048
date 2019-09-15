@@ -1,4 +1,4 @@
-package com.engcomp2019.prj2048;
+package com.engcomp2019.core;
 
 import javax.swing.JButton;
 
