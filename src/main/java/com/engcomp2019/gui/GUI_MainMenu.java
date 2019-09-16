@@ -1,6 +1,5 @@
 package com.engcomp2019.gui;
 
-import com.engcomp2019.audio.Audio;
 import com.engcomp2019.core.*;
 import java.awt.Frame;
 import java.util.ArrayList;
@@ -15,13 +14,15 @@ import org.netbeans.lib.awtextra.AbsoluteConstraints;
  */
 public class GUI_MainMenu extends JFrame {
 
-    private final DragWindow drag = new DragWindow();
     private final ImageIcon imgFrame = new ImageIcon("src/main/java/com/engcomp2019/imgs/frames/frameBackground.png");
     private final ImageIcon imgLogo = new ImageIcon("src/main/java/com/engcomp2019/imgs/elements/gameLogo.gif");
     private final ImageIcon imgMenu = new ImageIcon("src/main/java/com/engcomp2019/imgs/elements/mainMenuDropdown.png");
     private final ImageIcon imgBtnDef = new ImageIcon("src/main/java/com/engcomp2019/imgs/buttons/btnDefault.png");
     private final ImageIcon imgBtnHov = new ImageIcon("src/main/java/com/engcomp2019/imgs/buttons/btnHover.png");
     private final ImageIcon imgBtnPre = new ImageIcon("src/main/java/com/engcomp2019/imgs/buttons/btnPressed.png");
+    private final ImageIcon imgLeoHead1 = new ImageIcon("src/main/java/com/engcomp2019/imgs/easteregg/leoHead.png");
+    private final ImageIcon imgLeoHead2 = new ImageIcon("src/main/java/com/engcomp2019/imgs/easteregg/leoHeadTwo.png");
+    private final DragWindow drag = new DragWindow();
     private final Close close = new Close();
     private final ArrayList<JLabel> menuItems;
     private Boolean menuActive = false;
@@ -41,11 +42,10 @@ public class GUI_MainMenu extends JFrame {
         };
 
         close.menu(1, menuActive, menuDropdown, menuItems);
-
-        exitGame.setVisible(false);
-        newGame.setVisible(false);
-        configGame.setVisible(false);
-
+        
+        easterEgg.setIcon(imgLeoHead1);
+        add(easterEgg, new AbsoluteConstraints(740, 510, -1, -1));
+        
         menuDropdown.setIcon(imgMenu);
         add(menuDropdown, new AbsoluteConstraints(39, 20, -1, -1));
         menuDropdown.setVisible(false);
@@ -75,6 +75,7 @@ public class GUI_MainMenu extends JFrame {
         btnAbout = new javax.swing.JLabel();
         frameDrag = new javax.swing.JLabel();
         btnStart = new javax.swing.JLabel();
+        easterEgg = new javax.swing.JLabel();
         frameBackground = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -167,6 +168,16 @@ public class GUI_MainMenu extends JFrame {
         });
         getContentPane().add(btnStart, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 360, -1, -1));
 
+        easterEgg.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                easterEggMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                easterEggMouseExited(evt);
+            }
+        });
+        getContentPane().add(easterEgg, new org.netbeans.lib.awtextra.AbsoluteConstraints(740, 510, 30, 30));
+
         frameBackground.setBackground(new java.awt.Color(0, 0, 0));
         frameBackground.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         frameBackground.setPreferredSize(new java.awt.Dimension(800, 576));
@@ -181,6 +192,7 @@ public class GUI_MainMenu extends JFrame {
 
     private void btnMinimizeMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnMinimizeMouseReleased
         setState(Frame.ICONIFIED);  // Minimize our frame
+        menuActive = close.menu(0, menuActive, menuDropdown, menuItems);
     }//GEN-LAST:event_btnMinimizeMouseReleased
 
     private void frameDragMouseDragged(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_frameDragMouseDragged
@@ -209,8 +221,6 @@ public class GUI_MainMenu extends JFrame {
 
     private void btnStartMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnStartMouseReleased
         btnStart.setIcon(imgBtnHov);
-        Audio a = new Audio();
-        a.play("src/main/java/com/engcomp2019/audio/pula.wav");
     }//GEN-LAST:event_btnStartMouseReleased
 
     private void frameDragMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_frameDragMouseReleased
@@ -237,6 +247,14 @@ public class GUI_MainMenu extends JFrame {
         frameExit.setVisible(true);
     }//GEN-LAST:event_exitGameMouseReleased
 
+    private void easterEggMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_easterEggMouseEntered
+        easterEgg.setIcon(imgLeoHead2);
+    }//GEN-LAST:event_easterEggMouseEntered
+
+    private void easterEggMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_easterEggMouseExited
+        easterEgg.setIcon(imgLeoHead1);
+    }//GEN-LAST:event_easterEggMouseExited
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel btnAbout;
     private javax.swing.JLabel btnClose;
@@ -244,6 +262,7 @@ public class GUI_MainMenu extends JFrame {
     private javax.swing.JLabel btnMinimize;
     private javax.swing.JLabel btnStart;
     private javax.swing.JLabel configGame;
+    private javax.swing.JLabel easterEgg;
     private javax.swing.JLabel exitGame;
     private javax.swing.JLabel frameBackground;
     private javax.swing.JLabel frameDrag;
