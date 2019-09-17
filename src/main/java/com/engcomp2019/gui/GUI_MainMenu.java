@@ -80,7 +80,7 @@ public class GUI_MainMenu extends JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
-        setName("mainMenu"); // NOI18N
+        setName("frameMainMenu"); // NOI18N
         setUndecorated(true);
         addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseReleased(java.awt.event.MouseEvent evt) {
@@ -95,6 +95,12 @@ public class GUI_MainMenu extends JFrame {
             }
         });
         getContentPane().add(exitGame, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 60, 130, 18));
+
+        configGame.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseReleased(java.awt.event.MouseEvent evt) {
+                configGameMouseReleased(evt);
+            }
+        });
         getContentPane().add(configGame, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 40, 130, 18));
         getContentPane().add(newGame, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 20, 130, 18));
         getContentPane().add(menuDropdown, new org.netbeans.lib.awtextra.AbsoluteConstraints(39, 20, 130, 57));
@@ -104,7 +110,7 @@ public class GUI_MainMenu extends JFrame {
 
         btnMinimize.setBackground(new java.awt.Color(255, 255, 255));
         btnMinimize.setForeground(new java.awt.Color(255, 255, 255));
-        btnMinimize.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnMinimize.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         btnMinimize.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseReleased(java.awt.event.MouseEvent evt) {
                 btnMinimizeMouseReleased(evt);
@@ -113,7 +119,7 @@ public class GUI_MainMenu extends JFrame {
         getContentPane().add(btnMinimize, new org.netbeans.lib.awtextra.AbsoluteConstraints(734, 7, 24, 24));
 
         btnClose.setBackground(new java.awt.Color(255, 255, 255));
-        btnClose.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnClose.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         btnClose.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseReleased(java.awt.event.MouseEvent evt) {
                 btnCloseMouseReleased(evt);
@@ -151,7 +157,7 @@ public class GUI_MainMenu extends JFrame {
         });
         getContentPane().add(frameDrag, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 800, 18));
 
-        btnStart.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnStart.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         btnStart.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseEntered(java.awt.event.MouseEvent evt) {
                 btnStartMouseEntered(evt);
@@ -254,6 +260,13 @@ public class GUI_MainMenu extends JFrame {
     private void easterEggMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_easterEggMouseExited
         easterEgg.setIcon(imgLeoHead1);
     }//GEN-LAST:event_easterEggMouseExited
+
+    private void configGameMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_configGameMouseReleased
+        menuActive = close.menu(0, menuActive, menuDropdown, menuItems);
+        GUI_Config frameConfig = new GUI_Config(this);
+        frameConfig.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_configGameMouseReleased
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel btnAbout;

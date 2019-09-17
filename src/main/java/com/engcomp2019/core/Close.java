@@ -18,7 +18,7 @@ public class Close {
 
     /* CONSTRUTOR(ES) */
     /**
-     * Construtor usado para manipular o menu
+     * Construtor vazio utilizado para manipular o menu
      */
     public Close() {
     }
@@ -27,7 +27,7 @@ public class Close {
      * Fecha o frame ou programa de acordo com os parametros
      *
      * @param pFrame Recebe o frame atual
-     * @param pCloseAll Variavel de controle, "false" para fechar somente o
+     * @param pCloseAll Variavel de controle, defina "false" para fechar somente o
      * frame, "true" para fechar o programa todo
      */
     public Close(JFrame pFrame, Boolean pCloseAll) {

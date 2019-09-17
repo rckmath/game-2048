@@ -1,5 +1,6 @@
 package com.engcomp2019.gui;
 
+import com.engcomp2019.prj2048.Main;
 import com.engcomp2019.audio.Audio;
 import com.engcomp2019.core.*;
 import java.awt.Frame;
@@ -23,6 +24,7 @@ public class GUI_EasterEgg extends javax.swing.JFrame {
     private final Close close = new Close();
     private final ArrayList<JLabel> menuItems;
     private Boolean menuActive = false;
+    protected Audio a = new Audio();
 
     public GUI_EasterEgg() {
         initComponents();
@@ -37,34 +39,32 @@ public class GUI_EasterEgg extends javax.swing.JFrame {
                 add(configGame);
             }
         };
-        
-        Audio a = new Audio();
         a.play("src/main/java/com/engcomp2019/audio/pula.wav");
-        
+
         close.menu(1, menuActive, menuDropdown, menuItems);
-        
+
         menuDropdown.setIcon(imgMenu);
         add(menuDropdown, new AbsoluteConstraints(39, 20, -1, -1));
         menuDropdown.setVisible(false);
-        
+
         leoHead.setIcon(imgLeoHeadDance);
         add(leoHead, new AbsoluteConstraints(330, 50, -1, -1));
-        
+
         leoHead2.setIcon(imgLeoHeadDance);
         add(leoHead2, new AbsoluteConstraints(450, 370, -1, -1));
-        
+
         leoHead3.setIcon(imgLeoHeadDance);
         add(leoHead3, new AbsoluteConstraints(60, 470, -1, -1));
-        
+
         leoHead4.setIcon(imgLeoHeadDance);
         add(leoHead4, new AbsoluteConstraints(730, 300, -1, -1));
-        
+
         leoOx.setIcon(imgLeoOx);
         add(leoOx, new AbsoluteConstraints(40, 30, -1, -1));
-        
+
         leoHorse.setIcon(imgLeoHorse);
         add(leoHorse, new AbsoluteConstraints(620, 400, -1, -1));
-        
+
         frameBackground.setIcon(imgFrame);
         add(frameBackground, new AbsoluteConstraints(0, 0, -1, -1));
     }
@@ -99,6 +99,11 @@ public class GUI_EasterEgg extends javax.swing.JFrame {
                 formMouseReleased(evt);
             }
         });
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowClosed(java.awt.event.WindowEvent evt) {
+                formWindowClosed(evt);
+            }
+        });
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         exitGame.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -108,6 +113,12 @@ public class GUI_EasterEgg extends javax.swing.JFrame {
         });
         getContentPane().add(exitGame, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 80, 130, 18));
         getContentPane().add(newGame, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 20, 130, 18));
+
+        mainMenu.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseReleased(java.awt.event.MouseEvent evt) {
+                mainMenuMouseReleased(evt);
+            }
+        });
         getContentPane().add(mainMenu, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 40, 130, 18));
         getContentPane().add(configGame, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 60, 130, 18));
 
@@ -133,7 +144,7 @@ public class GUI_EasterEgg extends javax.swing.JFrame {
         getContentPane().add(btnAbout, new org.netbeans.lib.awtextra.AbsoluteConstraints(112, 0, 50, 18));
 
         btnClose.setBackground(new java.awt.Color(255, 255, 255));
-        btnClose.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnClose.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         btnClose.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseReleased(java.awt.event.MouseEvent evt) {
                 btnCloseMouseReleased(evt);
@@ -143,7 +154,7 @@ public class GUI_EasterEgg extends javax.swing.JFrame {
 
         btnMinimize.setBackground(new java.awt.Color(255, 255, 255));
         btnMinimize.setForeground(new java.awt.Color(255, 255, 255));
-        btnMinimize.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnMinimize.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         btnMinimize.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseReleased(java.awt.event.MouseEvent evt) {
                 btnMinimizeMouseReleased(evt);
@@ -200,8 +211,8 @@ public class GUI_EasterEgg extends javax.swing.JFrame {
     }//GEN-LAST:event_btnCloseMouseReleased
 
     private void btnMinimizeMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnMinimizeMouseReleased
-        setState(Frame.ICONIFIED);  // Minimize our frame
         menuActive = close.menu(0, menuActive, menuDropdown, menuItems);
+        setState(Frame.ICONIFIED);  // Minimize our frame
     }//GEN-LAST:event_btnMinimizeMouseReleased
 
     private void exitGameMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_exitGameMouseReleased
@@ -227,6 +238,19 @@ public class GUI_EasterEgg extends javax.swing.JFrame {
     private void menuDropdownMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_menuDropdownMouseReleased
         menuActive = close.menu(0, menuActive, menuDropdown, menuItems);
     }//GEN-LAST:event_menuDropdownMouseReleased
+
+    private void mainMenuMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_mainMenuMouseReleased
+        menuActive = close.menu(0, menuActive, menuDropdown, menuItems);   
+        // Chamar frame para confirmar ação
+        GUI_MainConfirm frameConfirm;
+        frameConfirm = new GUI_MainConfirm(this);
+        frameConfirm.setVisible(true);
+    }//GEN-LAST:event_mainMenuMouseReleased
+
+    private void formWindowClosed(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosed
+        // Para a música
+        a.stop();
+    }//GEN-LAST:event_formWindowClosed
 
     /**
      * @param args the command line arguments
@@ -256,10 +280,8 @@ public class GUI_EasterEgg extends javax.swing.JFrame {
         //</editor-fold>
 
         /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new GUI_EasterEgg().setVisible(true);
-            }
+        java.awt.EventQueue.invokeLater(() -> {
+            new GUI_EasterEgg().setVisible(true);
         });
     }
 

@@ -14,22 +14,36 @@ import javax.sound.sampled.UnsupportedAudioFileException;
  */
 public class Audio {
 
-    //private Boolean play;
+    Clip clip;
 
+    /**
+     * Executa um áudio
+     * 
+     * @param filePath Localização do arquivo de áudio
+     */
     public void play(String filePath) {
         try {
             File audioPath = new File(filePath);
-
             if (audioPath.exists()) {
                 AudioInputStream audioInput = AudioSystem.getAudioInputStream(audioPath);
-                Clip clip = AudioSystem.getClip();
+                clip = AudioSystem.getClip();
                 clip.open(audioInput);
                 clip.start();
                 clip.loop(Clip.LOOP_CONTINUOUSLY);
-            } else System.err.println("File not found.");
+            } else {
+                System.err.println("File not found.");
+            }
         } catch (IOException | LineUnavailableException | UnsupportedAudioFileException e) {
             System.err.println("ERRO: " + e);
         }
-
     }
+
+    public void stop() {
+        try {
+            this.clip.stop();
+        } catch (Exception e) {
+            System.err.println("ERRO: " + e);
+        }
+    }
+
 }

@@ -1,5 +1,6 @@
 package com.engcomp2019.prj2048;
 
+import com.engcomp2019.audio.Audio;
 import com.engcomp2019.gui.*;
 import java.awt.Color;
 import java.awt.event.ActionEvent;
@@ -22,7 +23,7 @@ public class Main extends JFrame {
     private final ImageIcon imgArt = new ImageIcon("src/main/java/com/engcomp2019/imgs/elements/gameLogoFinal.gif");     // Onde carregaremos nossa imagem
     //private final ImageIcon imgArt = new ImageIcon("src/main/java/com/engcomp2019/imgs/leoSplash.gif");     // Onde carregaremos nossa imagem
     private static JLabel lblArt;   // Label que definiremos nossa imagem
-    public JProgressBar progressBar = new JProgressBar();   // Progress bar
+    private JProgressBar progressBar = new JProgressBar();   // Progress bar
 
     public static void main(String arg[]) {
         // Criando janela do nosso splash
