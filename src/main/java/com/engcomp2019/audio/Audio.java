@@ -38,6 +38,9 @@ public class Audio {
         }
     }
 
+    /**
+     * Para o áudio executando
+     */
     public void stop() {
         try {
             this.clip.stop();

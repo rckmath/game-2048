@@ -38,7 +38,7 @@ public class Main extends JFrame {
 
         // Sleep de 2,475 segundos
         try {
-            Thread.sleep(2475);
+            Thread.sleep(0);
         } catch (InterruptedException ex) {
             System.err.println("ERRO: " + ex);
         }

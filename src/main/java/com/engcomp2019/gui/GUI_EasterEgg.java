@@ -1,6 +1,5 @@
 package com.engcomp2019.gui;
 
-import com.engcomp2019.prj2048.Main;
 import com.engcomp2019.audio.Audio;
 import com.engcomp2019.core.*;
 import java.awt.Frame;
@@ -15,7 +14,7 @@ import org.netbeans.lib.awtextra.AbsoluteConstraints;
  */
 public class GUI_EasterEgg extends javax.swing.JFrame {
 
-    private final ImageIcon imgFrame = new ImageIcon("src/main/java/com/engcomp2019/imgs/easteregg/frameEasterEgg.gif");
+    private final ImageIcon imgFrame = new ImageIcon("src/main/java/com/engcomp2019/imgs/easteregg/frameEasterEgg.png");
     private final ImageIcon imgMenu = new ImageIcon("src/main/java/com/engcomp2019/imgs/elements/gameDropdown.png");
     private final ImageIcon imgLeoHorse = new ImageIcon("src/main/java/com/engcomp2019/imgs/easteregg/leoCavalo.gif");
     private final ImageIcon imgLeoOx = new ImageIcon("src/main/java/com/engcomp2019/imgs/easteregg/leoBoi.gif");
@@ -268,15 +267,11 @@ public class GUI_EasterEgg extends javax.swing.JFrame {
                     break;
                 }
             }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(GUI_EasterEgg.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(GUI_EasterEgg.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(GUI_EasterEgg.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
+        } catch (ClassNotFoundException | InstantiationException | IllegalAccessException | javax.swing.UnsupportedLookAndFeelException ex) {
             java.util.logging.Logger.getLogger(GUI_EasterEgg.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
+        
         //</editor-fold>
 
         /* Create and display the form */

@@ -26,13 +26,15 @@ public class GUI_MainMenu extends JFrame {
     private final Close close = new Close();
     private final ArrayList<JLabel> menuItems;
     private Boolean menuActive = false;
+    protected Engine eng = new Engine(0);
+    
 
     public GUI_MainMenu() {
         // Propriedades da janela e inicialização dos componentes
         initComponents();
         setResizable(false);
         setLocationRelativeTo(null);
-
+        
         menuItems = new ArrayList<JLabel>() {
             {
                 add(exitGame);
@@ -227,6 +229,8 @@ public class GUI_MainMenu extends JFrame {
 
     private void btnStartMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnStartMouseReleased
         btnStart.setIcon(imgBtnHov);
+        eng.tileSpawn();
+        eng.printArray();
     }//GEN-LAST:event_btnStartMouseReleased
 
     private void frameDragMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_frameDragMouseReleased

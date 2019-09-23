@@ -6,6 +6,7 @@ com\engcomp2019\gui\GUI_MainMenu$4.class
 com\engcomp2019\gui\GUI_Exit$4.class
 com\engcomp2019\gui\GUI_Config$1.class
 com\engcomp2019\gui\GUI_MainConfirm$2.class
+com\engcomp2019\core\Engine.class
 com\engcomp2019\gui\GUI_EasterEgg$11.class
 com\engcomp2019\gui\GUI_Config$8.class
 com\engcomp2019\gui\GUI_MainMenu$7.class
