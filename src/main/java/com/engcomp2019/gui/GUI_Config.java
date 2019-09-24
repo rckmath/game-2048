@@ -15,8 +15,8 @@ import org.netbeans.lib.awtextra.AbsoluteConstraints;
  */
 public class GUI_Config extends javax.swing.JFrame {
 
-    private final ImageIcon imgFrame = new ImageIcon("src/main/java/com/engcomp2019/imgs/frames/frameBackground.png");
-    private final ImageIcon imgMenu = new ImageIcon("src/main/java/com/engcomp2019/imgs/elements/configDropdown.png");
+    private final ImageIcon imgFrame = new ImageIcon("imgs/frames/frameBackground.png");
+    private final ImageIcon imgMenu = new ImageIcon("imgs/elements/configDropdown.png");
     private final DragWindow drag = new DragWindow();
     private final Close close = new Close();
     private final ArrayList<JLabel> menuItems;
@@ -38,7 +38,7 @@ public class GUI_Config extends javax.swing.JFrame {
             }
         };
         
-        close.menu(1, menuActive, menuDropdown, menuItems);
+        close.menu(0, menuActive, menuDropdown, menuItems);
         
         menuDropdown.setIcon(imgMenu);
         add(menuDropdown, new AbsoluteConstraints(39, 20, -1, -1));
@@ -65,7 +65,6 @@ public class GUI_Config extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setName("frameConfig"); // NOI18N
         setUndecorated(true);
-        setPreferredSize(new java.awt.Dimension(800, 576));
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
         getContentPane().add(exitGame, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 40, 130, 18));
 

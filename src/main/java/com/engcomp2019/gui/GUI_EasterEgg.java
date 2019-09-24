@@ -14,15 +14,15 @@ import org.netbeans.lib.awtextra.AbsoluteConstraints;
  */
 public class GUI_EasterEgg extends javax.swing.JFrame {
 
-    private final ImageIcon imgFrame = new ImageIcon("src/main/java/com/engcomp2019/imgs/easteregg/frameEasterEgg.png");
-    private final ImageIcon imgMenu = new ImageIcon("src/main/java/com/engcomp2019/imgs/elements/gameDropdown.png");
-    private final ImageIcon imgLeoHorse = new ImageIcon("src/main/java/com/engcomp2019/imgs/easteregg/leoCavalo.gif");
-    private final ImageIcon imgLeoOx = new ImageIcon("src/main/java/com/engcomp2019/imgs/easteregg/leoBoi.gif");
-    private final ImageIcon imgLeoHeadDance = new ImageIcon("src/main/java/com/engcomp2019/imgs/easteregg/leoHeadDance.gif");
+    private final ImageIcon imgFrame = new ImageIcon("imgs/easteregg/frameEasterEgg.png");
+    private final ImageIcon imgMenu = new ImageIcon("imgs/elements/gameDropdown.png");
+    private final ImageIcon imgLeoHorse = new ImageIcon("imgs/easteregg/leoCavalo.gif");
+    private final ImageIcon imgLeoOx = new ImageIcon("imgs/easteregg/leoBoi.gif");
+    private final ImageIcon imgLeoHeadDance = new ImageIcon("imgs/easteregg/leoHeadDance.gif");
     private final DragWindow drag = new DragWindow();
     private final Close close = new Close();
     private final ArrayList<JLabel> menuItems;
-    private Boolean menuActive = false;
+    private Boolean menuActive = true;
     protected Audio a = new Audio();
 
     public GUI_EasterEgg() {

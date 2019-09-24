@@ -14,7 +14,7 @@ import javax.sound.sampled.UnsupportedAudioFileException;
  */
 public class Audio {
 
-    Clip clip;
+    private Clip clip;
 
     /**
      * Executa um áudio

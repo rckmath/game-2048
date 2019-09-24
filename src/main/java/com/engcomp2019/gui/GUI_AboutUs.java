@@ -19,10 +19,10 @@ public class GUI_AboutUs extends javax.swing.JFrame {
 
     private final JFrame previousFrame;
     private final DragWindow drag = new DragWindow();
-    private final ImageIcon imgFrame = new ImageIcon("src/main/java/com/engcomp2019/imgs/frames/frameAbout.png");
-    private final ImageIcon imgGitDef = new ImageIcon("src/main/java/com/engcomp2019/imgs/buttons/btnGitDef.png");
-    private final ImageIcon imgGitHov = new ImageIcon("src/main/java/com/engcomp2019/imgs/buttons/btnGitHover.png");
-    private final ImageIcon imgGitPre = new ImageIcon("src/main/java/com/engcomp2019/imgs/buttons/btnGitPressed.png");
+    private final ImageIcon imgFrame = new ImageIcon("imgs/frames/frameAbout.png");
+    private final ImageIcon imgGitDef = new ImageIcon("imgs/buttons/other/btnGitDef.png");
+    private final ImageIcon imgGitHov = new ImageIcon("imgs/buttons/other/btnGitHover.png");
+    private final ImageIcon imgGitPre = new ImageIcon("imgs/buttons/other/btnGitPressed.png");
 
     /**
      * Constroi o frame "Sobre" e desativa o frame atual

@@ -20,8 +20,8 @@ import javax.swing.Timer;
 /* Splash meramente visual e não condiz com o tempo de carregamento do jogo */
 public class Main extends JFrame {
 
-    private final ImageIcon imgArt = new ImageIcon("src/main/java/com/engcomp2019/imgs/elements/gameLogoFinal.gif");     // Onde carregaremos nossa imagem
-    //private final ImageIcon imgArt = new ImageIcon("src/main/java/com/engcomp2019/imgs/leoSplash.gif");     // Onde carregaremos nossa imagem
+    private final ImageIcon imgArt = new ImageIcon("imgs/elements/gameLogoFinal.gif");     // Onde carregaremos nossa imagem
+    //private final ImageIcon imgArt = new ImageIcon("imgs/leoSplash.gif");     // Onde carregaremos nossa imagem
     private static JLabel lblArt;   // Label que definiremos nossa imagem
     private JProgressBar progressBar = new JProgressBar();   // Progress bar
 

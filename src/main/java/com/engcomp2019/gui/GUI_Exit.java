@@ -12,13 +12,13 @@ import org.netbeans.lib.awtextra.AbsoluteConstraints;
 public class GUI_Exit extends javax.swing.JFrame {
 
     private final DragWindow drag = new DragWindow();
-    private final ImageIcon imgFrame = new ImageIcon("src/main/java/com/engcomp2019/imgs/frames/frameExit.png");
-    private final ImageIcon imgBtnYesDef = new ImageIcon("src/main/java/com/engcomp2019/imgs/buttons/btnYesDef.png");
-    private final ImageIcon imgBtnYesHov = new ImageIcon("src/main/java/com/engcomp2019/imgs/buttons/btnYesHover.png");
-    private final ImageIcon imgBtnYesPre = new ImageIcon("src/main/java/com/engcomp2019/imgs/buttons/btnYesPressed.png");
-    private final ImageIcon imgBtnNoDef = new ImageIcon("src/main/java/com/engcomp2019/imgs/buttons/btnNoDef.png");
-    private final ImageIcon imgBtnNoHov = new ImageIcon("src/main/java/com/engcomp2019/imgs/buttons/btnNoHover.png");
-    private final ImageIcon imgBtnNoPre = new ImageIcon("src/main/java/com/engcomp2019/imgs/buttons/btnNoPressed.png");
+    private final ImageIcon imgFrame = new ImageIcon("imgs/frames/frameExit.png");
+    private final ImageIcon imgBtnYesDef = new ImageIcon("imgs/buttons/confirm/btnYesDef.png");
+    private final ImageIcon imgBtnYesHov = new ImageIcon("imgs/buttons/confirm/btnYesHover.png");
+    private final ImageIcon imgBtnYesPre = new ImageIcon("imgs/buttons/confirm/btnYesPressed.png");
+    private final ImageIcon imgBtnNoDef = new ImageIcon("imgs/buttons/confirm/btnNoDef.png");
+    private final ImageIcon imgBtnNoHov = new ImageIcon("imgs/buttons/confirm/btnNoHover.png");
+    private final ImageIcon imgBtnNoPre = new ImageIcon("imgs/buttons/confirm/btnNoPressed.png");
     private final JFrame previousFrame;
     
     /**

@@ -14,14 +14,15 @@ import org.netbeans.lib.awtextra.AbsoluteConstraints;
  */
 public class GUI_MainMenu extends JFrame {
 
-    private final ImageIcon imgFrame = new ImageIcon("src/main/java/com/engcomp2019/imgs/frames/frameBackground.png");
-    private final ImageIcon imgLogo = new ImageIcon("src/main/java/com/engcomp2019/imgs/elements/gameLogo.gif");
-    private final ImageIcon imgMenu = new ImageIcon("src/main/java/com/engcomp2019/imgs/elements/mainMenuDropdown.png");
-    private final ImageIcon imgBtnDef = new ImageIcon("src/main/java/com/engcomp2019/imgs/buttons/btnDefault.png");
-    private final ImageIcon imgBtnHov = new ImageIcon("src/main/java/com/engcomp2019/imgs/buttons/btnHover.png");
-    private final ImageIcon imgBtnPre = new ImageIcon("src/main/java/com/engcomp2019/imgs/buttons/btnPressed.png");
-    private final ImageIcon imgLeoHead1 = new ImageIcon("src/main/java/com/engcomp2019/imgs/easteregg/leoHead.png");
-    private final ImageIcon imgLeoHead2 = new ImageIcon("src/main/java/com/engcomp2019/imgs/easteregg/leoHeadTwo.png");
+    private final ImageIcon imgFrame = new ImageIcon("imgs/frames/frameBackground.png");
+    private final ImageIcon imgLogo = new ImageIcon("imgs/elements/gameLogo.gif");
+    private final ImageIcon imgMenu = new ImageIcon("imgs/elements/mainMenuDropdown.png");
+    private final ArrayList<ImageIcon> btn = new ArrayList<>();
+    private final ImageIcon imgBtnDef = new ImageIcon("imgs/buttons/btnDefault.png");
+    private final ImageIcon imgBtnHov = new ImageIcon("imgs/buttons/btnHover.png");
+    private final ImageIcon imgBtnPre = new ImageIcon("imgs/buttons/btnPressed.png");
+    private final ImageIcon imgLeoHead1 = new ImageIcon("imgs/easteregg/leoHead.png");
+    private final ImageIcon imgLeoHead2 = new ImageIcon("imgs/easteregg/leoHeadTwo.png");
     private final DragWindow drag = new DragWindow();
     private final Close close = new Close();
     private final ArrayList<JLabel> menuItems;
@@ -34,7 +35,7 @@ public class GUI_MainMenu extends JFrame {
         initComponents();
         setResizable(false);
         setLocationRelativeTo(null);
-        
+
         menuItems = new ArrayList<JLabel>() {
             {
                 add(exitGame);
@@ -42,8 +43,12 @@ public class GUI_MainMenu extends JFrame {
                 add(configGame);
             }
         };
+        
+        close.menu(0, menuActive, menuDropdown, menuItems);
 
-        close.menu(1, menuActive, menuDropdown, menuItems);
+        btn.add(new ImageIcon("imgs/buttons/btnDefault.png"));
+        btn.add(new ImageIcon("imgs/buttons/btnHover.png"));
+        btn.add(new ImageIcon("imgs/buttons/btnPressed.png"));
         
         easterEgg.setIcon(imgLeoHead1);
         add(easterEgg, new AbsoluteConstraints(740, 510, -1, -1));
@@ -52,7 +57,7 @@ public class GUI_MainMenu extends JFrame {
         add(menuDropdown, new AbsoluteConstraints(39, 20, -1, -1));
         menuDropdown.setVisible(false);
 
-        btnStart.setIcon(imgBtnDef);
+        btnStart.setIcon(btn.get(0));
         add(btnStart, new AbsoluteConstraints(210, 360, -1, -1));
 
         gameLogo.setIcon(imgLogo);
@@ -216,19 +221,19 @@ public class GUI_MainMenu extends JFrame {
     }//GEN-LAST:event_frameDragMousePressed
 
     private void btnStartMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnStartMouseEntered
-        btnStart.setIcon(imgBtnHov);
+        btnStart.setIcon(btn.get(1));
     }//GEN-LAST:event_btnStartMouseEntered
 
     private void btnStartMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnStartMouseExited
-        btnStart.setIcon(imgBtnDef);
+        btnStart.setIcon(btn.get(0));
     }//GEN-LAST:event_btnStartMouseExited
 
     private void btnStartMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnStartMousePressed
-        btnStart.setIcon(imgBtnPre);
+        btnStart.setIcon(btn.get(2));
     }//GEN-LAST:event_btnStartMousePressed
 
     private void btnStartMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnStartMouseReleased
-        btnStart.setIcon(imgBtnHov);
+        btnStart.setIcon(btn.get(1));
         eng.tileSpawn();
         eng.printArray();
     }//GEN-LAST:event_btnStartMouseReleased

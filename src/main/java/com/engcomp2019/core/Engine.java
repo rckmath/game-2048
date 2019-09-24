@@ -50,7 +50,7 @@ public class Engine {
             if (!emptySpaces.isEmpty()) {
                 // Gerando prox. numero a spawnar
                 int x = (int) (Math.random() * ((10 - 0) + 1));
-                if (x < 1) {
+                if (x < 2) {
                     x = 4;
                 } else {
                     x = 2;
