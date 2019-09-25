@@ -9,7 +9,7 @@ public class Session {
     private Integer gameStatus;
     private Integer recordScore;
     private Integer roundScore;
-    private Boolean alternateTheme;
+    private Boolean altTheme;
 
     public Session() {
     }
@@ -40,11 +40,20 @@ public class Session {
         this.roundScore = roundScore;
     }
 
-    public Boolean getAlternateTheme() {
-        return alternateTheme;
+    public Boolean getAltTheme() {
+        return altTheme;
     }
 
-    public void setAlternateTheme(Boolean alternateTheme) {
-        this.alternateTheme = alternateTheme;
+    public void setAltTheme(Boolean alternateTheme) {
+        this.altTheme = alternateTheme;
+    }
+
+    public void initializeSession() {
+        if (this.altTheme == null) {
+            this.altTheme = false;
+        }
+        this.gameStatus = 0;
+        this.roundScore = 0;
+        this.recordScore = 0;
     }
 }

@@ -20,8 +20,11 @@ public class GUI_MainConfirm extends javax.swing.JFrame {
     private final ImageIcon imgBtnNoHov = new ImageIcon("imgs/buttons/confirm/btnNoHover.png");
     private final ImageIcon imgBtnNoPre = new ImageIcon("imgs/buttons/confirm/btnNoPressed.png");
     private final JFrame previousFrame;
+    private Session s;
 
-    public GUI_MainConfirm(JFrame pPreviousFrame) {
+    public GUI_MainConfirm(JFrame pPreviousFrame, Session s) {
+        this.s = s;
+
         // Desativa o frame anterior para bloqueá-lo enquanto não fechar este
         previousFrame = pPreviousFrame;
         previousFrame.setEnabled(false);
@@ -132,10 +135,9 @@ public class GUI_MainConfirm extends javax.swing.JFrame {
 
     private void btnYesMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnYesMouseReleased
         // Zerar variáveis
-        
         previousFrame.setVisible(false);
         previousFrame.dispose();
-        new GUI_MainMenu().setVisible(true);
+        new GUI_MainMenu(s).setVisible(true);
     }//GEN-LAST:event_btnYesMouseReleased
 
     private void btnNoMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnNoMouseEntered

@@ -24,8 +24,11 @@ public class GUI_EasterEgg extends javax.swing.JFrame {
     private final ArrayList<JLabel> menuItems;
     private Boolean menuActive = true;
     protected Audio a = new Audio();
+    private Session s;
 
-    public GUI_EasterEgg() {
+    public GUI_EasterEgg(Session s) {
+        this.s = s;
+        
         initComponents();
         setResizable(false);
         setLocationRelativeTo(null);
@@ -38,10 +41,12 @@ public class GUI_EasterEgg extends javax.swing.JFrame {
                 add(configGame);
             }
         };
+        
         a.play("src/main/java/com/engcomp2019/audio/pula.wav");
 
-        close.menu(1, menuActive, menuDropdown, menuItems);
-
+        // Para inicializar as opções de menu desativadas
+        menuActive = close.menu(0, menuActive, menuDropdown, menuItems);
+        
         menuDropdown.setIcon(imgMenu);
         add(menuDropdown, new AbsoluteConstraints(39, 20, -1, -1));
         menuDropdown.setVisible(false);
@@ -242,7 +247,7 @@ public class GUI_EasterEgg extends javax.swing.JFrame {
         menuActive = close.menu(0, menuActive, menuDropdown, menuItems);   
         // Chamar frame para confirmar ação
         GUI_MainConfirm frameConfirm;
-        frameConfirm = new GUI_MainConfirm(this);
+        frameConfirm = new GUI_MainConfirm(this, s);
         frameConfirm.setVisible(true);
     }//GEN-LAST:event_mainMenuMouseReleased
 
@@ -276,7 +281,7 @@ public class GUI_EasterEgg extends javax.swing.JFrame {
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(() -> {
-            new GUI_EasterEgg().setVisible(true);
+            new GUI_EasterEgg(new Session()).setVisible(true);
         });
     }
 

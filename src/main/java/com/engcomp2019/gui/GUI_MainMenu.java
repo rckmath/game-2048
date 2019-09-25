@@ -17,20 +17,19 @@ public class GUI_MainMenu extends JFrame {
     private final ImageIcon imgFrame = new ImageIcon("imgs/frames/frameBackground.png");
     private final ImageIcon imgLogo = new ImageIcon("imgs/elements/gameLogo.gif");
     private final ImageIcon imgMenu = new ImageIcon("imgs/elements/mainMenuDropdown.png");
-    private final ArrayList<ImageIcon> btn = new ArrayList<>();
-    private final ImageIcon imgBtnDef = new ImageIcon("imgs/buttons/btnDefault.png");
-    private final ImageIcon imgBtnHov = new ImageIcon("imgs/buttons/btnHover.png");
-    private final ImageIcon imgBtnPre = new ImageIcon("imgs/buttons/btnPressed.png");
     private final ImageIcon imgLeoHead1 = new ImageIcon("imgs/easteregg/leoHead.png");
     private final ImageIcon imgLeoHead2 = new ImageIcon("imgs/easteregg/leoHeadTwo.png");
+    private final ArrayList<ImageIcon> btn = new ArrayList<>();
     private final DragWindow drag = new DragWindow();
     private final Close close = new Close();
     private final ArrayList<JLabel> menuItems;
-    private Boolean menuActive = false;
+    private Boolean menuActive = true;
     protected Engine eng = new Engine(0);
-    
+    private Session s;
 
-    public GUI_MainMenu() {
+    public GUI_MainMenu(Session s) {
+        this.s = s;
+
         // Propriedades da janela e inicialização dos componentes
         initComponents();
         setResizable(false);
@@ -43,16 +42,17 @@ public class GUI_MainMenu extends JFrame {
                 add(configGame);
             }
         };
-        
-        close.menu(0, menuActive, menuDropdown, menuItems);
+
+        // Para inicializar as opções de menu desativadas
+        menuActive = close.menu(0, menuActive, menuDropdown, menuItems);
 
         btn.add(new ImageIcon("imgs/buttons/btnDefault.png"));
         btn.add(new ImageIcon("imgs/buttons/btnHover.png"));
         btn.add(new ImageIcon("imgs/buttons/btnPressed.png"));
-        
+
         easterEgg.setIcon(imgLeoHead1);
         add(easterEgg, new AbsoluteConstraints(740, 510, -1, -1));
-        
+
         menuDropdown.setIcon(imgMenu);
         add(menuDropdown, new AbsoluteConstraints(39, 20, -1, -1));
         menuDropdown.setVisible(false);
@@ -272,7 +272,7 @@ public class GUI_MainMenu extends JFrame {
 
     private void configGameMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_configGameMouseReleased
         menuActive = close.menu(0, menuActive, menuDropdown, menuItems);
-        GUI_Config frameConfig = new GUI_Config(this);
+        GUI_Config frameConfig = new GUI_Config(this, s);
         frameConfig.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_configGameMouseReleased

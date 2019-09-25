@@ -44,14 +44,17 @@ com\engcomp2019\gui\GUI_AboutUs$1.class
 com\engcomp2019\gui\GUI_MainConfirm$4.class
 com\engcomp2019\gui\GUI_MainConfirm$1.class
 com\engcomp2019\gui\GUI_EasterEgg$2.class
+com\engcomp2019\gui\GUI_Config$9.class
 com\engcomp2019\gui\GUI_MainMenu$2.class
 com\engcomp2019\audio\Audio.class
 com\engcomp2019\core\DragTile.class
 com\engcomp2019\gui\GUI_Config$6.class
+com\engcomp2019\core\Game.class
 com\engcomp2019\gui\GUI_Config$3.class
 com\engcomp2019\gui\GUI_Game$4.class
 com\engcomp2019\gui\GUI_AboutUs$4.class
 com\engcomp2019\gui\GUI_MainMenu$5.class
+com\engcomp2019\gui\GUI_Config$10.class
 com\engcomp2019\gui\GUI_Exit.class
 com\engcomp2019\gui\GUI_Game$7.class
 com\engcomp2019\gui\GUI_EasterEgg.class
