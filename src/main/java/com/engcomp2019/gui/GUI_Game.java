@@ -1,13 +1,7 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.engcomp2019.gui;
 
 import com.engcomp2019.audio.Audio;
-import com.engcomp2019.core.Close;
-import com.engcomp2019.core.DragWindow;
+import com.engcomp2019.core.*;
 import java.awt.Frame;
 import java.util.ArrayList;
 import javax.swing.ImageIcon;
@@ -16,19 +10,23 @@ import org.netbeans.lib.awtextra.AbsoluteConstraints;
 
 /**
  *
- * @author erick
+ * @author erick / rckmath
  */
 public class GUI_Game extends javax.swing.JFrame {
 
     private final ImageIcon imgFrame = new ImageIcon("imgs/frames/frameGame.png");
     private final ImageIcon imgMenu = new ImageIcon("imgs/elements/gameDropdown.png");
+    private final ArrayList<ImageIcon> btn = new ArrayList<>();
     private final DragWindow drag = new DragWindow();
     private final Close close = new Close();
     private final ArrayList<JLabel> menuItems;
     private Boolean menuActive = true;
     protected Audio a = new Audio();
+    private Session s;
 
-    public GUI_Game() {
+    public GUI_Game(Session s) {
+        this.s = s;
+
         initComponents();
         setResizable(false);
         setLocationRelativeTo(null);
@@ -41,15 +39,25 @@ public class GUI_Game extends javax.swing.JFrame {
                 add(configGame);
             }
         };
-        
+
         a.play("src/main/java/com/engcomp2019/audio/pula.wav");
 
-        close.menu(1, menuActive, menuDropdown, menuItems);
+        btn.add(new ImageIcon("imgs/buttons/pad/bntPadDef.png"));
+        btn.add(new ImageIcon("imgs/buttons/pad/bntPadU.png"));
+        btn.add(new ImageIcon("imgs/buttons/pad/bntPadD.png"));
+        btn.add(new ImageIcon("imgs/buttons/pad/bntPadL.png"));
+        btn.add(new ImageIcon("imgs/buttons/pad/bntPadR.png"));
+
+        // Para inicializar as opções de menu desativadas
+        menuActive = close.menu(0, menuActive, menuDropdown, menuItems);
+
+        btnPad.setIcon(btn.get(0));
+        add(btnPad, new AbsoluteConstraints(480, 252, -1, -1));
 
         menuDropdown.setIcon(imgMenu);
         add(menuDropdown, new AbsoluteConstraints(39, 20, -1, -1));
         menuDropdown.setVisible(false);
-        
+
         frameBackground.setIcon(imgFrame);
         add(frameBackground, new AbsoluteConstraints(0, 0, -1, -1));
     }
@@ -67,6 +75,11 @@ public class GUI_Game extends javax.swing.JFrame {
         btnFile = new javax.swing.JLabel();
         btnMinimize = new javax.swing.JLabel();
         btnClose = new javax.swing.JLabel();
+        padU = new javax.swing.JLabel();
+        padD = new javax.swing.JLabel();
+        padR = new javax.swing.JLabel();
+        padL = new javax.swing.JLabel();
+        btnPad = new javax.swing.JLabel();
         frameDrag = new javax.swing.JLabel();
         frameBackground = new javax.swing.JLabel();
 
@@ -130,6 +143,11 @@ public class GUI_Game extends javax.swing.JFrame {
             }
         });
         getContentPane().add(btnClose, new org.netbeans.lib.awtextra.AbsoluteConstraints(768, 7, 24, 24));
+        getContentPane().add(padU, new org.netbeans.lib.awtextra.AbsoluteConstraints(526, 254, 28, 42));
+        getContentPane().add(padD, new org.netbeans.lib.awtextra.AbsoluteConstraints(526, 328, 28, 42));
+        getContentPane().add(padR, new org.netbeans.lib.awtextra.AbsoluteConstraints(556, 298, 42, 28));
+        getContentPane().add(padL, new org.netbeans.lib.awtextra.AbsoluteConstraints(482, 298, 42, 28));
+        getContentPane().add(btnPad, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 252, -1, -1));
 
         frameDrag.setPreferredSize(new java.awt.Dimension(41, 18));
         frameDrag.addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
@@ -194,7 +212,7 @@ public class GUI_Game extends javax.swing.JFrame {
         menuActive = close.menu(0, menuActive, menuDropdown, menuItems);
         // Chamar frame para confirmar ação
         GUI_MainConfirm frameConfirm;
-        frameConfirm = new GUI_MainConfirm(this);
+        frameConfirm = new GUI_MainConfirm(this, s);
         frameConfirm.setVisible(true);
     }//GEN-LAST:event_mainMenuMouseReleased
 
@@ -234,7 +252,7 @@ public class GUI_Game extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new GUI_Game().setVisible(true);
+                new GUI_Game(new Session()).setVisible(true);
             }
         });
     }
@@ -244,6 +262,7 @@ public class GUI_Game extends javax.swing.JFrame {
     private javax.swing.JLabel btnClose;
     private javax.swing.JLabel btnFile;
     private javax.swing.JLabel btnMinimize;
+    private javax.swing.JLabel btnPad;
     private javax.swing.JLabel configGame;
     private javax.swing.JLabel exitGame;
     private javax.swing.JLabel frameBackground;
@@ -251,5 +270,9 @@ public class GUI_Game extends javax.swing.JFrame {
     private javax.swing.JLabel mainMenu;
     private javax.swing.JLabel menuDropdown;
     private javax.swing.JLabel newGame;
+    private javax.swing.JLabel padD;
+    private javax.swing.JLabel padL;
+    private javax.swing.JLabel padR;
+    private javax.swing.JLabel padU;
     // End of variables declaration//GEN-END:variables
 }

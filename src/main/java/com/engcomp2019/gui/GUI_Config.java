@@ -247,10 +247,8 @@ public class GUI_Config extends javax.swing.JFrame {
 
     private void btnThemeMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnThemeMouseReleased
         if (!s.getAltTheme()) {
-            
             btnTheme.setIcon(btn.get(1));
         } else {
-            
             btnTheme.setIcon(btn.get(4));
         }
     }//GEN-LAST:event_btnThemeMouseReleased
