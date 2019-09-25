@@ -1,7 +1,6 @@
 package com.engcomp2019.gui;
 
-import com.engcomp2019.core.Close;
-import com.engcomp2019.core.DragWindow;
+import com.engcomp2019.core.*;
 import java.awt.Frame;
 import java.util.ArrayList;
 import javax.swing.ImageIcon;
@@ -17,18 +16,22 @@ public class GUI_Config extends javax.swing.JFrame {
 
     private final ImageIcon imgFrame = new ImageIcon("imgs/frames/frameBackground.png");
     private final ImageIcon imgMenu = new ImageIcon("imgs/elements/configDropdown.png");
+    private final ArrayList<ImageIcon> btn = new ArrayList<>();
     private final DragWindow drag = new DragWindow();
     private final Close close = new Close();
     private final ArrayList<JLabel> menuItems;
-    private Boolean menuActive = false;
+    private Boolean menuActive = true;
     private final JFrame previousFrame;
-    
-    public GUI_Config(JFrame pPreviousFrame) {
+    private Session s;
+
+    public GUI_Config(JFrame pPreviousFrame, Session s) {
+        this.s = s;
+
         // Propriedades da janela e inicialização dos componentes
         initComponents();
         setResizable(false);
         setLocationRelativeTo(null);
-        
+
         previousFrame = pPreviousFrame;
 
         menuItems = new ArrayList<JLabel>() {
@@ -37,13 +40,27 @@ public class GUI_Config extends javax.swing.JFrame {
                 add(exitGame);
             }
         };
-        
-        close.menu(0, menuActive, menuDropdown, menuItems);
-        
+
+        // Para inicializar as opções de menu desativadas
+        menuActive = close.menu(0, menuActive, menuDropdown, menuItems);
+
+        btn.add(new ImageIcon("imgs/buttons/other/btnTemaFDef.png"));
+        btn.add(new ImageIcon("imgs/buttons/other/btnTemaFHover.png"));
+        btn.add(new ImageIcon("imgs/buttons/other/btnTemaFPressed.png"));
+        btn.add(new ImageIcon("imgs/buttons/other/btnTemaTDef.png"));
+        btn.add(new ImageIcon("imgs/buttons/other/btnTemaTHover.png"));
+        btn.add(new ImageIcon("imgs/buttons/other/btnTemaTPressed.png"));
+
+        if (!s.getAltTheme()) {
+            btnTheme.setIcon(btn.get(0));
+        } else {
+            btnTheme.setIcon(btn.get(3));
+        }
+
         menuDropdown.setIcon(imgMenu);
         add(menuDropdown, new AbsoluteConstraints(39, 20, -1, -1));
         menuDropdown.setVisible(false);
-        
+
         frameBackground.setIcon(imgFrame);
         add(frameBackground, new AbsoluteConstraints(0, 0, -1, -1));
     }
@@ -58,6 +75,7 @@ public class GUI_Config extends javax.swing.JFrame {
         btnClose = new javax.swing.JLabel();
         btnMinimize = new javax.swing.JLabel();
         btnFile = new javax.swing.JLabel();
+        btnTheme = new javax.swing.JLabel();
         menuDropdown = new javax.swing.JLabel();
         frameDrag = new javax.swing.JLabel();
         frameBackground = new javax.swing.JLabel();
@@ -66,6 +84,12 @@ public class GUI_Config extends javax.swing.JFrame {
         setName("frameConfig"); // NOI18N
         setUndecorated(true);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        exitGame.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseReleased(java.awt.event.MouseEvent evt) {
+                exitGameMouseReleased(evt);
+            }
+        });
         getContentPane().add(exitGame, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 40, 130, 18));
 
         goBack.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -107,6 +131,22 @@ public class GUI_Config extends javax.swing.JFrame {
             }
         });
         getContentPane().add(btnFile, new org.netbeans.lib.awtextra.AbsoluteConstraints(36, 0, 70, 18));
+
+        btnTheme.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                btnThemeMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                btnThemeMouseExited(evt);
+            }
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                btnThemeMousePressed(evt);
+            }
+            public void mouseReleased(java.awt.event.MouseEvent evt) {
+                btnThemeMouseReleased(evt);
+            }
+        });
+        getContentPane().add(btnTheme, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 240, -1, -1));
         getContentPane().add(menuDropdown, new org.netbeans.lib.awtextra.AbsoluteConstraints(39, 20, 130, 38));
 
         frameDrag.setPreferredSize(new java.awt.Dimension(41, 18));
@@ -173,11 +213,54 @@ public class GUI_Config extends javax.swing.JFrame {
         previousFrame.setVisible(true);
     }//GEN-LAST:event_goBackMouseReleased
 
+    private void exitGameMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_exitGameMouseReleased
+        menuActive = close.menu(0, menuActive, menuDropdown, menuItems);
+        GUI_Exit frameExit = new GUI_Exit(this);
+        frameExit.setVisible(true);
+    }//GEN-LAST:event_exitGameMouseReleased
+
+    private void btnThemeMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnThemeMouseEntered
+        if (!s.getAltTheme()) {
+            btnTheme.setIcon(btn.get(1));
+        } else {
+            btnTheme.setIcon(btn.get(4));
+        }
+    }//GEN-LAST:event_btnThemeMouseEntered
+
+    private void btnThemeMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnThemeMouseExited
+        if (!s.getAltTheme()) {
+            btnTheme.setIcon(btn.get(0));
+        } else {
+            btnTheme.setIcon(btn.get(3));
+        }
+    }//GEN-LAST:event_btnThemeMouseExited
+
+    private void btnThemeMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnThemeMousePressed
+        if (!s.getAltTheme()) {
+            s.setAltTheme(true);
+            btnTheme.setIcon(btn.get(2));
+        } else {
+            s.setAltTheme(false);
+            btnTheme.setIcon(btn.get(5));
+        }
+    }//GEN-LAST:event_btnThemeMousePressed
+
+    private void btnThemeMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnThemeMouseReleased
+        if (!s.getAltTheme()) {
+            
+            btnTheme.setIcon(btn.get(1));
+        } else {
+            
+            btnTheme.setIcon(btn.get(4));
+        }
+    }//GEN-LAST:event_btnThemeMouseReleased
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel btnAbout;
     private javax.swing.JLabel btnClose;
     private javax.swing.JLabel btnFile;
     private javax.swing.JLabel btnMinimize;
+    private javax.swing.JLabel btnTheme;
     private javax.swing.JLabel exitGame;
     private javax.swing.JLabel frameBackground;
     private javax.swing.JLabel frameDrag;

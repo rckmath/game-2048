@@ -1,6 +1,6 @@
 package com.engcomp2019.prj2048;
 
-import com.engcomp2019.audio.Audio;
+import com.engcomp2019.core.Session;
 import com.engcomp2019.gui.*;
 import java.awt.Color;
 import java.awt.event.ActionEvent;
@@ -24,10 +24,11 @@ public class Main extends JFrame {
     //private final ImageIcon imgArt = new ImageIcon("imgs/leoSplash.gif");     // Onde carregaremos nossa imagem
     private static JLabel lblArt;   // Label que definiremos nossa imagem
     private JProgressBar progressBar = new JProgressBar();   // Progress bar
+    private final Session s;
 
     public static void main(String arg[]) {
         // Criando janela do nosso splash
-        Main s = new Main();
+        Main s = new Main(new Session());
 
         // Propriedades da nossa janela splash (tamanho, etc)
         s.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
@@ -38,7 +39,7 @@ public class Main extends JFrame {
 
         // Sleep de 2,475 segundos
         try {
-            Thread.sleep(0);
+            Thread.sleep(2475);
         } catch (InterruptedException ex) {
             System.err.println("ERRO: " + ex);
         }
@@ -49,7 +50,9 @@ public class Main extends JFrame {
 
     /* Construtor contendo a função responsável por carregar
     os dados da janela (layout, imagem) além de definir o timer */
-    public Main() {
+    public Main(Session s) {
+        this.s = s;
+        this.s.initializeSession();
         //Ativa a progress bar quando a janela estiver ativa
         addWindowListener(new WindowAdapter() {
             @Override
@@ -89,7 +92,7 @@ public class Main extends JFrame {
     @Override
     public void dispose() {
         super.dispose();
-        GUI_MainMenu oFrame = new GUI_MainMenu();
+        GUI_MainMenu oFrame = new GUI_MainMenu(s);
         oFrame.setVisible(true);
     }
 }
