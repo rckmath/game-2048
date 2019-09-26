@@ -138,6 +138,7 @@ public class GUI_MainConfirm extends javax.swing.JFrame {
         previousFrame.setVisible(false);
         previousFrame.dispose();
         new GUI_MainMenu(s).setVisible(true);
+        this.dispose();
     }//GEN-LAST:event_btnYesMouseReleased
 
     private void btnNoMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnNoMouseEntered

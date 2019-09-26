@@ -22,11 +22,13 @@ public class GUI_Game extends javax.swing.JFrame {
     private final ArrayList<JLabel> menuItems;
     private Boolean menuActive = true;
     protected Audio a = new Audio();
-    private Session s;
+    private final Session s;
 
     public GUI_Game(Session s) {
         this.s = s;
-
+        s.tileSpawn();
+        s.printArray();
+        
         initComponents();
         setResizable(false);
         setLocationRelativeTo(null);
@@ -36,11 +38,10 @@ public class GUI_Game extends javax.swing.JFrame {
                 add(exitGame);
                 add(newGame);
                 add(mainMenu);
-                add(configGame);
             }
         };
 
-        a.play("src/main/java/com/engcomp2019/audio/pula.wav");
+        a.play("src/main/java/com/engcomp2019/audio/lavendertown.wav");
 
         btn.add(new ImageIcon("imgs/buttons/pad/bntPadDef.png"));
         btn.add(new ImageIcon("imgs/buttons/pad/bntPadU.png"));
@@ -69,7 +70,6 @@ public class GUI_Game extends javax.swing.JFrame {
         exitGame = new javax.swing.JLabel();
         newGame = new javax.swing.JLabel();
         mainMenu = new javax.swing.JLabel();
-        configGame = new javax.swing.JLabel();
         menuDropdown = new javax.swing.JLabel();
         btnAbout = new javax.swing.JLabel();
         btnFile = new javax.swing.JLabel();
@@ -86,6 +86,11 @@ public class GUI_Game extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setName("frameGame"); // NOI18N
         setUndecorated(true);
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowClosed(java.awt.event.WindowEvent evt) {
+                formWindowClosed(evt);
+            }
+        });
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         exitGame.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -93,7 +98,7 @@ public class GUI_Game extends javax.swing.JFrame {
                 exitGameMouseReleased(evt);
             }
         });
-        getContentPane().add(exitGame, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 80, 130, 18));
+        getContentPane().add(exitGame, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 60, 130, 18));
         getContentPane().add(newGame, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 20, 130, 18));
 
         mainMenu.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -102,7 +107,6 @@ public class GUI_Game extends javax.swing.JFrame {
             }
         });
         getContentPane().add(mainMenu, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 40, 130, 18));
-        getContentPane().add(configGame, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 60, 130, 18));
 
         menuDropdown.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseReleased(java.awt.event.MouseEvent evt) {
@@ -143,6 +147,15 @@ public class GUI_Game extends javax.swing.JFrame {
             }
         });
         getContentPane().add(btnClose, new org.netbeans.lib.awtextra.AbsoluteConstraints(768, 7, 24, 24));
+
+        padU.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                padUMousePressed(evt);
+            }
+            public void mouseReleased(java.awt.event.MouseEvent evt) {
+                padUMouseReleased(evt);
+            }
+        });
         getContentPane().add(padU, new org.netbeans.lib.awtextra.AbsoluteConstraints(526, 254, 28, 42));
         getContentPane().add(padD, new org.netbeans.lib.awtextra.AbsoluteConstraints(526, 328, 28, 42));
         getContentPane().add(padR, new org.netbeans.lib.awtextra.AbsoluteConstraints(556, 298, 42, 28));
@@ -222,6 +235,18 @@ public class GUI_Game extends javax.swing.JFrame {
         frameExit.setVisible(true);
     }//GEN-LAST:event_exitGameMouseReleased
 
+    private void padUMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_padUMousePressed
+        btnPad.setIcon(btn.get(1));
+    }//GEN-LAST:event_padUMousePressed
+
+    private void padUMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_padUMouseReleased
+        btnPad.setIcon(btn.get(0));
+    }//GEN-LAST:event_padUMouseReleased
+
+    private void formWindowClosed(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosed
+        a.stop();
+    }//GEN-LAST:event_formWindowClosed
+
     /**
      * @param args the command line arguments
      */
@@ -252,7 +277,7 @@ public class GUI_Game extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new GUI_Game(new Session()).setVisible(true);
+                new GUI_Game(new Session(0)).setVisible(true);
             }
         });
     }
@@ -263,7 +288,6 @@ public class GUI_Game extends javax.swing.JFrame {
     private javax.swing.JLabel btnFile;
     private javax.swing.JLabel btnMinimize;
     private javax.swing.JLabel btnPad;
-    private javax.swing.JLabel configGame;
     private javax.swing.JLabel exitGame;
     private javax.swing.JLabel frameBackground;
     private javax.swing.JLabel frameDrag;

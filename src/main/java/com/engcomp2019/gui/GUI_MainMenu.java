@@ -15,17 +15,17 @@ import org.netbeans.lib.awtextra.AbsoluteConstraints;
 public class GUI_MainMenu extends JFrame {
 
     private final ImageIcon imgFrame = new ImageIcon("imgs/frames/frameBackground.png");
-    private final ImageIcon imgLogo = new ImageIcon("imgs/elements/gameLogo.gif");
+    private final ImageIcon imgLogoG = new ImageIcon("imgs/elements/gameLogo.png");
     private final ImageIcon imgMenu = new ImageIcon("imgs/elements/mainMenuDropdown.png");
-    private final ImageIcon imgLeoHead1 = new ImageIcon("imgs/easteregg/leoHead.png");
-    private final ImageIcon imgLeoHead2 = new ImageIcon("imgs/easteregg/leoHeadTwo.png");
-    private final ArrayList<ImageIcon> btn = new ArrayList<>();
+    private final ImageIcon imgLeoHead = new ImageIcon("imgs/easteregg/leoHeadDance.gif");
+    private final ArrayList<ImageIcon> imgBtnStart = new ArrayList<>();
+    private final ArrayList<ImageIcon> imgBtnGameS = new ArrayList<>();
     private final DragWindow drag = new DragWindow();
     private final Close close = new Close();
     private final ArrayList<JLabel> menuItems;
     private Boolean menuActive = true;
-    protected Engine eng = new Engine(0);
-    private Session s;
+    private final Session s;
+    private int gameSize = 1;
 
     public GUI_MainMenu(Session s) {
         this.s = s;
@@ -46,22 +46,37 @@ public class GUI_MainMenu extends JFrame {
         // Para inicializar as opções de menu desativadas
         menuActive = close.menu(0, menuActive, menuDropdown, menuItems);
 
-        btn.add(new ImageIcon("imgs/buttons/btnDefault.png"));
-        btn.add(new ImageIcon("imgs/buttons/btnHover.png"));
-        btn.add(new ImageIcon("imgs/buttons/btnPressed.png"));
-
-        easterEgg.setIcon(imgLeoHead1);
+        easterEgg.setIcon(imgLeoHead);
         add(easterEgg, new AbsoluteConstraints(740, 510, -1, -1));
+        easterEgg.setVisible(false);
+
+        if (s.getAltTheme()) {
+            easterEgg.setVisible(true);
+        }
+
+        imgBtnStart.add(new ImageIcon("imgs/buttons/btnDefault.png"));
+        imgBtnStart.add(new ImageIcon("imgs/buttons/btnHover.png"));
+        imgBtnStart.add(new ImageIcon("imgs/buttons/btnPressed.png"));
+
+        imgBtnGameS.add(new ImageIcon("imgs/buttons/btn3x3Def.png"));
+        imgBtnGameS.add(new ImageIcon("imgs/buttons/btn3x3Hover.png"));
+        imgBtnGameS.add(new ImageIcon("imgs/buttons/btn3x3Pressed.png"));
+        imgBtnGameS.add(new ImageIcon("imgs/buttons/btn4x4Def.png"));
+        imgBtnGameS.add(new ImageIcon("imgs/buttons/btn4x4Hover.png"));
+        imgBtnGameS.add(new ImageIcon("imgs/buttons/btn4x4Pressed.png"));
 
         menuDropdown.setIcon(imgMenu);
         add(menuDropdown, new AbsoluteConstraints(39, 20, -1, -1));
         menuDropdown.setVisible(false);
 
-        btnStart.setIcon(btn.get(0));
-        add(btnStart, new AbsoluteConstraints(210, 360, -1, -1));
+        btnGameSize.setIcon(imgBtnGameS.get(0));
+        add(btnGameSize, new AbsoluteConstraints(210, 190, -1, -1));
 
-        gameLogo.setIcon(imgLogo);
-        add(gameLogo, new AbsoluteConstraints(111, 100, -1, -1));
+        btnStart.setIcon(imgBtnStart.get(0));
+        add(btnStart, new AbsoluteConstraints(210, 320, -1, -1));
+
+        logoImg.setIcon(imgLogoG);
+        add(logoImg, new AbsoluteConstraints(-31, 31, -1, -1));
 
         frameBackground.setIcon(imgFrame);
         add(frameBackground, new AbsoluteConstraints(0, 0, -1, -1));
@@ -75,12 +90,13 @@ public class GUI_MainMenu extends JFrame {
         configGame = new javax.swing.JLabel();
         newGame = new javax.swing.JLabel();
         menuDropdown = new javax.swing.JLabel();
-        gameLogo = new javax.swing.JLabel();
+        logoImg = new javax.swing.JLabel();
         btnMinimize = new javax.swing.JLabel();
         btnClose = new javax.swing.JLabel();
         btnFile = new javax.swing.JLabel();
         btnAbout = new javax.swing.JLabel();
         frameDrag = new javax.swing.JLabel();
+        btnGameSize = new javax.swing.JLabel();
         btnStart = new javax.swing.JLabel();
         easterEgg = new javax.swing.JLabel();
         frameBackground = new javax.swing.JLabel();
@@ -111,9 +127,7 @@ public class GUI_MainMenu extends JFrame {
         getContentPane().add(configGame, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 40, 130, 18));
         getContentPane().add(newGame, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 20, 130, 18));
         getContentPane().add(menuDropdown, new org.netbeans.lib.awtextra.AbsoluteConstraints(39, 20, 130, 57));
-
-        gameLogo.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
-        getContentPane().add(gameLogo, new org.netbeans.lib.awtextra.AbsoluteConstraints(111, 100, -1, -1));
+        getContentPane().add(logoImg, new org.netbeans.lib.awtextra.AbsoluteConstraints(-31, 31, -1, -1));
 
         btnMinimize.setBackground(new java.awt.Color(255, 255, 255));
         btnMinimize.setForeground(new java.awt.Color(255, 255, 255));
@@ -164,6 +178,25 @@ public class GUI_MainMenu extends JFrame {
         });
         getContentPane().add(frameDrag, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 800, 18));
 
+        btnGameSize.setIcon(new javax.swing.ImageIcon("C:\\Users\\erick\\Documents\\NetBeansProjects\\prj2048\\imgs\\buttons\\btn3x3Def.png")); // NOI18N
+        btnGameSize.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        btnGameSize.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                btnGameSizeMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                btnGameSizeMouseExited(evt);
+            }
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                btnGameSizeMousePressed(evt);
+            }
+            public void mouseReleased(java.awt.event.MouseEvent evt) {
+                btnGameSizeMouseReleased(evt);
+            }
+        });
+        getContentPane().add(btnGameSize, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 190, -1, -1));
+
+        btnStart.setIcon(new javax.swing.ImageIcon("C:\\Users\\erick\\Documents\\NetBeansProjects\\prj2048\\imgs\\buttons\\btnDefault.png")); // NOI18N
         btnStart.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         btnStart.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseEntered(java.awt.event.MouseEvent evt) {
@@ -179,19 +212,11 @@ public class GUI_MainMenu extends JFrame {
                 btnStartMouseReleased(evt);
             }
         });
-        getContentPane().add(btnStart, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 360, -1, -1));
-
-        easterEgg.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseEntered(java.awt.event.MouseEvent evt) {
-                easterEggMouseEntered(evt);
-            }
-            public void mouseExited(java.awt.event.MouseEvent evt) {
-                easterEggMouseExited(evt);
-            }
-        });
+        getContentPane().add(btnStart, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 320, -1, -1));
         getContentPane().add(easterEgg, new org.netbeans.lib.awtextra.AbsoluteConstraints(740, 510, 30, 30));
 
         frameBackground.setBackground(new java.awt.Color(0, 0, 0));
+        frameBackground.setIcon(new javax.swing.ImageIcon("C:\\Users\\erick\\Documents\\NetBeansProjects\\prj2048\\imgs\\frames\\frameBackground.png")); // NOI18N
         frameBackground.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         frameBackground.setPreferredSize(new java.awt.Dimension(800, 576));
         getContentPane().add(frameBackground, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
@@ -221,21 +246,35 @@ public class GUI_MainMenu extends JFrame {
     }//GEN-LAST:event_frameDragMousePressed
 
     private void btnStartMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnStartMouseEntered
-        btnStart.setIcon(btn.get(1));
+        btnStart.setIcon(imgBtnStart.get(1));
     }//GEN-LAST:event_btnStartMouseEntered
 
     private void btnStartMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnStartMouseExited
-        btnStart.setIcon(btn.get(0));
+        btnStart.setIcon(imgBtnStart.get(0));
     }//GEN-LAST:event_btnStartMouseExited
 
     private void btnStartMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnStartMousePressed
-        btnStart.setIcon(btn.get(2));
+        btnStart.setIcon(imgBtnStart.get(2));
     }//GEN-LAST:event_btnStartMousePressed
 
     private void btnStartMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnStartMouseReleased
-        btnStart.setIcon(btn.get(1));
-        eng.tileSpawn();
-        eng.printArray();
+        try {
+            GUI_Game game;
+            btnStart.setIcon(imgBtnStart.get(1));
+            Thread.sleep(250);
+            this.dispose();
+
+            Session session = new Session(gameSize);
+            session.setAltTheme(s.getAltTheme());
+            session.setGameStatus(s.getGameStatus());
+            session.setRecordScore(s.getRecordScore());
+            session.setRoundScore(s.getRoundScore());
+
+            game = new GUI_Game(session);
+            game.setVisible(true);
+        } catch (InterruptedException ex) {
+            System.err.println("ERRO: " + ex);
+        }
     }//GEN-LAST:event_btnStartMouseReleased
 
     private void frameDragMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_frameDragMouseReleased
@@ -262,25 +301,52 @@ public class GUI_MainMenu extends JFrame {
         frameExit.setVisible(true);
     }//GEN-LAST:event_exitGameMouseReleased
 
-    private void easterEggMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_easterEggMouseEntered
-        easterEgg.setIcon(imgLeoHead2);
-    }//GEN-LAST:event_easterEggMouseEntered
-
-    private void easterEggMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_easterEggMouseExited
-        easterEgg.setIcon(imgLeoHead1);
-    }//GEN-LAST:event_easterEggMouseExited
-
     private void configGameMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_configGameMouseReleased
         menuActive = close.menu(0, menuActive, menuDropdown, menuItems);
-        GUI_Config frameConfig = new GUI_Config(this, s);
-        frameConfig.setVisible(true);
         this.dispose();
+        GUI_Config frameConfig = new GUI_Config(s);
+        frameConfig.setVisible(true);
     }//GEN-LAST:event_configGameMouseReleased
+
+    private void btnGameSizeMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnGameSizeMouseEntered
+        if (gameSize == 1) {
+            btnGameSize.setIcon(imgBtnGameS.get(1));
+        } else {
+            btnGameSize.setIcon(imgBtnGameS.get(4));
+        }
+    }//GEN-LAST:event_btnGameSizeMouseEntered
+
+    private void btnGameSizeMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnGameSizeMouseExited
+        if (gameSize == 1) {
+            btnGameSize.setIcon(imgBtnGameS.get(0));
+        } else {
+            btnGameSize.setIcon(imgBtnGameS.get(3));
+        }
+    }//GEN-LAST:event_btnGameSizeMouseExited
+
+    private void btnGameSizeMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnGameSizeMousePressed
+        if (gameSize == 1) {
+            gameSize = 0;
+            btnGameSize.setIcon(imgBtnGameS.get(2));
+        } else {
+            gameSize = 1;
+            btnGameSize.setIcon(imgBtnGameS.get(5));
+        }
+    }//GEN-LAST:event_btnGameSizeMousePressed
+
+    private void btnGameSizeMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnGameSizeMouseReleased
+        if (gameSize == 1) {
+            btnGameSize.setIcon(imgBtnGameS.get(1));
+        } else {
+            btnGameSize.setIcon(imgBtnGameS.get(4));
+        }
+    }//GEN-LAST:event_btnGameSizeMouseReleased
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel btnAbout;
     private javax.swing.JLabel btnClose;
     private javax.swing.JLabel btnFile;
+    private javax.swing.JLabel btnGameSize;
     private javax.swing.JLabel btnMinimize;
     private javax.swing.JLabel btnStart;
     private javax.swing.JLabel configGame;
@@ -288,7 +354,7 @@ public class GUI_MainMenu extends JFrame {
     private javax.swing.JLabel exitGame;
     private javax.swing.JLabel frameBackground;
     private javax.swing.JLabel frameDrag;
-    private javax.swing.JLabel gameLogo;
+    private javax.swing.JLabel logoImg;
     private javax.swing.JLabel menuDropdown;
     private javax.swing.JLabel newGame;
     // End of variables declaration//GEN-END:variables

@@ -24,7 +24,7 @@ public class GUI_EasterEgg extends javax.swing.JFrame {
     private final ArrayList<JLabel> menuItems;
     private Boolean menuActive = true;
     protected Audio a = new Audio();
-    private Session s;
+    private final Session s;
 
     public GUI_EasterEgg(Session s) {
         this.s = s;
@@ -38,7 +38,6 @@ public class GUI_EasterEgg extends javax.swing.JFrame {
                 add(exitGame);
                 add(newGame);
                 add(mainMenu);
-                add(configGame);
             }
         };
         
@@ -80,7 +79,6 @@ public class GUI_EasterEgg extends javax.swing.JFrame {
         exitGame = new javax.swing.JLabel();
         newGame = new javax.swing.JLabel();
         mainMenu = new javax.swing.JLabel();
-        configGame = new javax.swing.JLabel();
         menuDropdown = new javax.swing.JLabel();
         btnFile = new javax.swing.JLabel();
         btnAbout = new javax.swing.JLabel();
@@ -115,7 +113,7 @@ public class GUI_EasterEgg extends javax.swing.JFrame {
                 exitGameMouseReleased(evt);
             }
         });
-        getContentPane().add(exitGame, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 80, 130, 18));
+        getContentPane().add(exitGame, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 60, 130, 18));
         getContentPane().add(newGame, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 20, 130, 18));
 
         mainMenu.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -124,7 +122,6 @@ public class GUI_EasterEgg extends javax.swing.JFrame {
             }
         });
         getContentPane().add(mainMenu, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 40, 130, 18));
-        getContentPane().add(configGame, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 60, 130, 18));
 
         menuDropdown.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseReleased(java.awt.event.MouseEvent evt) {
@@ -281,7 +278,7 @@ public class GUI_EasterEgg extends javax.swing.JFrame {
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(() -> {
-            new GUI_EasterEgg(new Session()).setVisible(true);
+            new GUI_EasterEgg(new Session(0)).setVisible(true);
         });
     }
 
@@ -290,7 +287,6 @@ public class GUI_EasterEgg extends javax.swing.JFrame {
     private javax.swing.JLabel btnClose;
     private javax.swing.JLabel btnFile;
     private javax.swing.JLabel btnMinimize;
-    private javax.swing.JLabel configGame;
     private javax.swing.JLabel exitGame;
     private javax.swing.JLabel frameBackground;
     private javax.swing.JLabel frameDrag;

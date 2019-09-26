@@ -4,14 +4,15 @@ package com.engcomp2019.core;
  *
  * @author erick / rckmath
  */
-public class Session {
+public class Session extends Engine {
 
     private Integer gameStatus;
     private Integer recordScore;
     private Integer roundScore;
     private Boolean altTheme;
 
-    public Session() {
+    public Session(int bSizeOp) {
+        super(bSizeOp);
     }
 
     /* METODOS */
@@ -47,7 +48,8 @@ public class Session {
     public void setAltTheme(Boolean alternateTheme) {
         this.altTheme = alternateTheme;
     }
-
+    
+    // Outros
     public void initializeSession() {
         if (this.altTheme == null) {
             this.altTheme = false;

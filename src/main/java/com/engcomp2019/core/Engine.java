@@ -9,26 +9,45 @@ import java.util.Arrays;
  */
 public class Engine {
 
-    private final int[][] board; // Board do jogo
-    private final int boardSize; // Tamanho da board
+    private int[][] gameBoard; // Board do jogo
+    private int boardSize; // Tamanho da board
 
     /**
      * Construtor inicializando nossa board
      *
-     * @param boardSize Tamanho da board, 1 para 3x3 e qualquer para 4x4
+     * @param bSizeOp Tamanho da board, 1 para 3x3 e qualquer para 4x4
      */
-    public Engine(int boardSize) {
-        if (boardSize == 1) {
+    public Engine(int bSizeOp) {
+        if (bSizeOp == 1) {
             this.boardSize = 3;
-            this.board = new int[3][3];
+            this.gameBoard = new int[3][3];
         } else {
             this.boardSize = 4;
-            this.board = new int[4][4];
+            this.gameBoard = new int[4][4];
         }
     }
 
+    /* METODOS */
+    // Getters and setters
+    public int[][] getGameBoard() {
+        return gameBoard;
+    }
+
+    public void setGameBoard(int[][] board) {
+        this.gameBoard = board;
+    }
+
+    public int getBoardSize() {
+        return boardSize;
+    }
+
+    public void setBoardSize(int boardSize) {
+        this.boardSize = boardSize;
+    }
+    
+    // Outros
     public void printArray() {
-        for (int[] b : board) {
+        for (int[] b : gameBoard) {
             System.out.println(Arrays.toString(b));
         }
         System.out.println();
@@ -40,7 +59,7 @@ public class Engine {
             // Percorrendo nossa matriz e guardando a posição dos espaços em branco
             for (int i = 0; i < boardSize; i++) {
                 for (int j = 0; j < boardSize; j++) {
-                    if (board[i][j] == 0) {
+                    if (gameBoard[i][j] == 0) {
                         int[] pos = {i, j};
                         emptySpaces.add(pos);
                     }
@@ -59,10 +78,14 @@ public class Engine {
                 int index;
                 index = (int) (Math.random() * ((emptySpaces.size() - 0)));
                 int[] pos = emptySpaces.get(index);
-                board[pos[0]][pos[1]] = x;
+                gameBoard[pos[0]][pos[1]] = x;
             }
         } catch (Exception e) {
             System.err.println("ERRO: " + e);
         }
+    }
+    
+    public void resetGame(){
+        
     }
 }

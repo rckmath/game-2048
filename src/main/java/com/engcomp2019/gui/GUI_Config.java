@@ -16,23 +16,22 @@ public class GUI_Config extends javax.swing.JFrame {
 
     private final ImageIcon imgFrame = new ImageIcon("imgs/frames/frameBackground.png");
     private final ImageIcon imgMenu = new ImageIcon("imgs/elements/configDropdown.png");
+    private final ImageIcon imgLeoHead = new ImageIcon("imgs/easteregg/leoHeadDance.gif");
+    private final ImageIcon imgLogoG = new ImageIcon("imgs/elements/gameLogo.png");
     private final ArrayList<ImageIcon> btn = new ArrayList<>();
     private final DragWindow drag = new DragWindow();
     private final Close close = new Close();
     private final ArrayList<JLabel> menuItems;
     private Boolean menuActive = true;
-    private final JFrame previousFrame;
-    private Session s;
+    protected final Session s;
 
-    public GUI_Config(JFrame pPreviousFrame, Session s) {
+    public GUI_Config(Session s) {
         this.s = s;
 
         // Propriedades da janela e inicialização dos componentes
         initComponents();
         setResizable(false);
         setLocationRelativeTo(null);
-
-        previousFrame = pPreviousFrame;
 
         menuItems = new ArrayList<JLabel>() {
             {
@@ -50,16 +49,24 @@ public class GUI_Config extends javax.swing.JFrame {
         btn.add(new ImageIcon("imgs/buttons/other/btnTemaTDef.png"));
         btn.add(new ImageIcon("imgs/buttons/other/btnTemaTHover.png"));
         btn.add(new ImageIcon("imgs/buttons/other/btnTemaTPressed.png"));
-
+        
+        easterEgg.setIcon(imgLeoHead);
+        add(easterEgg, new AbsoluteConstraints(740, 510, -1, -1));
+        easterEgg.setVisible(false);
+        
         if (!s.getAltTheme()) {
             btnTheme.setIcon(btn.get(0));
         } else {
             btnTheme.setIcon(btn.get(3));
+            easterEgg.setVisible(true);
         }
 
         menuDropdown.setIcon(imgMenu);
         add(menuDropdown, new AbsoluteConstraints(39, 20, -1, -1));
         menuDropdown.setVisible(false);
+        
+        logoImg.setIcon(imgLogoG);
+        add(logoImg, new AbsoluteConstraints(-31, 31, -1, -1));
 
         frameBackground.setIcon(imgFrame);
         add(frameBackground, new AbsoluteConstraints(0, 0, -1, -1));
@@ -71,13 +78,15 @@ public class GUI_Config extends javax.swing.JFrame {
 
         exitGame = new javax.swing.JLabel();
         goBack = new javax.swing.JLabel();
+        menuDropdown = new javax.swing.JLabel();
+        logoImg = new javax.swing.JLabel();
         btnAbout = new javax.swing.JLabel();
         btnClose = new javax.swing.JLabel();
         btnMinimize = new javax.swing.JLabel();
         btnFile = new javax.swing.JLabel();
         btnTheme = new javax.swing.JLabel();
-        menuDropdown = new javax.swing.JLabel();
         frameDrag = new javax.swing.JLabel();
+        easterEgg = new javax.swing.JLabel();
         frameBackground = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
@@ -98,6 +107,8 @@ public class GUI_Config extends javax.swing.JFrame {
             }
         });
         getContentPane().add(goBack, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 20, 130, 18));
+        getContentPane().add(menuDropdown, new org.netbeans.lib.awtextra.AbsoluteConstraints(39, 20, 130, 38));
+        getContentPane().add(logoImg, new org.netbeans.lib.awtextra.AbsoluteConstraints(-31, 31, -1, -1));
 
         btnAbout.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseReleased(java.awt.event.MouseEvent evt) {
@@ -147,7 +158,6 @@ public class GUI_Config extends javax.swing.JFrame {
             }
         });
         getContentPane().add(btnTheme, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 240, -1, -1));
-        getContentPane().add(menuDropdown, new org.netbeans.lib.awtextra.AbsoluteConstraints(39, 20, 130, 38));
 
         frameDrag.setPreferredSize(new java.awt.Dimension(41, 18));
         frameDrag.addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
@@ -164,6 +174,7 @@ public class GUI_Config extends javax.swing.JFrame {
             }
         });
         getContentPane().add(frameDrag, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 800, 18));
+        getContentPane().add(easterEgg, new org.netbeans.lib.awtextra.AbsoluteConstraints(740, 510, 30, 30));
 
         frameBackground.setBackground(new java.awt.Color(0, 0, 0));
         frameBackground.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
@@ -210,7 +221,8 @@ public class GUI_Config extends javax.swing.JFrame {
 
     private void goBackMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_goBackMouseReleased
         this.dispose();
-        previousFrame.setVisible(true);
+        GUI_MainMenu mainMenu = new GUI_MainMenu(s);
+        mainMenu.setVisible(true);
     }//GEN-LAST:event_goBackMouseReleased
 
     private void exitGameMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_exitGameMouseReleased
@@ -238,9 +250,11 @@ public class GUI_Config extends javax.swing.JFrame {
     private void btnThemeMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnThemeMousePressed
         if (!s.getAltTheme()) {
             s.setAltTheme(true);
+            easterEgg.setVisible(true);
             btnTheme.setIcon(btn.get(2));
         } else {
             s.setAltTheme(false);
+            easterEgg.setVisible(false);
             btnTheme.setIcon(btn.get(5));
         }
     }//GEN-LAST:event_btnThemeMousePressed
@@ -250,7 +264,7 @@ public class GUI_Config extends javax.swing.JFrame {
             btnTheme.setIcon(btn.get(1));
         } else {
             btnTheme.setIcon(btn.get(4));
-        }
+        }        
     }//GEN-LAST:event_btnThemeMouseReleased
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -259,10 +273,12 @@ public class GUI_Config extends javax.swing.JFrame {
     private javax.swing.JLabel btnFile;
     private javax.swing.JLabel btnMinimize;
     private javax.swing.JLabel btnTheme;
+    private javax.swing.JLabel easterEgg;
     private javax.swing.JLabel exitGame;
     private javax.swing.JLabel frameBackground;
     private javax.swing.JLabel frameDrag;
     private javax.swing.JLabel goBack;
+    private javax.swing.JLabel logoImg;
     private javax.swing.JLabel menuDropdown;
     // End of variables declaration//GEN-END:variables
 }
