@@ -257,7 +257,6 @@ public class GUI_MainMenu extends JFrame {
         try {
             GUI_Game game;
             btnStart.setIcon(imgBtnStart.get(1));
-            Thread.sleep(250);
             this.dispose();
 
             Session session = new Session(gameSize);
@@ -268,7 +267,7 @@ public class GUI_MainMenu extends JFrame {
 
             game = new GUI_Game(session);
             game.setVisible(true);
-        } catch (InterruptedException ex) {
+        } catch (Exception ex) {
             System.err.println("ERRO: " + ex);
         }
     }//GEN-LAST:event_btnStartMouseReleased
