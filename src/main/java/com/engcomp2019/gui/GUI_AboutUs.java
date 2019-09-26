@@ -36,14 +36,14 @@ public class GUI_AboutUs extends javax.swing.JFrame {
 
         // Inicializa este frame
         initComponents();
-        setResizable(false);
-        setLocationRelativeTo(null);
+        this.setResizable(false);
+        this.setLocationRelativeTo(null);
 
         btnGit.setIcon(imgGitDef);
-        add(btnGit, new AbsoluteConstraints(105, 160, -1, -1));
+        this.add(btnGit, new AbsoluteConstraints(105, 160, -1, -1));
 
         frameBackground.setIcon(imgFrame);
-        add(frameBackground, new AbsoluteConstraints(0, 0, -1, -1));
+        this.add(frameBackground, new AbsoluteConstraints(0, 0, -1, -1));
     }
 
     @SuppressWarnings("unchecked")

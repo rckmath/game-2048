@@ -22,6 +22,12 @@ public class GUI_MainConfirm extends javax.swing.JFrame {
     private final JFrame previousFrame;
     private Session s;
 
+    /**
+     * Menu de confirmação
+     * 
+     * @param pPreviousFrame Recebe o frame de onde foi chamado
+     * @param s Mantém a sessão inicializada
+     */
     public GUI_MainConfirm(JFrame pPreviousFrame, Session s) {
         this.s = s;
 
@@ -31,17 +37,17 @@ public class GUI_MainConfirm extends javax.swing.JFrame {
 
         // Inicializa este frame
         initComponents();
-        setResizable(false);
-        setLocationRelativeTo(null);
+        this.setResizable(false);
+        this.setLocationRelativeTo(null);
 
         btnYes.setIcon(imgBtnYesDef);
-        add(btnYes, new AbsoluteConstraints(65, 200, -1, -1));
+        this.add(btnYes, new AbsoluteConstraints(65, 200, -1, -1));
 
         btnNo.setIcon(imgBtnNoDef);
-        add(btnNo, new AbsoluteConstraints(205, 200, -1, -1));
+        this.add(btnNo, new AbsoluteConstraints(205, 200, -1, -1));
 
         frameBackground.setIcon(imgFrame);
-        add(frameBackground, new AbsoluteConstraints(0, 0, -1, -1));
+        this.add(frameBackground, new AbsoluteConstraints(0, 0, -1, -1));
     }
 
     @SuppressWarnings("unchecked")
@@ -134,7 +140,7 @@ public class GUI_MainConfirm extends javax.swing.JFrame {
     }//GEN-LAST:event_btnYesMousePressed
 
     private void btnYesMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnYesMouseReleased
-        // Zerar variáveis
+        // Fecha o frame onde foi chamado e instancia o menu principal
         previousFrame.setVisible(false);
         previousFrame.dispose();
         new GUI_MainMenu(s).setVisible(true);

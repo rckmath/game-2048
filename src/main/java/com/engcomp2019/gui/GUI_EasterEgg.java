@@ -30,8 +30,8 @@ public class GUI_EasterEgg extends javax.swing.JFrame {
         this.s = s;
         
         initComponents();
-        setResizable(false);
-        setLocationRelativeTo(null);
+        this.setResizable(false);
+        this.setLocationRelativeTo(null);
 
         menuItems = new ArrayList<JLabel>() {
             {
@@ -47,29 +47,29 @@ public class GUI_EasterEgg extends javax.swing.JFrame {
         menuActive = close.menu(0, menuActive, menuDropdown, menuItems);
         
         menuDropdown.setIcon(imgMenu);
-        add(menuDropdown, new AbsoluteConstraints(39, 20, -1, -1));
+        this.add(menuDropdown, new AbsoluteConstraints(39, 20, -1, -1));
         menuDropdown.setVisible(false);
 
         leoHead.setIcon(imgLeoHeadDance);
-        add(leoHead, new AbsoluteConstraints(330, 50, -1, -1));
+        this.add(leoHead, new AbsoluteConstraints(330, 50, -1, -1));
 
         leoHead2.setIcon(imgLeoHeadDance);
-        add(leoHead2, new AbsoluteConstraints(450, 370, -1, -1));
+        this.add(leoHead2, new AbsoluteConstraints(450, 370, -1, -1));
 
         leoHead3.setIcon(imgLeoHeadDance);
-        add(leoHead3, new AbsoluteConstraints(60, 470, -1, -1));
+        this.add(leoHead3, new AbsoluteConstraints(60, 470, -1, -1));
 
         leoHead4.setIcon(imgLeoHeadDance);
-        add(leoHead4, new AbsoluteConstraints(730, 300, -1, -1));
+        this.add(leoHead4, new AbsoluteConstraints(730, 300, -1, -1));
 
         leoOx.setIcon(imgLeoOx);
-        add(leoOx, new AbsoluteConstraints(40, 30, -1, -1));
+        this.add(leoOx, new AbsoluteConstraints(40, 30, -1, -1));
 
         leoHorse.setIcon(imgLeoHorse);
-        add(leoHorse, new AbsoluteConstraints(620, 400, -1, -1));
+        this.add(leoHorse, new AbsoluteConstraints(620, 400, -1, -1));
 
         frameBackground.setIcon(imgFrame);
-        add(frameBackground, new AbsoluteConstraints(0, 0, -1, -1));
+        this.add(frameBackground, new AbsoluteConstraints(0, 0, -1, -1));
     }
 
     @SuppressWarnings("unchecked")

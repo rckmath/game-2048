@@ -16,22 +16,30 @@ public class GUI_Game extends javax.swing.JFrame {
 
     private final ImageIcon imgFrame = new ImageIcon("imgs/frames/frameGame.png");
     private final ImageIcon imgMenu = new ImageIcon("imgs/elements/gameDropdown.png");
-    private final ArrayList<ImageIcon> btn = new ArrayList<>();
+    private final ImageIcon imgTileDef;
+    private final ArrayList<ImageIcon> imgBtn = new ArrayList<>();
+    private final ArrayList<JLabel> gameTiles = new ArrayList<>();
+    private final ArrayList<JLabel> menuItems;
     private final DragWindow drag = new DragWindow();
     private final Close close = new Close();
-    private final ArrayList<JLabel> menuItems;
     private Boolean menuActive = true;
     protected Audio a = new Audio();
     private final Session s;
 
+    /**
+     * Inicializa e instancia a tela de jogo
+     *
+     * @param s Mantém a sessão inicializada
+     */
     public GUI_Game(Session s) {
         this.s = s;
         s.tileSpawn();
-        s.printArray();
-        
+        s.printGameBoard();
+        s.setRoundScore(0);
+
         initComponents();
-        setResizable(false);
-        setLocationRelativeTo(null);
+        this.setResizable(false);
+        this.setLocationRelativeTo(null);
 
         menuItems = new ArrayList<JLabel>() {
             {
@@ -43,24 +51,35 @@ public class GUI_Game extends javax.swing.JFrame {
 
         a.play("src/main/java/com/engcomp2019/audio/lavendertown.wav");
 
-        btn.add(new ImageIcon("imgs/buttons/pad/bntPadDef.png"));
-        btn.add(new ImageIcon("imgs/buttons/pad/bntPadU.png"));
-        btn.add(new ImageIcon("imgs/buttons/pad/bntPadD.png"));
-        btn.add(new ImageIcon("imgs/buttons/pad/bntPadL.png"));
-        btn.add(new ImageIcon("imgs/buttons/pad/bntPadR.png"));
-
+        // Define as tiles de acordo com o status do tema
+        if (!s.getAltTheme()) {
+            imgTileDef = new ImageIcon("imgs/tiles/def.png");
+        } else {
+            imgTileDef = new ImageIcon("imgs/tiles/leo.gif");
+        }
+        
+        
+        
+        gerarTiles();
+        
         // Para inicializar as opções de menu desativadas
         menuActive = close.menu(0, menuActive, menuDropdown, menuItems);
 
-        btnPad.setIcon(btn.get(0));
-        add(btnPad, new AbsoluteConstraints(480, 252, -1, -1));
+        imgBtn.add(new ImageIcon("imgs/buttons/pad/bntPadDef.png"));
+        imgBtn.add(new ImageIcon("imgs/buttons/pad/bntPadU.png"));
+        imgBtn.add(new ImageIcon("imgs/buttons/pad/bntPadD.png"));
+        imgBtn.add(new ImageIcon("imgs/buttons/pad/bntPadL.png"));
+        imgBtn.add(new ImageIcon("imgs/buttons/pad/bntPadR.png"));
+
+        btnPad.setIcon(imgBtn.get(0));
+        this.add(btnPad, new AbsoluteConstraints(480, 252, -1, -1));
 
         menuDropdown.setIcon(imgMenu);
-        add(menuDropdown, new AbsoluteConstraints(39, 20, -1, -1));
+        this.add(menuDropdown, new AbsoluteConstraints(39, 20, -1, -1));
         menuDropdown.setVisible(false);
 
         frameBackground.setIcon(imgFrame);
-        add(frameBackground, new AbsoluteConstraints(0, 0, -1, -1));
+        this.add(frameBackground, new AbsoluteConstraints(0, 0, -1, -1));
     }
 
     @SuppressWarnings("unchecked")
@@ -77,8 +96,8 @@ public class GUI_Game extends javax.swing.JFrame {
         btnClose = new javax.swing.JLabel();
         padU = new javax.swing.JLabel();
         padD = new javax.swing.JLabel();
-        padR = new javax.swing.JLabel();
         padL = new javax.swing.JLabel();
+        padR = new javax.swing.JLabel();
         btnPad = new javax.swing.JLabel();
         frameDrag = new javax.swing.JLabel();
         frameBackground = new javax.swing.JLabel();
@@ -157,9 +176,36 @@ public class GUI_Game extends javax.swing.JFrame {
             }
         });
         getContentPane().add(padU, new org.netbeans.lib.awtextra.AbsoluteConstraints(526, 254, 28, 42));
+
+        padD.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                padDMousePressed(evt);
+            }
+            public void mouseReleased(java.awt.event.MouseEvent evt) {
+                padDMouseReleased(evt);
+            }
+        });
         getContentPane().add(padD, new org.netbeans.lib.awtextra.AbsoluteConstraints(526, 328, 28, 42));
-        getContentPane().add(padR, new org.netbeans.lib.awtextra.AbsoluteConstraints(556, 298, 42, 28));
+
+        padL.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                padLMousePressed(evt);
+            }
+            public void mouseReleased(java.awt.event.MouseEvent evt) {
+                padLMouseReleased(evt);
+            }
+        });
         getContentPane().add(padL, new org.netbeans.lib.awtextra.AbsoluteConstraints(482, 298, 42, 28));
+
+        padR.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                padRMousePressed(evt);
+            }
+            public void mouseReleased(java.awt.event.MouseEvent evt) {
+                padRMouseReleased(evt);
+            }
+        });
+        getContentPane().add(padR, new org.netbeans.lib.awtextra.AbsoluteConstraints(556, 298, 42, 28));
         getContentPane().add(btnPad, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 252, -1, -1));
 
         frameDrag.setPreferredSize(new java.awt.Dimension(41, 18));
@@ -236,50 +282,56 @@ public class GUI_Game extends javax.swing.JFrame {
     }//GEN-LAST:event_exitGameMouseReleased
 
     private void padUMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_padUMousePressed
-        btnPad.setIcon(btn.get(1));
+        btnPad.setIcon(imgBtn.get(1));
     }//GEN-LAST:event_padUMousePressed
 
     private void padUMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_padUMouseReleased
-        btnPad.setIcon(btn.get(0));
+        btnPad.setIcon(imgBtn.get(0));
     }//GEN-LAST:event_padUMouseReleased
 
     private void formWindowClosed(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosed
         a.stop();
     }//GEN-LAST:event_formWindowClosed
 
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(GUI_Game.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(GUI_Game.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(GUI_Game.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(GUI_Game.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
+    private void padDMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_padDMousePressed
+        btnPad.setIcon(imgBtn.get(2));
+    }//GEN-LAST:event_padDMousePressed
 
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new GUI_Game(new Session(0)).setVisible(true);
+    private void padDMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_padDMouseReleased
+        btnPad.setIcon(imgBtn.get(0));
+    }//GEN-LAST:event_padDMouseReleased
+
+    private void padLMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_padLMousePressed
+        btnPad.setIcon(imgBtn.get(3));
+    }//GEN-LAST:event_padLMousePressed
+
+    private void padLMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_padLMouseReleased
+        btnPad.setIcon(imgBtn.get(0));
+    }//GEN-LAST:event_padLMouseReleased
+
+    private void padRMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_padRMousePressed
+        btnPad.setIcon(imgBtn.get(4));
+    }//GEN-LAST:event_padRMousePressed
+
+    private void padRMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_padRMouseReleased
+        btnPad.setIcon(imgBtn.get(0));
+    }//GEN-LAST:event_padRMouseReleased
+
+    // Gera as tiles nas respectivas posições
+    private void gerarTiles() {
+        int[] pos = {41, 106};
+        int k = 0;
+
+        for (int i = 0; i < s.getBoardSize(); i++) {
+            pos[0] = 41;
+            for (int j = 0; j < s.getBoardSize(); j++) {
+                gameTiles.add(new JLabel(imgTileDef));
+                this.add(gameTiles.get(k), new AbsoluteConstraints(pos[0], pos[1], -1, -1));
+                pos[0] += 100;
+                k++;
             }
-        });
+            pos[1] += 100;
+        }
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

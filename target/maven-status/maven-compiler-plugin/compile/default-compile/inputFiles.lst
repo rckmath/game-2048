@@ -1,9 +1,9 @@
 C:\Users\erick\Documents\NetBeansProjects\prj2048\src\main\java\com\engcomp2019\core\Engine.java
 C:\Users\erick\Documents\NetBeansProjects\prj2048\src\main\java\com\engcomp2019\core\Session.java
-C:\Users\erick\Documents\NetBeansProjects\prj2048\src\main\java\com\engcomp2019\core\Tiles.java
 C:\Users\erick\Documents\NetBeansProjects\prj2048\src\main\java\com\engcomp2019\gui\GUI_Game.java
 C:\Users\erick\Documents\NetBeansProjects\prj2048\src\main\java\com\engcomp2019\prj2048\Splash.java
 C:\Users\erick\Documents\NetBeansProjects\prj2048\src\main\java\com\engcomp2019\core\DragTile.java
+C:\Users\erick\Documents\NetBeansProjects\prj2048\src\main\java\com\engcomp2019\gui\GUI_RestartConfirm.java
 C:\Users\erick\Documents\NetBeansProjects\prj2048\src\main\java\com\engcomp2019\core\Close.java
 C:\Users\erick\Documents\NetBeansProjects\prj2048\src\main\java\com\engcomp2019\gui\GUI_MainConfirm.java
 C:\Users\erick\Documents\NetBeansProjects\prj2048\src\main\java\com\engcomp2019\gui\GUI_Config.java
@@ -11,7 +11,6 @@ C:\Users\erick\Documents\NetBeansProjects\prj2048\src\main\java\com\engcomp2019\
 C:\Users\erick\Documents\NetBeansProjects\prj2048\src\main\java\com\engcomp2019\core\DragWindow.java
 C:\Users\erick\Documents\NetBeansProjects\prj2048\src\main\java\com\engcomp2019\gui\GUI_MainMenu.java
 C:\Users\erick\Documents\NetBeansProjects\prj2048\src\main\java\com\engcomp2019\core\Drag.java
-C:\Users\erick\Documents\NetBeansProjects\prj2048\src\main\java\com\engcomp2019\core\Game.java
 C:\Users\erick\Documents\NetBeansProjects\prj2048\src\main\java\com\engcomp2019\prj2048\Main.java
 C:\Users\erick\Documents\NetBeansProjects\prj2048\src\main\java\com\engcomp2019\gui\GUI_AboutUs.java
 C:\Users\erick\Documents\NetBeansProjects\prj2048\src\main\java\com\engcomp2019\gui\GUI_Exit.java

@@ -44,15 +44,17 @@ public class Engine {
     public void setBoardSize(int boardSize) {
         this.boardSize = boardSize;
     }
-    
+
     // Outros
-    public void printArray() {
+    // Printa a matriz (para fins de debug)
+    public void printGameBoard() {
         for (int[] b : gameBoard) {
             System.out.println(Arrays.toString(b));
         }
         System.out.println();
     }
 
+    // Gera um número numa tile livre aleatória
     public void tileSpawn() {
         ArrayList<int[]> emptySpaces = new ArrayList<>();
         try {
@@ -83,9 +85,5 @@ public class Engine {
         } catch (Exception e) {
             System.err.println("ERRO: " + e);
         }
-    }
-    
-    public void resetGame(){
-        
     }
 }

@@ -33,17 +33,17 @@ public class GUI_Exit extends javax.swing.JFrame {
         
         // Inicializa este frame
         initComponents();
-        setResizable(false);
-        setLocationRelativeTo(null);
+        this.setResizable(false);
+        this.setLocationRelativeTo(null);
 
         btnYes.setIcon(imgBtnYesDef);
-        add(btnYes, new AbsoluteConstraints(65, 200, -1, -1));
+        this.add(btnYes, new AbsoluteConstraints(65, 200, -1, -1));
 
         btnNo.setIcon(imgBtnNoDef);
-        add(btnNo, new AbsoluteConstraints(205, 200, -1, -1));
+        this.add(btnNo, new AbsoluteConstraints(205, 200, -1, -1));
 
         frameBackground.setIcon(imgFrame);
-        add(frameBackground, new AbsoluteConstraints(0, 0, -1, -1));
+        this.add(frameBackground, new AbsoluteConstraints(0, 0, -1, -1));
     }
 
     @SuppressWarnings("unchecked")

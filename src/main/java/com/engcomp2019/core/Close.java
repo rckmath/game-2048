@@ -27,8 +27,8 @@ public class Close {
      * Fecha o frame ou programa de acordo com os parametros
      *
      * @param pFrame Recebe o frame atual
-     * @param pCloseAll Variavel de controle, defina "false" para fechar somente o
-     * frame, "true" para fechar o programa todo
+     * @param pCloseAll Variavel de controle, defina "false" para fechar somente
+     * o frame, "true" para fechar o programa todo
      */
     public Close(JFrame pFrame, Boolean pCloseAll) {
         this.frame = pFrame;

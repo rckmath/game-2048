@@ -4,7 +4,6 @@ import com.engcomp2019.core.*;
 import java.awt.Frame;
 import java.util.ArrayList;
 import javax.swing.ImageIcon;
-import javax.swing.JFrame;
 import javax.swing.JLabel;
 import org.netbeans.lib.awtextra.AbsoluteConstraints;
 
@@ -16,22 +15,28 @@ public class GUI_Config extends javax.swing.JFrame {
 
     private final ImageIcon imgFrame = new ImageIcon("imgs/frames/frameBackground.png");
     private final ImageIcon imgMenu = new ImageIcon("imgs/elements/configDropdown.png");
+    private final ImageIcon imgRecord = new ImageIcon("imgs/buttons/other/btnRecord.png");
     private final ImageIcon imgLeoHead = new ImageIcon("imgs/easteregg/leoHeadDance.gif");
-    private final ImageIcon imgLogoG = new ImageIcon("imgs/elements/gameLogo.png");
-    private final ArrayList<ImageIcon> btn = new ArrayList<>();
+    private final ArrayList<ImageIcon> imgBtnReset = new ArrayList<>();
+    private final ArrayList<ImageIcon> imgBtnTheme = new ArrayList<>();
     private final DragWindow drag = new DragWindow();
     private final Close close = new Close();
     private final ArrayList<JLabel> menuItems;
     private Boolean menuActive = true;
     protected final Session s;
 
+    /**
+     * Inicializa e instancia a tela de configurações
+     *
+     * @param s Mantém a sessão inicializada
+     */
     public GUI_Config(Session s) {
         this.s = s;
 
         // Propriedades da janela e inicialização dos componentes
         initComponents();
-        setResizable(false);
-        setLocationRelativeTo(null);
+        this.setResizable(false);
+        this.setLocationRelativeTo(null);
 
         menuItems = new ArrayList<JLabel>() {
             {
@@ -43,33 +48,43 @@ public class GUI_Config extends javax.swing.JFrame {
         // Para inicializar as opções de menu desativadas
         menuActive = close.menu(0, menuActive, menuDropdown, menuItems);
 
-        btn.add(new ImageIcon("imgs/buttons/other/btnTemaFDef.png"));
-        btn.add(new ImageIcon("imgs/buttons/other/btnTemaFHover.png"));
-        btn.add(new ImageIcon("imgs/buttons/other/btnTemaFPressed.png"));
-        btn.add(new ImageIcon("imgs/buttons/other/btnTemaTDef.png"));
-        btn.add(new ImageIcon("imgs/buttons/other/btnTemaTHover.png"));
-        btn.add(new ImageIcon("imgs/buttons/other/btnTemaTPressed.png"));
-        
+        /* Instancia e define nossos elementos na tela */
+        imgBtnTheme.add(new ImageIcon("imgs/buttons/other/btnTemaFDef.png"));
+        imgBtnTheme.add(new ImageIcon("imgs/buttons/other/btnTemaFHover.png"));
+        imgBtnTheme.add(new ImageIcon("imgs/buttons/other/btnTemaFPressed.png"));
+        imgBtnTheme.add(new ImageIcon("imgs/buttons/other/btnTemaTDef.png"));
+        imgBtnTheme.add(new ImageIcon("imgs/buttons/other/btnTemaTHover.png"));
+        imgBtnTheme.add(new ImageIcon("imgs/buttons/other/btnTemaTPressed.png"));
+        imgBtnReset.add(new ImageIcon("imgs/buttons/other/btnResetRDef.png"));
+        imgBtnReset.add(new ImageIcon("imgs/buttons/other/btnResetRHov.png"));
+        imgBtnReset.add(new ImageIcon("imgs/buttons/other/btnResetRPre.png"));
+
         easterEgg.setIcon(imgLeoHead);
-        add(easterEgg, new AbsoluteConstraints(740, 510, -1, -1));
+        this.add(easterEgg, new AbsoluteConstraints(740, 50, -1, -1));
         easterEgg.setVisible(false);
+
+        menuDropdown.setIcon(imgMenu);
+        this.add(menuDropdown, new AbsoluteConstraints(39, 20, -1, -1));
+        menuDropdown.setVisible(false);
+
+        btnReset.setIcon(imgBtnReset.get(0));
+        this.add(btnReset, new AbsoluteConstraints(315, 165, -1, -1));
+
+        btnRecord.setIcon(imgRecord);
+        this.add(btnRecord, new AbsoluteConstraints(215, 165, -1, -1));
         
+        lblRecord.setText(String.format("%06d%n", s.getRecordScore()));
+
+        // Define imagem de botao de tema de acordo com o status do mesmo
         if (!s.getAltTheme()) {
-            btnTheme.setIcon(btn.get(0));
+            btnTheme.setIcon(imgBtnTheme.get(0));
         } else {
-            btnTheme.setIcon(btn.get(3));
+            btnTheme.setIcon(imgBtnTheme.get(3));
             easterEgg.setVisible(true);
         }
 
-        menuDropdown.setIcon(imgMenu);
-        add(menuDropdown, new AbsoluteConstraints(39, 20, -1, -1));
-        menuDropdown.setVisible(false);
-        
-        logoImg.setIcon(imgLogoG);
-        add(logoImg, new AbsoluteConstraints(-31, 31, -1, -1));
-
         frameBackground.setIcon(imgFrame);
-        add(frameBackground, new AbsoluteConstraints(0, 0, -1, -1));
+        this.add(frameBackground, new AbsoluteConstraints(0, 0, -1, -1));
     }
 
     @SuppressWarnings("unchecked")
@@ -84,6 +99,9 @@ public class GUI_Config extends javax.swing.JFrame {
         btnClose = new javax.swing.JLabel();
         btnMinimize = new javax.swing.JLabel();
         btnFile = new javax.swing.JLabel();
+        lblRecord = new javax.swing.JLabel();
+        btnRecord = new javax.swing.JLabel();
+        btnReset = new javax.swing.JLabel();
         btnTheme = new javax.swing.JLabel();
         frameDrag = new javax.swing.JLabel();
         easterEgg = new javax.swing.JLabel();
@@ -143,6 +161,29 @@ public class GUI_Config extends javax.swing.JFrame {
         });
         getContentPane().add(btnFile, new org.netbeans.lib.awtextra.AbsoluteConstraints(36, 0, 70, 18));
 
+        lblRecord.setBackground(new java.awt.Color(255, 255, 255));
+        lblRecord.setFont(new java.awt.Font("Dialog", 1, 24)); // NOI18N
+        lblRecord.setForeground(new java.awt.Color(255, 255, 255));
+        lblRecord.setText("0");
+        getContentPane().add(lblRecord, new org.netbeans.lib.awtextra.AbsoluteConstraints(223, 205, -1, -1));
+        getContentPane().add(btnRecord, new org.netbeans.lib.awtextra.AbsoluteConstraints(215, 190, -1, -1));
+
+        btnReset.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                btnResetMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                btnResetMouseExited(evt);
+            }
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                btnResetMousePressed(evt);
+            }
+            public void mouseReleased(java.awt.event.MouseEvent evt) {
+                btnResetMouseReleased(evt);
+            }
+        });
+        getContentPane().add(btnReset, new org.netbeans.lib.awtextra.AbsoluteConstraints(315, 190, -1, -1));
+
         btnTheme.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseEntered(java.awt.event.MouseEvent evt) {
                 btnThemeMouseEntered(evt);
@@ -157,7 +198,7 @@ public class GUI_Config extends javax.swing.JFrame {
                 btnThemeMouseReleased(evt);
             }
         });
-        getContentPane().add(btnTheme, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 240, -1, -1));
+        getContentPane().add(btnTheme, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 290, -1, -1));
 
         frameDrag.setPreferredSize(new java.awt.Dimension(41, 18));
         frameDrag.addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
@@ -174,7 +215,7 @@ public class GUI_Config extends javax.swing.JFrame {
             }
         });
         getContentPane().add(frameDrag, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 800, 18));
-        getContentPane().add(easterEgg, new org.netbeans.lib.awtextra.AbsoluteConstraints(740, 510, 30, 30));
+        getContentPane().add(easterEgg, new org.netbeans.lib.awtextra.AbsoluteConstraints(740, 50, 30, 30));
 
         frameBackground.setBackground(new java.awt.Color(0, 0, 0));
         frameBackground.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
@@ -233,51 +274,70 @@ public class GUI_Config extends javax.swing.JFrame {
 
     private void btnThemeMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnThemeMouseEntered
         if (!s.getAltTheme()) {
-            btnTheme.setIcon(btn.get(1));
+            btnTheme.setIcon(imgBtnTheme.get(1));
         } else {
-            btnTheme.setIcon(btn.get(4));
+            btnTheme.setIcon(imgBtnTheme.get(4));
         }
     }//GEN-LAST:event_btnThemeMouseEntered
 
     private void btnThemeMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnThemeMouseExited
         if (!s.getAltTheme()) {
-            btnTheme.setIcon(btn.get(0));
+            btnTheme.setIcon(imgBtnTheme.get(0));
         } else {
-            btnTheme.setIcon(btn.get(3));
+            btnTheme.setIcon(imgBtnTheme.get(3));
         }
     }//GEN-LAST:event_btnThemeMouseExited
 
     private void btnThemeMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnThemeMousePressed
         if (!s.getAltTheme()) {
             s.setAltTheme(true);
-            easterEgg.setVisible(true);
-            btnTheme.setIcon(btn.get(2));
+            btnTheme.setIcon(imgBtnTheme.get(2));
         } else {
             s.setAltTheme(false);
-            easterEgg.setVisible(false);
-            btnTheme.setIcon(btn.get(5));
+            btnTheme.setIcon(imgBtnTheme.get(5));
         }
     }//GEN-LAST:event_btnThemeMousePressed
 
     private void btnThemeMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnThemeMouseReleased
         if (!s.getAltTheme()) {
-            btnTheme.setIcon(btn.get(1));
+            easterEgg.setVisible(false);
+            btnTheme.setIcon(imgBtnTheme.get(1));
         } else {
-            btnTheme.setIcon(btn.get(4));
-        }        
+            easterEgg.setVisible(true);
+            btnTheme.setIcon(imgBtnTheme.get(4));
+        }
     }//GEN-LAST:event_btnThemeMouseReleased
+
+    private void btnResetMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnResetMouseEntered
+        btnReset.setIcon(imgBtnReset.get(1));
+    }//GEN-LAST:event_btnResetMouseEntered
+
+    private void btnResetMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnResetMouseExited
+        btnReset.setIcon(imgBtnReset.get(0));
+    }//GEN-LAST:event_btnResetMouseExited
+
+    private void btnResetMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnResetMousePressed
+        btnReset.setIcon(imgBtnReset.get(2));
+    }//GEN-LAST:event_btnResetMousePressed
+
+    private void btnResetMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnResetMouseReleased
+        btnReset.setIcon(imgBtnReset.get(1));
+    }//GEN-LAST:event_btnResetMouseReleased
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel btnAbout;
     private javax.swing.JLabel btnClose;
     private javax.swing.JLabel btnFile;
     private javax.swing.JLabel btnMinimize;
+    private javax.swing.JLabel btnRecord;
+    private javax.swing.JLabel btnReset;
     private javax.swing.JLabel btnTheme;
     private javax.swing.JLabel easterEgg;
     private javax.swing.JLabel exitGame;
     private javax.swing.JLabel frameBackground;
     private javax.swing.JLabel frameDrag;
     private javax.swing.JLabel goBack;
+    private javax.swing.JLabel lblRecord;
     private javax.swing.JLabel logoImg;
     private javax.swing.JLabel menuDropdown;
     // End of variables declaration//GEN-END:variables

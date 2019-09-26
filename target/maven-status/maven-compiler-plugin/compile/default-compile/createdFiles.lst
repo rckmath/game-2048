@@ -1,5 +1,8 @@
 com\engcomp2019\gui\GUI_Config$4.class
 com\engcomp2019\gui\GUI_Game$6.class
+com\engcomp2019\gui\GUI_RestartConfirm.class
+com\engcomp2019\gui\GUI_Config$11.class
+com\engcomp2019\gui\GUI_Game$15.class
 com\engcomp2019\gui\GUI_MainMenu$11.class
 com\engcomp2019\gui\GUI_AboutUs$3.class
 com\engcomp2019\gui\GUI_EasterEgg$7.class
@@ -51,7 +54,6 @@ com\engcomp2019\gui\GUI_MainMenu$2.class
 com\engcomp2019\audio\Audio.class
 com\engcomp2019\core\DragTile.class
 com\engcomp2019\gui\GUI_Config$6.class
-com\engcomp2019\core\Game.class
 com\engcomp2019\gui\GUI_Config$3.class
 com\engcomp2019\gui\GUI_Game$4.class
 com\engcomp2019\gui\GUI_AboutUs$4.class
@@ -60,7 +62,6 @@ com\engcomp2019\gui\GUI_Config$10.class
 com\engcomp2019\gui\GUI_Exit.class
 com\engcomp2019\gui\GUI_Game$7.class
 com\engcomp2019\gui\GUI_EasterEgg.class
-com\engcomp2019\core\Tiles.class
 com\engcomp2019\gui\GUI_EasterEgg$3.class
 com\engcomp2019\core\Close.class
 com\engcomp2019\gui\GUI_Game$11.class
@@ -70,11 +71,13 @@ com\engcomp2019\gui\GUI_MainMenu$10.class
 com\engcomp2019\gui\GUI_EasterEgg$6.class
 com\engcomp2019\gui\GUI_MainConfirm$5.class
 com\engcomp2019\gui\GUI_MainMenu$8.class
+com\engcomp2019\gui\GUI_RestartConfirm$1.class
 com\engcomp2019\core\Session.class
 com\engcomp2019\gui\GUI_Exit$5.class
 com\engcomp2019\gui\GUI_Game$3.class
 com\engcomp2019\gui\GUI_EasterEgg$10.class
 com\engcomp2019\prj2048\Splash$1.class
+com\engcomp2019\gui\GUI_Game$14.class
 com\engcomp2019\gui\GUI_Exit$2.class
 com\engcomp2019\gui\GUI_MainMenu$1.class
 com\engcomp2019\gui\GUI_Config$7.class

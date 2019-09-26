@@ -15,7 +15,6 @@ import org.netbeans.lib.awtextra.AbsoluteConstraints;
 public class GUI_MainMenu extends JFrame {
 
     private final ImageIcon imgFrame = new ImageIcon("imgs/frames/frameBackground.png");
-    private final ImageIcon imgLogoG = new ImageIcon("imgs/elements/gameLogo.png");
     private final ImageIcon imgMenu = new ImageIcon("imgs/elements/mainMenuDropdown.png");
     private final ImageIcon imgLeoHead = new ImageIcon("imgs/easteregg/leoHeadDance.gif");
     private final ArrayList<ImageIcon> imgBtnStart = new ArrayList<>();
@@ -26,14 +25,19 @@ public class GUI_MainMenu extends JFrame {
     private Boolean menuActive = true;
     private final Session s;
     private int gameSize = 1;
-
+    
+    /**
+     * Inicializa e instancia a tela principal
+     * 
+     * @param s Mantém a sessão inicializada
+     */
     public GUI_MainMenu(Session s) {
         this.s = s;
 
         // Propriedades da janela e inicialização dos componentes
         initComponents();
-        setResizable(false);
-        setLocationRelativeTo(null);
+        this.setResizable(false);
+        this.setLocationRelativeTo(null);
 
         menuItems = new ArrayList<JLabel>() {
             {
@@ -47,7 +51,7 @@ public class GUI_MainMenu extends JFrame {
         menuActive = close.menu(0, menuActive, menuDropdown, menuItems);
 
         easterEgg.setIcon(imgLeoHead);
-        add(easterEgg, new AbsoluteConstraints(740, 510, -1, -1));
+        this.add(easterEgg, new AbsoluteConstraints(740, 50, -1, -1));
         easterEgg.setVisible(false);
 
         if (s.getAltTheme()) {
@@ -66,20 +70,17 @@ public class GUI_MainMenu extends JFrame {
         imgBtnGameS.add(new ImageIcon("imgs/buttons/btn4x4Pressed.png"));
 
         menuDropdown.setIcon(imgMenu);
-        add(menuDropdown, new AbsoluteConstraints(39, 20, -1, -1));
+        this.add(menuDropdown, new AbsoluteConstraints(39, 20, -1, -1));
         menuDropdown.setVisible(false);
 
         btnGameSize.setIcon(imgBtnGameS.get(0));
-        add(btnGameSize, new AbsoluteConstraints(210, 190, -1, -1));
+        this.add(btnGameSize, new AbsoluteConstraints(210, 155, -1, -1));
 
         btnStart.setIcon(imgBtnStart.get(0));
-        add(btnStart, new AbsoluteConstraints(210, 320, -1, -1));
-
-        logoImg.setIcon(imgLogoG);
-        add(logoImg, new AbsoluteConstraints(-31, 31, -1, -1));
+        this.add(btnStart, new AbsoluteConstraints(210, 295, -1, -1));
 
         frameBackground.setIcon(imgFrame);
-        add(frameBackground, new AbsoluteConstraints(0, 0, -1, -1));
+        this.add(frameBackground, new AbsoluteConstraints(0, 0, -1, -1));
     }
 
     @SuppressWarnings("unchecked")
@@ -90,7 +91,6 @@ public class GUI_MainMenu extends JFrame {
         configGame = new javax.swing.JLabel();
         newGame = new javax.swing.JLabel();
         menuDropdown = new javax.swing.JLabel();
-        logoImg = new javax.swing.JLabel();
         btnMinimize = new javax.swing.JLabel();
         btnClose = new javax.swing.JLabel();
         btnFile = new javax.swing.JLabel();
@@ -127,7 +127,6 @@ public class GUI_MainMenu extends JFrame {
         getContentPane().add(configGame, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 40, 130, 18));
         getContentPane().add(newGame, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 20, 130, 18));
         getContentPane().add(menuDropdown, new org.netbeans.lib.awtextra.AbsoluteConstraints(39, 20, 130, 57));
-        getContentPane().add(logoImg, new org.netbeans.lib.awtextra.AbsoluteConstraints(-31, 31, -1, -1));
 
         btnMinimize.setBackground(new java.awt.Color(255, 255, 255));
         btnMinimize.setForeground(new java.awt.Color(255, 255, 255));
@@ -178,7 +177,6 @@ public class GUI_MainMenu extends JFrame {
         });
         getContentPane().add(frameDrag, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 800, 18));
 
-        btnGameSize.setIcon(new javax.swing.ImageIcon("C:\\Users\\erick\\Documents\\NetBeansProjects\\prj2048\\imgs\\buttons\\btn3x3Def.png")); // NOI18N
         btnGameSize.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         btnGameSize.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseEntered(java.awt.event.MouseEvent evt) {
@@ -196,7 +194,6 @@ public class GUI_MainMenu extends JFrame {
         });
         getContentPane().add(btnGameSize, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 190, -1, -1));
 
-        btnStart.setIcon(new javax.swing.ImageIcon("C:\\Users\\erick\\Documents\\NetBeansProjects\\prj2048\\imgs\\buttons\\btnDefault.png")); // NOI18N
         btnStart.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         btnStart.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseEntered(java.awt.event.MouseEvent evt) {
@@ -213,10 +210,9 @@ public class GUI_MainMenu extends JFrame {
             }
         });
         getContentPane().add(btnStart, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 320, -1, -1));
-        getContentPane().add(easterEgg, new org.netbeans.lib.awtextra.AbsoluteConstraints(740, 510, 30, 30));
+        getContentPane().add(easterEgg, new org.netbeans.lib.awtextra.AbsoluteConstraints(740, 50, 30, 30));
 
         frameBackground.setBackground(new java.awt.Color(0, 0, 0));
-        frameBackground.setIcon(new javax.swing.ImageIcon("C:\\Users\\erick\\Documents\\NetBeansProjects\\prj2048\\imgs\\frames\\frameBackground.png")); // NOI18N
         frameBackground.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         frameBackground.setPreferredSize(new java.awt.Dimension(800, 576));
         getContentPane().add(frameBackground, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
@@ -354,7 +350,6 @@ public class GUI_MainMenu extends JFrame {
     private javax.swing.JLabel exitGame;
     private javax.swing.JLabel frameBackground;
     private javax.swing.JLabel frameDrag;
-    private javax.swing.JLabel logoImg;
     private javax.swing.JLabel menuDropdown;
     private javax.swing.JLabel newGame;
     // End of variables declaration//GEN-END:variables

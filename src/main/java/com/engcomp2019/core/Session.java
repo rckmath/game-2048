@@ -48,8 +48,10 @@ public class Session extends Engine {
     public void setAltTheme(Boolean alternateTheme) {
         this.altTheme = alternateTheme;
     }
-    
+
     // Outros
+    
+    // Inicializa a sessão zerada
     public void initializeSession() {
         if (this.altTheme == null) {
             this.altTheme = false;
