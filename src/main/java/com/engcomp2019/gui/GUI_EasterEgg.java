@@ -24,7 +24,7 @@ public class GUI_EasterEgg extends javax.swing.JFrame {
     private final ArrayList<JLabel> menuItems;
     private final ArrayList<JLabel> leoHeads = new ArrayList<>();
     private Boolean menuActive = true;
-    protected Audio a = new Audio();
+    private final Audio a = new Audio();
     private final Session s;
 
     public GUI_EasterEgg(Session s) {
@@ -42,7 +42,7 @@ public class GUI_EasterEgg extends javax.swing.JFrame {
             }
         };
 
-        a.play("src/main/java/com/engcomp2019/audio/leoMusic.wav");
+        a.play("src/main/java/com/engcomp2019/audio/easterEggMusic.wav");
 
         // Para inicializar as opções de menu desativadas
         menuActive = close.menu(0, menuActive, menuDropdown, menuItems);

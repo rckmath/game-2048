@@ -23,7 +23,7 @@ public class GUI_Game extends javax.swing.JFrame {
     private final DragWindow drag = new DragWindow();
     private final Close close = new Close();
     private Boolean menuActive = true;
-    protected Audio a = new Audio();
+    private final Audio a = new Audio();
     private final Session s;
 
     /**
@@ -33,6 +33,7 @@ public class GUI_Game extends javax.swing.JFrame {
      */
     public GUI_Game(Session s) {
         this.s = s;
+        s.tileSpawn();
         s.tileSpawn();
         s.printGameBoard();
         s.setRoundScore(0);
@@ -49,15 +50,15 @@ public class GUI_Game extends javax.swing.JFrame {
             }
         };
 
-        a.play("src/main/java/com/engcomp2019/audio/gameMusic.wav");
-        
         lblScore.setText(String.format("%06d%n", s.getRoundScore()));
         lblRecord.setText(String.format("%06d%n", s.getRecordScore()));
 
         // Define as tiles de acordo com o status do tema
         if (!s.getAltTheme()) {
+            a.play("src/main/java/com/engcomp2019/audio/gameMusic.wav");
             imgTileDef = new ImageIcon("imgs/tiles/def.png");
         } else {
+            a.play("src/main/java/com/engcomp2019/audio/leoMusic.wav");
             imgTileDef = new ImageIcon("imgs/tiles/leo.gif");
         }
 
@@ -108,6 +109,11 @@ public class GUI_Game extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setName("frameGame"); // NOI18N
         setUndecorated(true);
+        addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseReleased(java.awt.event.MouseEvent evt) {
+                formMouseReleased(evt);
+            }
+        });
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowClosed(java.awt.event.WindowEvent evt) {
                 formWindowClosed(evt);
@@ -177,9 +183,11 @@ public class GUI_Game extends javax.swing.JFrame {
         getContentPane().add(btnClose, new org.netbeans.lib.awtextra.AbsoluteConstraints(768, 7, 24, 24));
 
         lblRecord.setFont(new java.awt.Font("Dialog", 1, 24)); // NOI18N
+        lblRecord.setForeground(new java.awt.Color(77, 77, 77));
         getContentPane().add(lblRecord, new org.netbeans.lib.awtextra.AbsoluteConstraints(668, 265, -1, -1));
 
         lblScore.setFont(new java.awt.Font("Dialog", 1, 24)); // NOI18N
+        lblScore.setForeground(new java.awt.Color(77, 77, 77));
         getContentPane().add(lblScore, new org.netbeans.lib.awtextra.AbsoluteConstraints(668, 150, -1, -1));
 
         padU.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -263,13 +271,13 @@ public class GUI_Game extends javax.swing.JFrame {
     }//GEN-LAST:event_btnFileMouseReleased
 
     private void frameDragMouseDragged(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_frameDragMouseDragged
-        menuActive = close.menu(0, menuActive, menuDropdown, menuItems);
         drag.setCoordenates(evt);
         drag.setFrame(this);
         drag.setCoord();
     }//GEN-LAST:event_frameDragMouseDragged
 
     private void frameDragMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_frameDragMousePressed
+        menuActive = close.menu(0, menuActive, menuDropdown, menuItems);
         frameDrag.setCursor(new java.awt.Cursor(java.awt.Cursor.MOVE_CURSOR));
         drag.setMouseCoordenates(evt);
     }//GEN-LAST:event_frameDragMousePressed
@@ -339,6 +347,10 @@ public class GUI_Game extends javax.swing.JFrame {
         frameConfirm = new GUI_RestartConfirm(this, s);
         frameConfirm.setVisible(true);
     }//GEN-LAST:event_newGameMouseReleased
+
+    private void formMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_formMouseReleased
+        menuActive = close.menu(0, menuActive, menuDropdown, menuItems);
+    }//GEN-LAST:event_formMouseReleased
 
     // Gera as tiles nas respectivas posições
     private void gerarTiles() {

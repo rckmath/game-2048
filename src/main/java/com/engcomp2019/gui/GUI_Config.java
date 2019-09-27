@@ -4,6 +4,7 @@ import com.engcomp2019.core.*;
 import java.awt.Frame;
 import java.util.ArrayList;
 import javax.swing.ImageIcon;
+import javax.swing.JFrame;
 import javax.swing.JLabel;
 import org.netbeans.lib.awtextra.AbsoluteConstraints;
 
@@ -24,15 +25,16 @@ public class GUI_Config extends javax.swing.JFrame {
     private final ArrayList<JLabel> menuItems;
     private Boolean menuActive = true;
     protected final Session s;
+    private final JFrame previousFrame;
 
     /**
      * Inicializa e instancia a tela de configurações
      *
      * @param s Mantém a sessão inicializada
      */
-    public GUI_Config(Session s) {
+    public GUI_Config(JFrame pPreviousFrame, Session s) {
         this.s = s;
-
+        this.previousFrame = pPreviousFrame;
         // Propriedades da janela e inicialização dos componentes
         initComponents();
         this.setResizable(false);
@@ -267,8 +269,10 @@ public class GUI_Config extends javax.swing.JFrame {
 
     private void goBackMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_goBackMouseReleased
         this.dispose();
-        GUI_MainMenu mainMenu = new GUI_MainMenu(s);
-        mainMenu.setVisible(true);
+        //GUI_MainMenu mainMenu = new GUI_MainMenu(s);
+        //mainMenu.setVisible(true);
+        previousFrame.setVisible(true);
+        previousFrame.setEnabled(true);
     }//GEN-LAST:event_goBackMouseReleased
 
     private void exitGameMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_exitGameMouseReleased

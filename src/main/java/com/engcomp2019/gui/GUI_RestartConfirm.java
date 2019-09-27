@@ -163,16 +163,7 @@ public class GUI_RestartConfirm extends javax.swing.JFrame {
             try {
                 previousFrame.dispose();
                 this.dispose();
-                GUI_Game game;
-
-                Session session = new Session(s.getBoardSize() - 2);
-                session.setAltTheme(s.getAltTheme());
-                session.setGameStatus(s.getGameStatus());
-                session.setRecordScore(s.getRecordScore());
-                session.setRoundScore(0);
-
-                game = new GUI_Game(session);
-                game.setVisible(true);
+                s.newGame(s, true);
             } catch (Exception ex) {
                 System.err.println("ERRO: " + ex);
             }

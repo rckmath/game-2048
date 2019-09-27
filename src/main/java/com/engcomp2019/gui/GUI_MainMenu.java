@@ -1,5 +1,6 @@
 package com.engcomp2019.gui;
 
+import com.engcomp2019.audio.Audio;
 import com.engcomp2019.core.*;
 import java.awt.Frame;
 import java.util.ArrayList;
@@ -24,6 +25,7 @@ public class GUI_MainMenu extends JFrame {
     private final ArrayList<JLabel> menuItems;
     private Boolean menuActive = true;
     private final Session s;
+    private final Audio a = new Audio();
     private int gameSize = 1;
 
     /**
@@ -46,6 +48,8 @@ public class GUI_MainMenu extends JFrame {
                 add(configGame);
             }
         };
+
+        a.play("src/main/java/com/engcomp2019/audio/menuMusic.wav");
 
         // Para inicializar as opções de menu desativadas
         menuActive = close.menu(0, menuActive, menuDropdown, menuItems);
@@ -108,6 +112,13 @@ public class GUI_MainMenu extends JFrame {
         addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseReleased(java.awt.event.MouseEvent evt) {
                 formMouseReleased(evt);
+            }
+        });
+        addWindowFocusListener(new java.awt.event.WindowFocusListener() {
+            public void windowGainedFocus(java.awt.event.WindowEvent evt) {
+                formWindowGainedFocus(evt);
+            }
+            public void windowLostFocus(java.awt.event.WindowEvent evt) {
             }
         });
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -236,13 +247,13 @@ public class GUI_MainMenu extends JFrame {
     }//GEN-LAST:event_btnMinimizeMouseReleased
 
     private void frameDragMouseDragged(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_frameDragMouseDragged
-        menuActive = close.menu(0, menuActive, menuDropdown, menuItems);
         drag.setCoordenates(evt);
         drag.setFrame(this);
         drag.setCoord();
     }//GEN-LAST:event_frameDragMouseDragged
 
     private void frameDragMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_frameDragMousePressed
+        menuActive = close.menu(0, menuActive, menuDropdown, menuItems);
         frameDrag.setCursor(new java.awt.Cursor(java.awt.Cursor.MOVE_CURSOR));
         drag.setMouseCoordenates(evt);
     }//GEN-LAST:event_frameDragMousePressed
@@ -262,16 +273,9 @@ public class GUI_MainMenu extends JFrame {
     private void btnStartMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnStartMouseReleased
         try {
             btnStart.setIcon(imgBtnStart.get(1));
+            a.stop();
             this.dispose();
-            GUI_Game game;
-            Session session = new Session(gameSize);
-            session.setAltTheme(s.getAltTheme());
-            session.setGameStatus(s.getGameStatus());
-            session.setRecordScore(s.getRecordScore());
-            session.setRoundScore(s.getRoundScore());
-
-            game = new GUI_Game(session);
-            game.setVisible(true);
+            s.newGame(s, false);
         } catch (Exception ex) {
             System.err.println("ERRO: " + ex);
         }
@@ -304,7 +308,7 @@ public class GUI_MainMenu extends JFrame {
     private void configGameMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_configGameMouseReleased
         menuActive = close.menu(0, menuActive, menuDropdown, menuItems);
         this.dispose();
-        GUI_Config frameConfig = new GUI_Config(s);
+        GUI_Config frameConfig = new GUI_Config(this, s);
         frameConfig.setVisible(true);
     }//GEN-LAST:event_configGameMouseReleased
 
@@ -344,16 +348,17 @@ public class GUI_MainMenu extends JFrame {
 
     private void newGameMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_newGameMouseReleased
         this.dispose();
-        GUI_Game game;
-        Session session = new Session(gameSize);
-        session.setAltTheme(s.getAltTheme());
-        session.setGameStatus(s.getGameStatus());
-        session.setRecordScore(s.getRecordScore());
-        session.setRoundScore(s.getRoundScore());
-
-        game = new GUI_Game(session);
-        game.setVisible(true);
+        a.stop();
+        s.newGame(s, false);
     }//GEN-LAST:event_newGameMouseReleased
+
+    private void formWindowGainedFocus(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowGainedFocus
+        if (s.getAltTheme()) {
+            easterEgg.setVisible(true);
+        } else {
+            easterEgg.setVisible(false);
+        }
+    }//GEN-LAST:event_formWindowGainedFocus
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel btnAbout;

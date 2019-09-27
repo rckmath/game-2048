@@ -47,6 +47,7 @@ com\engcomp2019\gui\GUI_MainMenu$6.class
 com\engcomp2019\gui\GUI_Game$10.class
 com\engcomp2019\gui\GUI_EasterEgg$9.class
 com\engcomp2019\gui\GUI_Game$1.class
+com\engcomp2019\gui\GUI_Game$17.class
 com\engcomp2019\gui\GUI_MainMenu.class
 com\engcomp2019\gui\GUI_AboutUs$1.class
 com\engcomp2019\gui\GUI_MainConfirm$4.class
@@ -72,6 +73,7 @@ com\engcomp2019\gui\GUI_EasterEgg.class
 com\engcomp2019\gui\GUI_EasterEgg$3.class
 com\engcomp2019\core\Close.class
 com\engcomp2019\gui\GUI_Game$11.class
+com\engcomp2019\gui\GUI_MainMenu$14.class
 com\engcomp2019\core\Drag.class
 com\engcomp2019\gui\GUI_AboutUs$2.class
 com\engcomp2019\gui\GUI_MainMenu$10.class
