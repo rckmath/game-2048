@@ -86,4 +86,238 @@ public class Engine {
             System.err.println("ERRO: " + e);
         }
     }
+
+        // Funcoes de movimentos
+    
+    public void moveRight() {
+        int flag = 0;
+        int[] vetPos = new int[boardSize];  // Vetor utilizado para guardar posicoes
+        int contVet = 0;                    // que nao podem ser movidas novamente
+
+        for (int i = 0; i < boardSize; i++) {
+            contVet = 0;
+            // Zerar o vetor de posicoes 
+            for (int z = 0; z < boardSize; z++) {
+                vetPos[z] = 0;
+            }
+            for (int v = 0; v < 3; v++) {
+                for (int j = 3; j > 0; j--) {
+                    flag = 0;
+
+                    // Se for igual, soma/junta
+                    if ((gameBoard[i][j]) == (gameBoard[i][j - 1])) {
+                        for (int k = 0; k < boardSize; k++) {
+                            if (vetPos[k] == j) {
+                                flag = 1;
+                            }
+                        }
+                        if (flag == 0) {
+                            gameBoard[i][j] = (gameBoard[i][j]) * 2;	// Junta/soma
+                            gameBoard[i][j - 1] = 0;	// Zera o outro
+                            vetPos[contVet] = j;   // Guarda a posicao para nao juntar novamente
+                            contVet++;
+                        }
+                    }
+
+                    // Se for vazio, passa para a direita
+                    if (((gameBoard[i][j]) == 0) && ((gameBoard[i][j - 1]) != 0)) {
+                        gameBoard[i][j] = gameBoard[i][j - 1];  // Passa pro lado direito
+                        gameBoard[i][j - 1] = 0;    // Zera o outro
+                        // Setar valor no bloco grafico
+                    }
+                }
+            }
+        }
+
+        // Printar matriz para teste
+        for (int i = 0; i < 4; i++) {
+            System.out.println("\n");
+            for (int j = 0; j < 4; j++) {
+                System.out.print(gameBoard[i][j]);
+            }
+        }
+
+    }
+
+    public void moveLeft() {
+        int flag = 0;
+        int[] vetPos = new int[boardSize];  // Vetor utilizado para guardar posicoes
+        int contVet = 0;                    // que nao podem ser movidas novamente
+
+        for (int i = 0; i < boardSize; i++) {
+            contVet = 0;
+            // Zerar o vetor de posicoes 
+            for (int z = 0; z < boardSize; z++) {
+                vetPos[z] = 0;
+            }
+            for (int v = 0; v < 3; v++) {
+                for (int j = 0; j < 3; j++) {
+                    flag = 0;
+
+                    // Se for igual, soma/junta
+                    if ((gameBoard[i][j]) == (gameBoard[i][j + 1])) {
+                        for (int k = 0; k < boardSize; k++) {
+                            if (vetPos[k] == j) {
+                                flag = 1;
+                            }
+                        }
+                        if (flag == 0) {
+                            gameBoard[i][j] = (gameBoard[i][j]) * 2;    // Junta/soma
+                            gameBoard[i][j + 1] = 0;    // Zera o outro
+                            vetPos[contVet] = j;    // Guarda a posicao para nao juntar novamente
+                            contVet++;
+                        }
+                    }
+
+                    // Se for vazio, passa para a esquerda
+                    if (((gameBoard[i][j]) == 0) && ((gameBoard[i][j + 1]) != 0)) {
+                        gameBoard[i][j] = gameBoard[i][j + 1];  // Passa pro lado esquerdo
+                        gameBoard[i][j + 1] = 0;    // Zera o outro
+                        //  Setar valor no bloco grafico
+                    }
+                }
+            }
+        }
+
+        // Printar matriz para teste
+        for (int i = 0; i < 4; i++) {
+            System.out.println("\n");
+            for (int j = 0; j < 4; j++) {
+                System.out.print(gameBoard[i][j]);
+            }
+        }
+
+    }
+
+    public void moveUp() {
+        int flag = 0, flag0 = 0, flag1 = 0, flag2 = 0, flag3 = 0;
+
+        for (int j = 0; j < 4; j++) {
+            // Zerar as flags
+            flag0 = 0;  // Cada flag é utilizada
+            flag1 = 0;  // para verificar se já foi feita
+            flag2 = 0;  // a junção naquela posição
+            flag3 = 0;
+            for (int v = 0; v < boardSize; v++) {
+                for (int i = 0; i < 3; i++) {
+                    flag = 0;
+                    // Se for igual, soma
+                    if ((gameBoard[i][j]) == (gameBoard[i + 1][j])) {
+                        if (flag0 == 1) {
+                            flag = 1;
+                        }
+                        if (flag1 == 1) {
+                            flag = 1;
+                        }
+                        if (flag2 == 1) {
+                            flag = 1;
+                        }
+                        if (flag3 == 1) {
+                            flag = 1;
+                        }
+
+                        if (flag == 0) {
+                            gameBoard[i][j] = (gameBoard[i][j]) * 2;	// Junta/soma
+                            gameBoard[i + 1][j] = 0;	// Zera o outro
+                            /* Vê em qual posicao ja foi feita uma junção
+                            para não repeti-la novamente */
+                            if (i == 0) {
+                                flag0 = 1;
+                            }
+                            if (i == 1) {
+                                flag1 = 1;
+                            }
+                            if (i == 2) {
+                                flag2 = 1;
+                            }
+                            if (i == 3) {
+                                flag3 = 1;
+                            }
+                        }
+                    }
+
+                    // Se for vazio, passa para cima
+                    if (((gameBoard[i][j]) == 0) && ((gameBoard[i + 1][j]) != 0)) {
+                        gameBoard[i][j] = gameBoard[i + 1][j];  // Passa pra cima
+                        gameBoard[i + 1][j] = 0;    // Zera o outro
+                    }
+                }
+            }
+        }
+
+        // Printar matriz para teste
+        for (int i = 0; i < 4; i++) {
+            System.out.println("\n");
+            for (int j = 0; j < 4; j++) {
+                System.out.print(" " + gameBoard[i][j]);
+            }
+        }
+
+    }
+
+    public void moveDown() {
+        int flag = 0, flag0 = 0, flag1 = 0, flag2 = 0, flag3 = 0;
+
+        for (int j = 0; j < 4; j++) {
+            // Zerar as flags
+            flag0 = 0;  // Cada flag é utilizada
+            flag1 = 0;  // para verificar se já foi feita
+            flag2 = 0;  // a junção naquela posição
+            flag3 = 0;
+            for (int v = 0; v < boardSize; v++) {
+                for (int i = 0; i < 3; i++) {
+                    flag = 0;
+                    // Se for igual, soma
+                    if ((gameBoard[i][j]) == (gameBoard[i + 1][j])) {
+                        if (flag0 == 1) {
+                            flag = 1;
+                        }
+                        if (flag1 == 1) {
+                            flag = 1;
+                        }
+                        if (flag2 == 1) {
+                            flag = 1;
+                        }
+                        if (flag3 == 1) {
+                            flag = 1;
+                        }
+
+                        if (flag == 0) {
+                            gameBoard[i + 1][j] = (gameBoard[i + 1][j]) * 2;    // Junta/soma
+                            gameBoard[i][j] = 0;    // Zera o outro
+                            /* Salva em qual posição já foi feita uma juncao
+                            para não repeti-la novamente */
+                            if (i == 0) {
+                                flag0 = 1;
+                            }
+                            if (i == 1) {
+                                flag1 = 1;
+                            }
+                            if (i == 2) {
+                                flag2 = 1;
+                            }
+                            if (i == 3) {
+                                flag3 = 1;
+                            }
+                        }
+                    }
+
+                    // Se for vazio, passa pra baixo
+                    if (((gameBoard[i + 1][j]) == 0) && ((gameBoard[i][j]) != 0)) {
+                        gameBoard[i + 1][j] = gameBoard[i][j];  // Passa pra baixo
+                        gameBoard[i][j] = 0;    // Zera o outro
+                    }
+                }
+            }
+        }
+
+        // Printar matriz para teste
+        for (int i = 0; i < 4; i++) {
+            System.out.println("\n");
+            for (int j = 0; j < 4; j++) {
+                System.out.print(" " + gameBoard[i][j]);
+            }
+        }
+
+    }
 }

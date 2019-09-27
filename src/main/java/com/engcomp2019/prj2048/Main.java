@@ -12,7 +12,7 @@ import javax.swing.JFrame;
 public class Main {
 
     public  Session s;
-
+    
     public static void main(String arg[]) {
         Main m = new Main(new Session(1));
     }
@@ -23,17 +23,16 @@ public class Main {
         this.s = s;
         this.s.initializeSession();
         Splash splash = new Splash(s);
-
         // Propriedades da nossa janela splash (tamanho, etc)
         splash.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         splash.setSize(580, 150);
         splash.setUndecorated(true);
         splash.setLocationRelativeTo(null);
         splash.setVisible(true);
-
+        
         // Sleep de 2,475 segundos
         try {
-            Thread.sleep(0);
+            Thread.sleep(2,475);
         } catch (InterruptedException ex) {
             System.err.println("ERRO: " + ex);
         }
