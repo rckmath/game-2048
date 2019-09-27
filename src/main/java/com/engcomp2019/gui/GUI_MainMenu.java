@@ -26,7 +26,7 @@ public class GUI_MainMenu extends JFrame {
     private Boolean menuActive = true;
     private final Session s;
     private final Audio a = new Audio();
-    private int gameSize = 1;
+    private int gameBoardSize = 1;
 
     /**
      * Inicializa e instancia a tela principal
@@ -275,6 +275,7 @@ public class GUI_MainMenu extends JFrame {
             btnStart.setIcon(imgBtnStart.get(1));
             a.stop();
             this.dispose();
+            start();
             s.newGame(s, false);
         } catch (Exception ex) {
             System.err.println("ERRO: " + ex);
@@ -313,7 +314,7 @@ public class GUI_MainMenu extends JFrame {
     }//GEN-LAST:event_configGameMouseReleased
 
     private void btnGameSizeMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnGameSizeMouseEntered
-        if (gameSize == 1) {
+        if (gameBoardSize == 1) {
             btnGameSize.setIcon(imgBtnGameS.get(1));
         } else {
             btnGameSize.setIcon(imgBtnGameS.get(4));
@@ -321,7 +322,7 @@ public class GUI_MainMenu extends JFrame {
     }//GEN-LAST:event_btnGameSizeMouseEntered
 
     private void btnGameSizeMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnGameSizeMouseExited
-        if (gameSize == 1) {
+        if (gameBoardSize == 1) {
             btnGameSize.setIcon(imgBtnGameS.get(0));
         } else {
             btnGameSize.setIcon(imgBtnGameS.get(3));
@@ -329,17 +330,17 @@ public class GUI_MainMenu extends JFrame {
     }//GEN-LAST:event_btnGameSizeMouseExited
 
     private void btnGameSizeMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnGameSizeMousePressed
-        if (gameSize == 1) {
-            gameSize = 0;
+        if (gameBoardSize == 1) {
+            gameBoardSize = 0;
             btnGameSize.setIcon(imgBtnGameS.get(2));
         } else {
-            gameSize = 1;
+            gameBoardSize = 1;
             btnGameSize.setIcon(imgBtnGameS.get(5));
         }
     }//GEN-LAST:event_btnGameSizeMousePressed
 
     private void btnGameSizeMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnGameSizeMouseReleased
-        if (gameSize == 1) {
+        if (gameBoardSize == 1) {
             btnGameSize.setIcon(imgBtnGameS.get(1));
         } else {
             btnGameSize.setIcon(imgBtnGameS.get(4));
@@ -349,6 +350,7 @@ public class GUI_MainMenu extends JFrame {
     private void newGameMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_newGameMouseReleased
         this.dispose();
         a.stop();
+        start();
         s.newGame(s, false);
     }//GEN-LAST:event_newGameMouseReleased
 
@@ -360,6 +362,13 @@ public class GUI_MainMenu extends JFrame {
         }
     }//GEN-LAST:event_formWindowGainedFocus
 
+    private void start() {
+        if (gameBoardSize == 1) {
+            s.setBoardSize(3);
+        } else {
+            s.setBoardSize(4);
+        }
+    }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel btnAbout;
     private javax.swing.JLabel btnClose;

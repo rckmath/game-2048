@@ -89,9 +89,9 @@ public class Engine {
 
     // Funcoes de movimentos
     public void moveRight() {
-        int flag = 0;
+        int flag;
         int[] vetPos = new int[boardSize];  // Vetor utilizado para guardar posicoes
-        int contVet = 0;                    // que nao podem ser movidas novamente
+        int contVet;                    // que nao podem ser movidas novamente
 
         for (int i = 0; i < boardSize; i++) {
             contVet = 0;
@@ -99,8 +99,8 @@ public class Engine {
             for (int z = 0; z < boardSize; z++) {
                 vetPos[z] = 0;
             }
-            for (int v = 0; v < 3; v++) {
-                for (int j = 3; j > 0; j--) {
+            for (int v = 0; v < boardSize-1; v++) {
+                for (int j = boardSize-1; j > 0; j--) {
                     flag = 0;
 
                     // Se for igual, soma/junta
@@ -140,8 +140,8 @@ public class Engine {
             for (int z = 0; z < boardSize; z++) {
                 vetPos[z] = 0;
             }
-            for (int v = 0; v < 3; v++) {
-                for (int j = 0; j < 3; j++) {
+            for (int v = 0; v < boardSize-1; v++) {
+                for (int j = 0; j < boardSize-1; j++) {
                     flag = 0;
 
                     // Se for igual, soma/junta
@@ -173,14 +173,14 @@ public class Engine {
     public void moveUp() {
         int flag = 0, flag0 = 0, flag1 = 0, flag2 = 0, flag3 = 0;
 
-        for (int j = 0; j < 4; j++) {
+        for (int j = 0; j < boardSize; j++) {
             // Zerar as flags
             flag0 = 0;  // Cada flag é utilizada
             flag1 = 0;  // para verificar se já foi feita
             flag2 = 0;  // a junção naquela posição
             flag3 = 0;
             for (int v = 0; v < boardSize; v++) {
-                for (int i = 0; i < 3; i++) {
+                for (int i = 0; i < boardSize-1; i++) {
                     flag = 0;
                     // Se for igual, soma
                     if ((gameBoard[i][j]) == (gameBoard[i + 1][j])) {
@@ -230,14 +230,14 @@ public class Engine {
     public void moveDown() {
         int flag = 0, flag0 = 0, flag1 = 0, flag2 = 0, flag3 = 0;
 
-        for (int j = 0; j < 4; j++) {
+        for (int j = 0; j < boardSize; j++) {
             // Zerar as flags
             flag0 = 0;  // Cada flag é utilizada
             flag1 = 0;  // para verificar se já foi feita
             flag2 = 0;  // a junção naquela posição
             flag3 = 0;
             for (int v = 0; v < boardSize; v++) {
-                for (int i = 0; i < 3; i++) {
+                for (int i = 0; i < boardSize-1; i++) {
                     flag = 0;
                     // Se for igual, soma
                     if ((gameBoard[i][j]) == (gameBoard[i + 1][j])) {

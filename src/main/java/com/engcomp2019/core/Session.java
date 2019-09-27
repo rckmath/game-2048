@@ -72,12 +72,7 @@ public class Session extends Engine {
     public void newGame(Session s, Boolean restart) {
         GUI_Game game;
         Session session;
-        if (restart) {
-            // s.getBoardSize() - 2 = Opcao p/ tamanho de jogo
-            session = new Session(s.getBoardSize() - 2);
-        } else {
-            session = new Session(s.getBoardSize());
-        }
+        session = new Session(s.getBoardSize() - 2); // Board size - 2 = Opção p/ board size
         session.setAltTheme(s.getAltTheme());
         session.setGameStatus(0);
         session.setRoundScore(0);

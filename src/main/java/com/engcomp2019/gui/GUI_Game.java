@@ -17,7 +17,8 @@ public class GUI_Game extends javax.swing.JFrame {
     private final ImageIcon imgFrame = new ImageIcon("imgs/frames/frameGame.png");
     private final ImageIcon imgMenu = new ImageIcon("imgs/elements/gameDropdown.png");
     private final ImageIcon imgTileDef;
-    private final ArrayList<ImageIcon> imgBtn = new ArrayList<>();
+    private final ArrayList<ImageIcon> imgPad = new ArrayList<>();
+    private final ArrayList<ImageIcon> imgBtnReset = new ArrayList<>();
     private final ArrayList<JLabel> gameTiles = new ArrayList<>();
     private final ArrayList<JLabel> menuItems;
     private final DragWindow drag = new DragWindow();
@@ -33,11 +34,11 @@ public class GUI_Game extends javax.swing.JFrame {
      */
     public GUI_Game(Session s) {
         this.s = s;
+        s.setRoundScore(0);
         s.tileSpawn();
         s.tileSpawn();
         s.printGameBoard();
-        s.setRoundScore(0);
-
+        
         initComponents();
         this.setResizable(false);
         this.setLocationRelativeTo(null);
@@ -67,13 +68,20 @@ public class GUI_Game extends javax.swing.JFrame {
         // Para inicializar as opções de menu desativadas
         menuActive = close.menu(0, menuActive, menuDropdown, menuItems);
 
-        imgBtn.add(new ImageIcon("imgs/buttons/pad/bntPadDef.png"));
-        imgBtn.add(new ImageIcon("imgs/buttons/pad/bntPadU.png"));
-        imgBtn.add(new ImageIcon("imgs/buttons/pad/bntPadD.png"));
-        imgBtn.add(new ImageIcon("imgs/buttons/pad/bntPadL.png"));
-        imgBtn.add(new ImageIcon("imgs/buttons/pad/bntPadR.png"));
+        imgPad.add(new ImageIcon("imgs/buttons/pad/bntPadDef.png"));
+        imgPad.add(new ImageIcon("imgs/buttons/pad/bntPadU.png"));
+        imgPad.add(new ImageIcon("imgs/buttons/pad/bntPadD.png"));
+        imgPad.add(new ImageIcon("imgs/buttons/pad/bntPadL.png"));
+        imgPad.add(new ImageIcon("imgs/buttons/pad/bntPadR.png"));
 
-        btnPad.setIcon(imgBtn.get(0));
+        imgBtnReset.add(new ImageIcon("imgs/buttons/btnResetDef.png"));
+        imgBtnReset.add(new ImageIcon("imgs/buttons/btnResetHov.png"));
+        imgBtnReset.add(new ImageIcon("imgs/buttons/btnResetPre.png"));
+
+        btnReset.setIcon(imgBtnReset.get(0));
+        this.add(btnReset, new AbsoluteConstraints(634, 417, -1, -1));
+
+        btnPad.setIcon(imgPad.get(0));
         this.add(btnPad, new AbsoluteConstraints(474, 252, -1, -1));
 
         menuDropdown.setIcon(imgMenu);
@@ -96,6 +104,7 @@ public class GUI_Game extends javax.swing.JFrame {
         btnFile = new javax.swing.JLabel();
         btnMinimize = new javax.swing.JLabel();
         btnClose = new javax.swing.JLabel();
+        btnReset = new javax.swing.JLabel();
         lblRecord = new javax.swing.JLabel();
         lblScore = new javax.swing.JLabel();
         padU = new javax.swing.JLabel();
@@ -181,6 +190,22 @@ public class GUI_Game extends javax.swing.JFrame {
             }
         });
         getContentPane().add(btnClose, new org.netbeans.lib.awtextra.AbsoluteConstraints(768, 7, 24, 24));
+
+        btnReset.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                btnResetMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                btnResetMouseExited(evt);
+            }
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                btnResetMousePressed(evt);
+            }
+            public void mouseReleased(java.awt.event.MouseEvent evt) {
+                btnResetMouseReleased(evt);
+            }
+        });
+        getContentPane().add(btnReset, new org.netbeans.lib.awtextra.AbsoluteConstraints(634, 447, -1, -1));
 
         lblRecord.setFont(new java.awt.Font("Dialog", 1, 24)); // NOI18N
         lblRecord.setForeground(new java.awt.Color(77, 77, 77));
@@ -305,11 +330,11 @@ public class GUI_Game extends javax.swing.JFrame {
     }//GEN-LAST:event_exitGameMouseReleased
 
     private void padUMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_padUMousePressed
-        btnPad.setIcon(imgBtn.get(1));
+        btnPad.setIcon(imgPad.get(1));
     }//GEN-LAST:event_padUMousePressed
 
     private void padUMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_padUMouseReleased
-        btnPad.setIcon(imgBtn.get(0));
+        btnPad.setIcon(imgPad.get(0));
     }//GEN-LAST:event_padUMouseReleased
 
     private void formWindowClosed(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosed
@@ -317,40 +342,53 @@ public class GUI_Game extends javax.swing.JFrame {
     }//GEN-LAST:event_formWindowClosed
 
     private void padDMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_padDMousePressed
-        btnPad.setIcon(imgBtn.get(2));
+        btnPad.setIcon(imgPad.get(2));
     }//GEN-LAST:event_padDMousePressed
 
     private void padDMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_padDMouseReleased
-        btnPad.setIcon(imgBtn.get(0));
+        btnPad.setIcon(imgPad.get(0));
     }//GEN-LAST:event_padDMouseReleased
 
     private void padLMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_padLMousePressed
-        btnPad.setIcon(imgBtn.get(3));
+        btnPad.setIcon(imgPad.get(3));
     }//GEN-LAST:event_padLMousePressed
 
     private void padLMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_padLMouseReleased
-        btnPad.setIcon(imgBtn.get(0));
+        btnPad.setIcon(imgPad.get(0));
     }//GEN-LAST:event_padLMouseReleased
 
     private void padRMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_padRMousePressed
-        btnPad.setIcon(imgBtn.get(4));
+        btnPad.setIcon(imgPad.get(4));
     }//GEN-LAST:event_padRMousePressed
 
     private void padRMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_padRMouseReleased
-        btnPad.setIcon(imgBtn.get(0));
+        btnPad.setIcon(imgPad.get(0));
     }//GEN-LAST:event_padRMouseReleased
 
     private void newGameMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_newGameMouseReleased
-        menuActive = close.menu(0, menuActive, menuDropdown, menuItems);
-        // Chamar frame para confirmar ação
-        GUI_RestartConfirm frameConfirm;
-        frameConfirm = new GUI_RestartConfirm(this, s);
-        frameConfirm.setVisible(true);
+        restart();
     }//GEN-LAST:event_newGameMouseReleased
 
     private void formMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_formMouseReleased
         menuActive = close.menu(0, menuActive, menuDropdown, menuItems);
     }//GEN-LAST:event_formMouseReleased
+
+    private void btnResetMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnResetMouseEntered
+        btnReset.setIcon(imgBtnReset.get(1));
+    }//GEN-LAST:event_btnResetMouseEntered
+
+    private void btnResetMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnResetMouseExited
+        btnReset.setIcon(imgBtnReset.get(0));
+    }//GEN-LAST:event_btnResetMouseExited
+
+    private void btnResetMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnResetMousePressed
+        btnReset.setIcon(imgBtnReset.get(2));
+    }//GEN-LAST:event_btnResetMousePressed
+
+    private void btnResetMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnResetMouseReleased
+        btnReset.setIcon(imgBtnReset.get(1));
+        restart();
+    }//GEN-LAST:event_btnResetMouseReleased
 
     // Gera as tiles nas respectivas posições
     private void gerarTiles() {
@@ -369,12 +407,21 @@ public class GUI_Game extends javax.swing.JFrame {
         }
     }
 
+    private void restart() {
+        menuActive = close.menu(0, menuActive, menuDropdown, menuItems);
+        // Chamar frame para confirmar ação
+        GUI_RestartConfirm frameConfirm;
+        frameConfirm = new GUI_RestartConfirm(this, s);
+        frameConfirm.setVisible(true);
+    }
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel btnAbout;
     private javax.swing.JLabel btnClose;
     private javax.swing.JLabel btnFile;
     private javax.swing.JLabel btnMinimize;
     private javax.swing.JLabel btnPad;
+    private javax.swing.JLabel btnReset;
     private javax.swing.JLabel exitGame;
     private javax.swing.JLabel frameBackground;
     private javax.swing.JLabel frameDrag;
