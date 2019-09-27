@@ -50,6 +50,9 @@ public class GUI_Game extends javax.swing.JFrame {
         };
 
         a.play("src/main/java/com/engcomp2019/audio/lavendertown.wav");
+        
+        lblScore.setText(String.format("%06d%n", s.getRoundScore()));
+        lblRecord.setText(String.format("%06d%n", s.getRecordScore()));
 
         // Define as tiles de acordo com o status do tema
         if (!s.getAltTheme()) {
@@ -57,11 +60,9 @@ public class GUI_Game extends javax.swing.JFrame {
         } else {
             imgTileDef = new ImageIcon("imgs/tiles/leo.gif");
         }
-        
-        
-        
+
         gerarTiles();
-        
+
         // Para inicializar as opções de menu desativadas
         menuActive = close.menu(0, menuActive, menuDropdown, menuItems);
 
@@ -72,7 +73,7 @@ public class GUI_Game extends javax.swing.JFrame {
         imgBtn.add(new ImageIcon("imgs/buttons/pad/bntPadR.png"));
 
         btnPad.setIcon(imgBtn.get(0));
-        this.add(btnPad, new AbsoluteConstraints(480, 252, -1, -1));
+        this.add(btnPad, new AbsoluteConstraints(474, 252, -1, -1));
 
         menuDropdown.setIcon(imgMenu);
         this.add(menuDropdown, new AbsoluteConstraints(39, 20, -1, -1));
@@ -94,6 +95,8 @@ public class GUI_Game extends javax.swing.JFrame {
         btnFile = new javax.swing.JLabel();
         btnMinimize = new javax.swing.JLabel();
         btnClose = new javax.swing.JLabel();
+        lblRecord = new javax.swing.JLabel();
+        lblScore = new javax.swing.JLabel();
         padU = new javax.swing.JLabel();
         padD = new javax.swing.JLabel();
         padL = new javax.swing.JLabel();
@@ -118,6 +121,12 @@ public class GUI_Game extends javax.swing.JFrame {
             }
         });
         getContentPane().add(exitGame, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 60, 130, 18));
+
+        newGame.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseReleased(java.awt.event.MouseEvent evt) {
+                newGameMouseReleased(evt);
+            }
+        });
         getContentPane().add(newGame, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 20, 130, 18));
 
         mainMenu.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -167,6 +176,12 @@ public class GUI_Game extends javax.swing.JFrame {
         });
         getContentPane().add(btnClose, new org.netbeans.lib.awtextra.AbsoluteConstraints(768, 7, 24, 24));
 
+        lblRecord.setFont(new java.awt.Font("Dialog", 1, 24)); // NOI18N
+        getContentPane().add(lblRecord, new org.netbeans.lib.awtextra.AbsoluteConstraints(668, 265, -1, -1));
+
+        lblScore.setFont(new java.awt.Font("Dialog", 1, 24)); // NOI18N
+        getContentPane().add(lblScore, new org.netbeans.lib.awtextra.AbsoluteConstraints(668, 150, -1, -1));
+
         padU.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mousePressed(java.awt.event.MouseEvent evt) {
                 padUMousePressed(evt);
@@ -175,7 +190,7 @@ public class GUI_Game extends javax.swing.JFrame {
                 padUMouseReleased(evt);
             }
         });
-        getContentPane().add(padU, new org.netbeans.lib.awtextra.AbsoluteConstraints(526, 254, 28, 42));
+        getContentPane().add(padU, new org.netbeans.lib.awtextra.AbsoluteConstraints(520, 254, 28, 42));
 
         padD.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mousePressed(java.awt.event.MouseEvent evt) {
@@ -185,7 +200,7 @@ public class GUI_Game extends javax.swing.JFrame {
                 padDMouseReleased(evt);
             }
         });
-        getContentPane().add(padD, new org.netbeans.lib.awtextra.AbsoluteConstraints(526, 328, 28, 42));
+        getContentPane().add(padD, new org.netbeans.lib.awtextra.AbsoluteConstraints(520, 328, 28, 42));
 
         padL.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mousePressed(java.awt.event.MouseEvent evt) {
@@ -195,7 +210,7 @@ public class GUI_Game extends javax.swing.JFrame {
                 padLMouseReleased(evt);
             }
         });
-        getContentPane().add(padL, new org.netbeans.lib.awtextra.AbsoluteConstraints(482, 298, 42, 28));
+        getContentPane().add(padL, new org.netbeans.lib.awtextra.AbsoluteConstraints(476, 298, 42, 28));
 
         padR.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mousePressed(java.awt.event.MouseEvent evt) {
@@ -205,8 +220,8 @@ public class GUI_Game extends javax.swing.JFrame {
                 padRMouseReleased(evt);
             }
         });
-        getContentPane().add(padR, new org.netbeans.lib.awtextra.AbsoluteConstraints(556, 298, 42, 28));
-        getContentPane().add(btnPad, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 252, -1, -1));
+        getContentPane().add(padR, new org.netbeans.lib.awtextra.AbsoluteConstraints(550, 298, 42, 28));
+        getContentPane().add(btnPad, new org.netbeans.lib.awtextra.AbsoluteConstraints(474, 252, -1, -1));
 
         frameDrag.setPreferredSize(new java.awt.Dimension(41, 18));
         frameDrag.addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
@@ -317,6 +332,14 @@ public class GUI_Game extends javax.swing.JFrame {
         btnPad.setIcon(imgBtn.get(0));
     }//GEN-LAST:event_padRMouseReleased
 
+    private void newGameMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_newGameMouseReleased
+        menuActive = close.menu(0, menuActive, menuDropdown, menuItems);
+        // Chamar frame para confirmar ação
+        GUI_RestartConfirm frameConfirm;
+        frameConfirm = new GUI_RestartConfirm(this, s);
+        frameConfirm.setVisible(true);
+    }//GEN-LAST:event_newGameMouseReleased
+
     // Gera as tiles nas respectivas posições
     private void gerarTiles() {
         int[] pos = {41, 106};
@@ -343,6 +366,8 @@ public class GUI_Game extends javax.swing.JFrame {
     private javax.swing.JLabel exitGame;
     private javax.swing.JLabel frameBackground;
     private javax.swing.JLabel frameDrag;
+    private javax.swing.JLabel lblRecord;
+    private javax.swing.JLabel lblScore;
     private javax.swing.JLabel mainMenu;
     private javax.swing.JLabel menuDropdown;
     private javax.swing.JLabel newGame;

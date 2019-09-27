@@ -25,10 +25,10 @@ public class GUI_MainMenu extends JFrame {
     private Boolean menuActive = true;
     private final Session s;
     private int gameSize = 1;
-    
+
     /**
      * Inicializa e instancia a tela principal
-     * 
+     *
      * @param s Mantém a sessão inicializada
      */
     public GUI_MainMenu(Session s) {

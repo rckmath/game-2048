@@ -87,8 +87,7 @@ public class Engine {
         }
     }
 
-        // Funcoes de movimentos
-    
+    // Funcoes de movimentos
     public void moveRight() {
         int flag = 0;
         int[] vetPos = new int[boardSize];  // Vetor utilizado para guardar posicoes
@@ -128,15 +127,6 @@ public class Engine {
                 }
             }
         }
-
-        // Printar matriz para teste
-        for (int i = 0; i < 4; i++) {
-            System.out.println("\n");
-            for (int j = 0; j < 4; j++) {
-                System.out.print(gameBoard[i][j]);
-            }
-        }
-
     }
 
     public void moveLeft() {
@@ -178,15 +168,6 @@ public class Engine {
                 }
             }
         }
-
-        // Printar matriz para teste
-        for (int i = 0; i < 4; i++) {
-            System.out.println("\n");
-            for (int j = 0; j < 4; j++) {
-                System.out.print(gameBoard[i][j]);
-            }
-        }
-
     }
 
     public void moveUp() {
@@ -244,15 +225,6 @@ public class Engine {
                 }
             }
         }
-
-        // Printar matriz para teste
-        for (int i = 0; i < 4; i++) {
-            System.out.println("\n");
-            for (int j = 0; j < 4; j++) {
-                System.out.print(" " + gameBoard[i][j]);
-            }
-        }
-
     }
 
     public void moveDown() {
@@ -310,14 +282,5 @@ public class Engine {
                 }
             }
         }
-
-        // Printar matriz para teste
-        for (int i = 0; i < 4; i++) {
-            System.out.println("\n");
-            for (int j = 0; j < 4; j++) {
-                System.out.print(" " + gameBoard[i][j]);
-            }
-        }
-
     }
 }
