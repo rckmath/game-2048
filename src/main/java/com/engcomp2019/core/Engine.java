@@ -54,11 +54,11 @@ public class Engine {
         System.out.println();
     }
 
-    // Gera um número numa tile livre aleatória
+    // Gera um numero numa tile livre aleatoria
     public void tileSpawn() {
         ArrayList<int[]> emptySpaces = new ArrayList<>();
         try {
-            // Percorrendo nossa matriz e guardando a posição dos espaços em branco
+            // Percorrendo nossa matriz e guardando a posicao dos espacos em branco
             for (int i = 0; i < boardSize; i++) {
                 for (int j = 0; j < boardSize; j++) {
                     if (gameBoard[i][j] == 0) {
@@ -76,7 +76,7 @@ public class Engine {
                 } else {
                     x = 2;
                 }
-                // Sorteando índice onde o numero gerado sera posto
+                // Sorteando indice onde o numero gerado sera posto
                 int index;
                 index = (int) (Math.random() * ((emptySpaces.size() - 0)));
                 int[] pos = emptySpaces.get(index);
@@ -100,15 +100,15 @@ public class Engine {
             for (int z = 0; z < boardSize; z++) {
                 vetPos[z] = 0;
             }
-            for (int v = 0; v < 3; v++) {
+            for (int v = 0; v < 3; v++) {   // For utilizado para verificar a mesma linha 3 vezes
                 for (int j = 3; j > 0; j--) {
                     flag = 0;
 
                     // Se for igual, soma/junta
                     if ((gameBoard[i][j]) == (gameBoard[i][j - 1])) {
                         for (int k = 0; k < boardSize; k++) {
-                            if (vetPos[k] == j) {
-                                flag = 1;
+                            if (vetPos[k] == j) {   // Verifica se ja foi feita uma soma
+                                flag = 1;           // na mesma posicao
                             }
                         }
                         if (flag == 0) {
@@ -150,7 +150,7 @@ public class Engine {
             for (int z = 0; z < boardSize; z++) {
                 vetPos[z] = 0;
             }
-            for (int v = 0; v < 3; v++) {
+            for (int v = 0; v < 3; v++) {   // For utilizado para verificar a mesma linha 3 vezes
                 for (int j = 0; j < 3; j++) {
                     flag = 0;
 
@@ -194,11 +194,11 @@ public class Engine {
 
         for (int j = 0; j < 4; j++) {
             // Zerar as flags
-            flag0 = 0;  // Cada flag é utilizada
-            flag1 = 0;  // para verificar se já foi feita
-            flag2 = 0;  // a junção naquela posição
+            flag0 = 0;  // Cada flag eh utilizada
+            flag1 = 0;  // para verificar se ja¡ foi feita
+            flag2 = 0;  // a juncao naquela posicao
             flag3 = 0;
-            for (int v = 0; v < boardSize; v++) {
+            for (int v = 0; v < boardSize; v++) {   // For utilizado para verificar a mesma linha 3 vezes
                 for (int i = 0; i < 3; i++) {
                     flag = 0;
                     // Se for igual, soma
@@ -206,10 +206,10 @@ public class Engine {
                         if (flag0 == 1) {
                             flag = 1;
                         }
-                        if (flag1 == 1) {
-                            flag = 1;
+                        if (flag1 == 1) {   // Verifica se ja foi feita a soma
+                            flag = 1;       // em alguma posicao repetida
                         }
-                        if (flag2 == 1) {
+                        if (flag2 == 1) {   
                             flag = 1;
                         }
                         if (flag3 == 1) {
@@ -219,8 +219,8 @@ public class Engine {
                         if (flag == 0) {
                             gameBoard[i][j] = (gameBoard[i][j]) * 2;	// Junta/soma
                             gameBoard[i + 1][j] = 0;	// Zera o outro
-                            /* Vê em qual posicao ja foi feita uma junção
-                            para não repeti-la novamente */
+                            /* Ve em qual posicao ja foi feita uma juncao
+                            para nao repeti-la novamente */
                             if (i == 0) {
                                 flag0 = 1;
                             }
@@ -260,11 +260,11 @@ public class Engine {
 
         for (int j = 0; j < 4; j++) {
             // Zerar as flags
-            flag0 = 0;  // Cada flag é utilizada
-            flag1 = 0;  // para verificar se já foi feita
-            flag2 = 0;  // a junção naquela posição
+            flag0 = 0;  // Cada flag eh utilizada
+            flag1 = 0;  // para verificar se ja¡ foi feita
+            flag2 = 0;  // a juncao naquela posicao
             flag3 = 0;
-            for (int v = 0; v < boardSize; v++) {
+            for (int v = 0; v < boardSize; v++) {   // For utilizado para verificar a mesma linha 3 vezes
                 for (int i = 0; i < 3; i++) {
                     flag = 0;
                     // Se for igual, soma
@@ -272,8 +272,8 @@ public class Engine {
                         if (flag0 == 1) {
                             flag = 1;
                         }
-                        if (flag1 == 1) {
-                            flag = 1;
+                        if (flag1 == 1) {     // Verifica se ja foi feita a soma
+                            flag = 1;         // em alguma posicao repetida
                         }
                         if (flag2 == 1) {
                             flag = 1;
@@ -285,12 +285,12 @@ public class Engine {
                         if (flag == 0) {
                             gameBoard[i + 1][j] = (gameBoard[i + 1][j]) * 2;    // Junta/soma
                             gameBoard[i][j] = 0;    // Zera o outro
-                            /* Salva em qual posição já foi feita uma juncao
-                            para não repeti-la novamente */
+                            /* Salva em qual posicao ja¡ foi feita uma juncao
+                            para nao repeti-la novamente */
                             if (i == 0) {
                                 flag0 = 1;
                             }
-                            if (i == 1) {
+                            if (i == 1) {       
                                 flag1 = 1;
                             }
                             if (i == 2) {
