@@ -49,7 +49,7 @@ public class GUI_Game extends javax.swing.JFrame {
             }
         };
 
-        a.play("src/main/java/com/engcomp2019/audio/lavendertown.wav");
+        a.play("src/main/java/com/engcomp2019/audio/gameMusic.wav");
         
         lblScore.setText(String.format("%06d%n", s.getRoundScore()));
         lblRecord.setText(String.format("%06d%n", s.getRecordScore()));

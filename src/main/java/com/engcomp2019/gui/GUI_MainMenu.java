@@ -125,6 +125,12 @@ public class GUI_MainMenu extends JFrame {
             }
         });
         getContentPane().add(configGame, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 40, 130, 18));
+
+        newGame.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseReleased(java.awt.event.MouseEvent evt) {
+                newGameMouseReleased(evt);
+            }
+        });
         getContentPane().add(newGame, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 20, 130, 18));
         getContentPane().add(menuDropdown, new org.netbeans.lib.awtextra.AbsoluteConstraints(39, 20, 130, 57));
 
@@ -255,10 +261,9 @@ public class GUI_MainMenu extends JFrame {
 
     private void btnStartMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnStartMouseReleased
         try {
-            GUI_Game game;
             btnStart.setIcon(imgBtnStart.get(1));
             this.dispose();
-
+            GUI_Game game;
             Session session = new Session(gameSize);
             session.setAltTheme(s.getAltTheme());
             session.setGameStatus(s.getGameStatus());
@@ -336,6 +341,19 @@ public class GUI_MainMenu extends JFrame {
             btnGameSize.setIcon(imgBtnGameS.get(4));
         }
     }//GEN-LAST:event_btnGameSizeMouseReleased
+
+    private void newGameMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_newGameMouseReleased
+        this.dispose();
+        GUI_Game game;
+        Session session = new Session(gameSize);
+        session.setAltTheme(s.getAltTheme());
+        session.setGameStatus(s.getGameStatus());
+        session.setRecordScore(s.getRecordScore());
+        session.setRoundScore(s.getRoundScore());
+
+        game = new GUI_Game(session);
+        game.setVisible(true);
+    }//GEN-LAST:event_newGameMouseReleased
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel btnAbout;
