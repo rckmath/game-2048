@@ -142,7 +142,6 @@ public class Engine {
             }
             for (int v = 0; v < boardSize-1; v++) {
                 for (int j = 0; j < boardSize-1; j++) {
-
                     flag = 0;
 
                     // Se for igual, soma/junta
