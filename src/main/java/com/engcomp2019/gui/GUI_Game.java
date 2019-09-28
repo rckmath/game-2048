@@ -56,10 +56,10 @@ public class GUI_Game extends javax.swing.JFrame {
 
         // Define as tiles de acordo com o status do tema
         if (!s.getAltTheme()) {
-            a.play("src/main/java/com/engcomp2019/audio/gameMusic.wav");
+            a.play("src/main/java/com/engcomp2019/audio/gameMusic.wav", true);
             imgTileDef = new ImageIcon("imgs/tiles/def.png");
         } else {
-            a.play("src/main/java/com/engcomp2019/audio/leoMusic.wav");
+            a.play("src/main/java/com/engcomp2019/audio/leoMusic.wav", true);
             imgTileDef = new ImageIcon("imgs/tiles/leo.gif");
         }
 

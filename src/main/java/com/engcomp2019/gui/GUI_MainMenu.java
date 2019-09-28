@@ -49,7 +49,7 @@ public class GUI_MainMenu extends JFrame {
             }
         };
 
-        a.play("src/main/java/com/engcomp2019/audio/menuMusic.wav");
+        a.play("src/main/java/com/engcomp2019/audio/menuMusic.wav", true);
 
         // Para inicializar as opções de menu desativadas
         menuActive = close.menu(0, menuActive, menuDropdown, menuItems);

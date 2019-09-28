@@ -42,7 +42,7 @@ public class GUI_EasterEgg extends javax.swing.JFrame {
             }
         };
 
-        a.play("src/main/java/com/engcomp2019/audio/easterEggMusic.wav");
+        a.play("src/main/java/com/engcomp2019/audio/easterEggMusic.wav", true);
 
         // Para inicializar as opções de menu desativadas
         menuActive = close.menu(0, menuActive, menuDropdown, menuItems);

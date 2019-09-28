@@ -20,8 +20,10 @@ public class Audio {
      * Executa um áudio
      *
      * @param filePath Localização do arquivo de áudio
+     * @param repeat True para executar o áudio em loop, false para executar uma
+     * vez
      */
-    public void play(String filePath) {
+    public void play(String filePath, Boolean repeat) {
         try {
             File audioPath = new File(filePath);
             if (audioPath.exists()) {
@@ -29,7 +31,9 @@ public class Audio {
                 clip = AudioSystem.getClip();
                 clip.open(audioInput);
                 clip.start();
-                clip.loop(Clip.LOOP_CONTINUOUSLY);
+                if (repeat) {
+                    clip.loop(Clip.LOOP_CONTINUOUSLY);
+                }
             } else {
                 System.err.println("File not found.");
             }
