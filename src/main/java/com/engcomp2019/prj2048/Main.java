@@ -32,7 +32,7 @@ public class Main {
         
         // Sleep de 2,475 segundos
         try {
-            Thread.sleep(2,475);
+            Thread.sleep(2475);
         } catch (InterruptedException ex) {
             System.err.println("ERRO: " + ex);
         }

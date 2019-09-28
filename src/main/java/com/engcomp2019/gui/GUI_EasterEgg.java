@@ -22,13 +22,14 @@ public class GUI_EasterEgg extends javax.swing.JFrame {
     private final DragWindow drag = new DragWindow();
     private final Close close = new Close();
     private final ArrayList<JLabel> menuItems;
+    private final ArrayList<JLabel> leoHeads = new ArrayList<>();
     private Boolean menuActive = true;
-    protected Audio a = new Audio();
+    private final Audio a = new Audio();
     private final Session s;
 
     public GUI_EasterEgg(Session s) {
         this.s = s;
-        
+
         initComponents();
         this.setResizable(false);
         this.setLocationRelativeTo(null);
@@ -40,27 +41,24 @@ public class GUI_EasterEgg extends javax.swing.JFrame {
                 add(mainMenu);
             }
         };
-        
-        a.play("src/main/java/com/engcomp2019/audio/pula.wav");
+
+        a.play("src/main/java/com/engcomp2019/audio/easterEggMusic.wav");
 
         // Para inicializar as opções de menu desativadas
         menuActive = close.menu(0, menuActive, menuDropdown, menuItems);
-        
+
         menuDropdown.setIcon(imgMenu);
         this.add(menuDropdown, new AbsoluteConstraints(39, 20, -1, -1));
         menuDropdown.setVisible(false);
 
-        leoHead.setIcon(imgLeoHeadDance);
-        this.add(leoHead, new AbsoluteConstraints(330, 50, -1, -1));
+        for (int i = 0; i < 4; i++) {
+            leoHeads.add(new JLabel(imgLeoHeadDance));
+        }
 
-        leoHead2.setIcon(imgLeoHeadDance);
-        this.add(leoHead2, new AbsoluteConstraints(450, 370, -1, -1));
-
-        leoHead3.setIcon(imgLeoHeadDance);
-        this.add(leoHead3, new AbsoluteConstraints(60, 470, -1, -1));
-
-        leoHead4.setIcon(imgLeoHeadDance);
-        this.add(leoHead4, new AbsoluteConstraints(730, 300, -1, -1));
+        this.add(leoHeads.get(0), new AbsoluteConstraints(330, 50, -1, -1));
+        this.add(leoHeads.get(1), new AbsoluteConstraints(450, 370, -1, -1));
+        this.add(leoHeads.get(2), new AbsoluteConstraints(60, 470, -1, -1));
+        this.add(leoHeads.get(3), new AbsoluteConstraints(730, 300, -1, -1));
 
         leoOx.setIcon(imgLeoOx);
         this.add(leoOx, new AbsoluteConstraints(40, 30, -1, -1));
@@ -87,10 +85,6 @@ public class GUI_EasterEgg extends javax.swing.JFrame {
         frameDrag = new javax.swing.JLabel();
         leoHorse = new javax.swing.JLabel();
         leoOx = new javax.swing.JLabel();
-        leoHead = new javax.swing.JLabel();
-        leoHead2 = new javax.swing.JLabel();
-        leoHead3 = new javax.swing.JLabel();
-        leoHead4 = new javax.swing.JLabel();
         frameBackground = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -114,6 +108,12 @@ public class GUI_EasterEgg extends javax.swing.JFrame {
             }
         });
         getContentPane().add(exitGame, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 60, 130, 18));
+
+        newGame.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseReleased(java.awt.event.MouseEvent evt) {
+                newGameMouseReleased(evt);
+            }
+        });
         getContentPane().add(newGame, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 20, 130, 18));
 
         mainMenu.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -182,10 +182,6 @@ public class GUI_EasterEgg extends javax.swing.JFrame {
 
         leoOx.setToolTipText("");
         getContentPane().add(leoOx, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 60, 20, 20));
-        getContentPane().add(leoHead, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 50, 20, 20));
-        getContentPane().add(leoHead2, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 370, 20, 20));
-        getContentPane().add(leoHead3, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 470, 20, 20));
-        getContentPane().add(leoHead4, new org.netbeans.lib.awtextra.AbsoluteConstraints(730, 300, 20, 20));
         getContentPane().add(frameBackground, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 800, 576));
 
         pack();
@@ -241,7 +237,7 @@ public class GUI_EasterEgg extends javax.swing.JFrame {
     }//GEN-LAST:event_menuDropdownMouseReleased
 
     private void mainMenuMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_mainMenuMouseReleased
-        menuActive = close.menu(0, menuActive, menuDropdown, menuItems);   
+        menuActive = close.menu(0, menuActive, menuDropdown, menuItems);
         // Chamar frame para confirmar ação
         GUI_MainConfirm frameConfirm;
         frameConfirm = new GUI_MainConfirm(this, s);
@@ -252,6 +248,14 @@ public class GUI_EasterEgg extends javax.swing.JFrame {
         // Para a música
         a.stop();
     }//GEN-LAST:event_formWindowClosed
+
+    private void newGameMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_newGameMouseReleased
+        menuActive = close.menu(0, menuActive, menuDropdown, menuItems);
+        // Chamar frame para confirmar ação
+        GUI_RestartConfirm frameConfirm;
+        frameConfirm = new GUI_RestartConfirm(this, s);
+        frameConfirm.setVisible(true);
+    }//GEN-LAST:event_newGameMouseReleased
 
     /**
      * @param args the command line arguments
@@ -273,7 +277,7 @@ public class GUI_EasterEgg extends javax.swing.JFrame {
             java.util.logging.Logger.getLogger(GUI_EasterEgg.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
-        
+
         //</editor-fold>
 
         /* Create and display the form */
@@ -290,10 +294,6 @@ public class GUI_EasterEgg extends javax.swing.JFrame {
     private javax.swing.JLabel exitGame;
     private javax.swing.JLabel frameBackground;
     private javax.swing.JLabel frameDrag;
-    private javax.swing.JLabel leoHead;
-    private javax.swing.JLabel leoHead2;
-    private javax.swing.JLabel leoHead3;
-    private javax.swing.JLabel leoHead4;
     private javax.swing.JLabel leoHorse;
     private javax.swing.JLabel leoOx;
     private javax.swing.JLabel mainMenu;

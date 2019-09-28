@@ -4,6 +4,7 @@ import com.engcomp2019.core.*;
 import java.awt.Frame;
 import java.util.ArrayList;
 import javax.swing.ImageIcon;
+import javax.swing.JFrame;
 import javax.swing.JLabel;
 import org.netbeans.lib.awtextra.AbsoluteConstraints;
 
@@ -24,15 +25,16 @@ public class GUI_Config extends javax.swing.JFrame {
     private final ArrayList<JLabel> menuItems;
     private Boolean menuActive = true;
     protected final Session s;
+    private final JFrame previousFrame;
 
     /**
      * Inicializa e instancia a tela de configurações
      *
      * @param s Mantém a sessão inicializada
      */
-    public GUI_Config(Session s) {
+    public GUI_Config(JFrame pPreviousFrame, Session s) {
         this.s = s;
-
+        this.previousFrame = pPreviousFrame;
         // Propriedades da janela e inicialização dos componentes
         initComponents();
         this.setResizable(false);
@@ -72,7 +74,7 @@ public class GUI_Config extends javax.swing.JFrame {
 
         btnRecord.setIcon(imgRecord);
         this.add(btnRecord, new AbsoluteConstraints(215, 165, -1, -1));
-        
+
         lblRecord.setText(String.format("%06d%n", s.getRecordScore()));
 
         // Define imagem de botao de tema de acordo com o status do mesmo
@@ -110,6 +112,11 @@ public class GUI_Config extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setName("frameConfig"); // NOI18N
         setUndecorated(true);
+        addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseReleased(java.awt.event.MouseEvent evt) {
+                formMouseReleased(evt);
+            }
+        });
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         exitGame.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -262,8 +269,10 @@ public class GUI_Config extends javax.swing.JFrame {
 
     private void goBackMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_goBackMouseReleased
         this.dispose();
-        GUI_MainMenu mainMenu = new GUI_MainMenu(s);
-        mainMenu.setVisible(true);
+        //GUI_MainMenu mainMenu = new GUI_MainMenu(s);
+        //mainMenu.setVisible(true);
+        previousFrame.setVisible(true);
+        previousFrame.setEnabled(true);
     }//GEN-LAST:event_goBackMouseReleased
 
     private void exitGameMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_exitGameMouseReleased
@@ -322,7 +331,16 @@ public class GUI_Config extends javax.swing.JFrame {
 
     private void btnResetMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnResetMouseReleased
         btnReset.setIcon(imgBtnReset.get(1));
+        menuActive = close.menu(0, menuActive, menuDropdown, menuItems);
+        // Chamar frame para confirmar ação
+        GUI_RestartConfirm frameConfirm;
+        frameConfirm = new GUI_RestartConfirm(this, s);
+        frameConfirm.setVisible(true);
     }//GEN-LAST:event_btnResetMouseReleased
+
+    private void formMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_formMouseReleased
+        menuActive = close.menu(0, menuActive, menuDropdown, menuItems);
+    }//GEN-LAST:event_formMouseReleased
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel btnAbout;

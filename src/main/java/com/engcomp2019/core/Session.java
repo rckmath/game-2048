@@ -1,12 +1,14 @@
 package com.engcomp2019.core;
 
+import com.engcomp2019.gui.GUI_Game;
+
 /**
  *
  * @author erick / rckmath
  */
 public class Session extends Engine {
 
-    private Integer gameStatus;
+    private Integer gameStatus; // Recebera 1 p/ vitoria e 2 p/ derrota
     private Integer recordScore;
     private Integer roundScore;
     private Boolean altTheme;
@@ -50,7 +52,6 @@ public class Session extends Engine {
     }
 
     // Outros
-    
     // Inicializa a sessão zerada
     public void initializeSession() {
         if (this.altTheme == null) {
@@ -59,5 +60,25 @@ public class Session extends Engine {
         this.gameStatus = 0;
         this.roundScore = 0;
         this.recordScore = 0;
+    }
+
+    /**
+     * Inicia um novo jogo e instancia a interface
+     *
+     * @param s
+     * @param restart True para caso for reiniciar o jogo, false para caso for
+     * novo jogo
+     */
+    public void newGame(Session s, Boolean restart) {
+        GUI_Game game;
+        Session session;
+        session = new Session(s.getBoardSize() - 2); // Board size - 2 = Opção p/ board size
+        session.setAltTheme(s.getAltTheme());
+        session.setGameStatus(0);
+        session.setRoundScore(0);
+        session.setRecordScore(s.getRecordScore());
+
+        game = new GUI_Game(session);
+        game.setVisible(true);
     }
 }
