@@ -10,7 +10,7 @@ import org.netbeans.lib.awtextra.AbsoluteConstraints;
  *
  * @author erick / rckmath
  */
-public class GUI_MainConfirm extends javax.swing.JFrame {
+public class GUI_MainConfirm extends JFrame {
 
     private final DragWindow drag = new DragWindow();
     private final ImageIcon imgFrame = new ImageIcon("imgs/frames/frameMainConfirm.png");

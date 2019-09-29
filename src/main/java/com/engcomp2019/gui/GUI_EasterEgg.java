@@ -6,13 +6,14 @@ import java.awt.Frame;
 import java.util.ArrayList;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
+import javax.swing.JFrame;
 import org.netbeans.lib.awtextra.AbsoluteConstraints;
 
 /**
  *
  * @author erick / rckmath
  */
-public class GUI_EasterEgg extends javax.swing.JFrame {
+public class GUI_EasterEgg extends JFrame {
 
     private final ImageIcon imgFrame = new ImageIcon("imgs/easteregg/frameEasterEgg.png");
     private final ImageIcon imgMenu = new ImageIcon("imgs/elements/gameDropdown.png");

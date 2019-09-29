@@ -13,7 +13,7 @@ import org.netbeans.lib.awtextra.AbsoluteConstraints;
  *
  * @author erick / rckmath
  */
-public class GUI_Config extends javax.swing.JFrame {
+public class GUI_Config extends JFrame {
 
     private final ImageIcon imgFrame = new ImageIcon("imgs/frames/frameBackground.png");
     private final ImageIcon imgMenu = new ImageIcon("imgs/elements/configDropdown.png");

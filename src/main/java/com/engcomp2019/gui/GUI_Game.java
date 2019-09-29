@@ -11,6 +11,7 @@ import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.ImageIcon;
+import javax.swing.JFrame;
 import javax.swing.JLabel;
 import org.netbeans.lib.awtextra.AbsoluteConstraints;
 
@@ -18,7 +19,7 @@ import org.netbeans.lib.awtextra.AbsoluteConstraints;
  *
  * @author erick / rckmath
  */
-public class GUI_Game extends javax.swing.JFrame {
+public class GUI_Game extends JFrame {
 
     // ImageIcon
     private final ImageIcon imgFrame = new ImageIcon("imgs/frames/frameGame.png");

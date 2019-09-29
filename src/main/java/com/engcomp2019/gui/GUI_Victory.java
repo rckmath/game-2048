@@ -7,6 +7,7 @@ import com.engcomp2019.core.Session;
 import java.awt.Frame;
 import java.util.ArrayList;
 import javax.swing.ImageIcon;
+import javax.swing.JFrame;
 import javax.swing.JLabel;
 import org.netbeans.lib.awtextra.AbsoluteConstraints;
 
@@ -14,7 +15,7 @@ import org.netbeans.lib.awtextra.AbsoluteConstraints;
  *
  * @author erick / rckmath
  */
-public class GUI_Victory extends javax.swing.JFrame {
+public class GUI_Victory extends JFrame {
 
     // ImageIcon
     private final ImageIcon imgFrame = new ImageIcon("imgs/frames/frameVictory.png");

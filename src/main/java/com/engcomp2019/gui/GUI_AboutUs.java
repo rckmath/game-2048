@@ -15,7 +15,7 @@ import org.netbeans.lib.awtextra.AbsoluteConstraints;
  *
  * @author erick / rckmath
  */
-public class GUI_AboutUs extends javax.swing.JFrame {
+public class GUI_AboutUs extends JFrame {
 
     private final JFrame previousFrame;
     private final DragWindow drag = new DragWindow();
