@@ -25,12 +25,13 @@ public class DragWindow extends Drag {
     
     // Define e seta no frame a coordenada de destino
     @Override
-    public void setCoord() {
+    public int setCoord() {
         try {
-            frame.setLocation(super.getX() - super.getxMouse(), super.getY() - super.getyMouse());
+            frame.setLocation(super.getX() - super.getFinalX(), super.getY() - super.getFinalY());
         } catch (Exception e) {
             System.err.println("ERRO: " + e);
             JOptionPane.showMessageDialog(null, "Erro desconhecido!", "ERRO", JOptionPane.ERROR_MESSAGE);
         }
+        return 0;
     }
 }
