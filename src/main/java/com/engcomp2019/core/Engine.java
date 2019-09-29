@@ -219,7 +219,7 @@ public class Engine {
             flag3 = 0;
             for (int v = 0; v < boardSize; v++) {
               
-                for (int i = 3; i > 0; i--) {
+                for (int i = boardSize-1; i > 0; i--) {
                     flag = 0;
                     // Se for igual, soma
                    
@@ -286,6 +286,18 @@ public class Engine {
                  
                     if ((gameBoard[i][j]) == (gameBoard[i + 1][j])) {
                         if (i == 0 && flag0 == 1) {
+                        }
+                        if (i == 2 &&flag2 == 1) {
+                            flag = 1;
+                        }
+                        if (i == 3 && flag3 == 1) {
+                            flag = 1;
+                        }
+
+                        if (flag == 0) {
+           
+                            gameBoard[i+1][j] = (gameBoard[i+1][j]) * 2;    // Junta/soma
+                            gameBoard[i][j] = 0;    // Zera o outro
                             flag = 1;
                         }
                         if (i == 1 && flag1 == 1) {     // Verifica se ja foi feita a soma
