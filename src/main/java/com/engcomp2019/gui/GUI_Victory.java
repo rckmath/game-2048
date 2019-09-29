@@ -7,6 +7,7 @@ import com.engcomp2019.core.Session;
 import java.awt.Frame;
 import java.util.ArrayList;
 import javax.swing.ImageIcon;
+import javax.swing.JFrame;
 import javax.swing.JLabel;
 import org.netbeans.lib.awtextra.AbsoluteConstraints;
 
@@ -14,7 +15,7 @@ import org.netbeans.lib.awtextra.AbsoluteConstraints;
  *
  * @author erick / rckmath
  */
-public class GUI_Victory extends javax.swing.JFrame {
+public class GUI_Victory extends JFrame {
 
     // ImageIcon
     private final ImageIcon imgFrame = new ImageIcon("imgs/frames/frameVictory.png");
@@ -46,7 +47,7 @@ public class GUI_Victory extends javax.swing.JFrame {
         initMenu();
         loadImages();
 
-        for (int i = 0; i < 3; i++) {
+        for (int i = 0; i < 2; i++) {
             fireworksGif.add(new JLabel(imgFireworksGif));
         }
 
@@ -60,6 +61,9 @@ public class GUI_Victory extends javax.swing.JFrame {
         this.add(btnMainMenu, new AbsoluteConstraints(409, 456, -1, -1));
         btnMainMenu.setVisible(true);
 
+        this.add(fireworksGif.get(0), new AbsoluteConstraints(600, 280, -1, -1));
+        this.add(fireworksGif.get(1), new AbsoluteConstraints(45, 400, -1, -1));
+        
         imgWinGif.getImage().flush();
         victoryGif.setIcon(imgWinGif);
         this.add(victoryGif, new AbsoluteConstraints(271, 180, -1, -1));
@@ -264,7 +268,7 @@ public class GUI_Victory extends javax.swing.JFrame {
     }//GEN-LAST:event_menuDropdownMouseReleased
 
     private void frameDragMouseDragged(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_frameDragMouseDragged
-        drag.setCoordenates(evt);
+        drag.setInitialCoordenates(evt);
         drag.setFrame(this);
         drag.setCoord();
     }//GEN-LAST:event_frameDragMouseDragged
@@ -272,7 +276,7 @@ public class GUI_Victory extends javax.swing.JFrame {
     private void frameDragMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_frameDragMousePressed
         menuActive = close.menu(0, menuActive, menuDropdown, menuItems);
         frameDrag.setCursor(new java.awt.Cursor(java.awt.Cursor.MOVE_CURSOR));
-        drag.setMouseCoordenates(evt);
+        drag.setFinalCoordenates(evt);
     }//GEN-LAST:event_frameDragMousePressed
 
     private void frameDragMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_frameDragMouseReleased

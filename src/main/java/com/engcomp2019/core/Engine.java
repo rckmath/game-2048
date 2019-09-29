@@ -112,7 +112,6 @@ public abstract class Engine {
 
         for (int i = 0; i < boardSize; i++) {
             // Zerar as flags
-            
             flag0 = 0;  // Cada flag eh utilizada
             flag1 = 0;  // para verificar se ja¡ foi feita
             flag2 = 0;  // a juncao naquela posicao

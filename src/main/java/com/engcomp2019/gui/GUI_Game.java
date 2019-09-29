@@ -8,7 +8,10 @@ import java.awt.event.KeyEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.ImageIcon;
+import javax.swing.JFrame;
 import javax.swing.JLabel;
 import org.netbeans.lib.awtextra.AbsoluteConstraints;
 
@@ -16,7 +19,7 @@ import org.netbeans.lib.awtextra.AbsoluteConstraints;
  *
  * @author erick / rckmath
  */
-public class GUI_Game extends javax.swing.JFrame {
+public class GUI_Game extends JFrame {
 
     // ImageIcon
     private final ImageIcon imgFrame = new ImageIcon("imgs/frames/frameGame.png");
@@ -30,6 +33,7 @@ public class GUI_Game extends javax.swing.JFrame {
     private ArrayList<JLabel> menuItems;
     // Outros
     private final DragWindow drag = new DragWindow();
+    private final DragTile move = new DragTile();
     private final Close close = new Close();
     private Boolean menuActive = true;
     private final Audio a = new Audio();
@@ -92,6 +96,7 @@ public class GUI_Game extends javax.swing.JFrame {
         btnPad = new javax.swing.JLabel();
         easterEgg = new javax.swing.JLabel();
         btnAudio = new javax.swing.JLabel();
+        mouseMove = new javax.swing.JLabel();
         frameDrag = new javax.swing.JLabel();
         frameBackground = new javax.swing.JLabel();
 
@@ -226,6 +231,18 @@ public class GUI_Game extends javax.swing.JFrame {
         });
         getContentPane().add(btnAudio, new org.netbeans.lib.awtextra.AbsoluteConstraints(32, 515, 32, 32));
 
+        mouseMove.addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
+            public void mouseDragged(java.awt.event.MouseEvent evt) {
+                mouseMoveMouseDragged(evt);
+            }
+        });
+        mouseMove.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseReleased(java.awt.event.MouseEvent evt) {
+                mouseMoveMouseReleased(evt);
+            }
+        });
+        getContentPane().add(mouseMove, new org.netbeans.lib.awtextra.AbsoluteConstraints(22, 73, 422, 418));
+
         frameDrag.setPreferredSize(new java.awt.Dimension(41, 18));
         frameDrag.addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
             public void mouseDragged(java.awt.event.MouseEvent evt) {
@@ -266,7 +283,7 @@ public class GUI_Game extends javax.swing.JFrame {
     }//GEN-LAST:event_btnFileMouseReleased
 
     private void frameDragMouseDragged(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_frameDragMouseDragged
-        drag.setCoordenates(evt);
+        drag.setInitialCoordenates(evt);
         drag.setFrame(this);
         drag.setCoord();
     }//GEN-LAST:event_frameDragMouseDragged
@@ -274,7 +291,7 @@ public class GUI_Game extends javax.swing.JFrame {
     private void frameDragMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_frameDragMousePressed
         menuActive = close.menu(0, menuActive, menuDropdown, menuItems);
         frameDrag.setCursor(new java.awt.Cursor(java.awt.Cursor.MOVE_CURSOR));
-        drag.setMouseCoordenates(evt);
+        drag.setFinalCoordenates(evt);
     }//GEN-LAST:event_frameDragMousePressed
 
     private void frameDragMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_frameDragMouseReleased
@@ -344,6 +361,7 @@ public class GUI_Game extends javax.swing.JFrame {
         if (s.getAudioOn()) {
             a.stop();
         }
+        this.dispose();
         if (s.getAltTheme()) {
             new GUI_EasterEgg(s).setVisible(true);
         } else {
@@ -367,6 +385,23 @@ public class GUI_Game extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_btnAudioMouseReleased
 
+    private void mouseMoveMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_mouseMoveMouseReleased
+        if (move.getBuffer() != 0) {
+            move.setFinalCoordenates(evt);
+            move.setBuffer(0);
+            doMove((char) move.setCoord());
+
+        }
+    }//GEN-LAST:event_mouseMoveMouseReleased
+
+    private void mouseMoveMouseDragged(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_mouseMoveMouseDragged
+        if (move.getBuffer() == 0) {
+            move.setInitialCoordenates(evt);
+            move.setBuffer(1);
+        }
+    }//GEN-LAST:event_mouseMoveMouseDragged
+
+    // <editor-fold defaultstate="collapsed" desc="Update game tiles">
     // Gera as tiles nas respectivas posições
     private void attTiles() {
         int[] pos = {41, 106};  // Posição XY da primeira tile
@@ -388,6 +423,7 @@ public class GUI_Game extends javax.swing.JFrame {
             pos[1] += 100;
         }
     }
+    // </editor-fold>
 
     // <editor-fold defaultstate="collapsed" desc="Initiate the menu">
     private void initMenu() {
@@ -537,6 +573,7 @@ public class GUI_Game extends javax.swing.JFrame {
 
     // <editor-fold defaultstate="collapsed" desc="Execute movement">
     private void doMove(char id) {
+        Boolean invalidMove = false;
         switch (id) {
             case 'U':
                 s.moveUp();
@@ -551,12 +588,21 @@ public class GUI_Game extends javax.swing.JFrame {
                 s.moveRight();
                 break;
             default:
-                System.err.println("ERRO.");
+                System.err.println("Movimento inválido.");
+                invalidMove = true;
                 break;
         }
-        s.tileSpawn();
-        attTiles();
-        s.printGameBoard();
+        if (!invalidMove) {
+            s.tileSpawn();
+            attTiles();
+            s.printGameBoard();
+            try {
+                Thread.sleep(20);
+            } catch (InterruptedException ex) {
+                Logger.getLogger(GUI_Game.class
+                        .getName()).log(Level.SEVERE, null, ex);
+            }
+        }
     }
     // </editor-fold>
 
@@ -581,6 +627,7 @@ public class GUI_Game extends javax.swing.JFrame {
     private javax.swing.JLabel lblScore;
     private javax.swing.JLabel mainMenu;
     private javax.swing.JLabel menuDropdown;
+    private javax.swing.JLabel mouseMove;
     private javax.swing.JLabel newGame;
     // End of variables declaration//GEN-END:variables
 }

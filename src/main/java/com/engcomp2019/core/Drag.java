@@ -1,5 +1,6 @@
 package com.engcomp2019.core;
 
+import java.awt.event.MouseEvent;
 import javax.swing.JOptionPane;
 
 /**
@@ -7,17 +8,17 @@ import javax.swing.JOptionPane;
  * @author erick / rckmath
  */
 public abstract class Drag {
+
     private int x;
     private int y;
-    private int xMouse;
-    private int yMouse;
- 
+    private int finalX;
+    private int finalY;
+
     /* CONSTRUTOR(ES) */
     public Drag() {
     }
-    
-    /* METODOS */
 
+    /* METODOS */
     // Getters and setters
     public int getX() {
         return x;
@@ -35,28 +36,29 @@ public abstract class Drag {
         this.y = y;
     }
 
-    public int getxMouse() {
-        return xMouse;
+    public int getFinalX() {
+        return finalX;
     }
 
-    public void setxMouse(int xMouse) {
-        this.xMouse = xMouse;
+    public void setFinalX(int xMouse) {
+        this.finalX = xMouse;
     }
 
-    public int getyMouse() {
-        return yMouse;
+    public int getFinalY() {
+        return finalY;
     }
 
-    public void setyMouse(int yMouse) {
-        this.yMouse = yMouse;
+    public void setFinalY(int yMouse) {
+        this.finalY = yMouse;
     }
 
     /**
-     * Puxa as coordenadas iniciais do evento e seta nas variáveis de coordenadas.
+     * Puxa as coordenadas iniciais do evento e seta nas variáveis de
+     * coordenadas.
      *
      * @param evt Recebe o mouse event de origem
      */
-    public void setCoordenates(java.awt.event.MouseEvent evt) {
+    public void setInitialCoordenates(MouseEvent evt) {
         try {
             x = evt.getXOnScreen();
             y = evt.getYOnScreen();
@@ -65,24 +67,24 @@ public abstract class Drag {
             JOptionPane.showMessageDialog(null, "Erro ao definir coordenadas!", "ERRO", JOptionPane.ERROR_MESSAGE);
         }
     }
-    
+
     /**
      * Puxa as coordenadas finais do evento e seta nas variáveis de coordenadas.
      *
      * @param evt Recebe o mouse event de origem
      */
-    public void setMouseCoordenates(java.awt.event.MouseEvent evt) {
+    public void setFinalCoordenates(MouseEvent evt) {
         try {
-            xMouse = evt.getX();
-            yMouse = evt.getY();
+            finalX = evt.getX();
+            finalY = evt.getY();
         } catch (Exception e) {
             System.err.println("ERRO: " + e);
             JOptionPane.showMessageDialog(null, "Erro ao definir coordenadas!", "ERRO", JOptionPane.ERROR_MESSAGE);
         }
     }
-    
+
     /**
      * Definirá a coordenada de destino do objeto.
      */
-    public abstract void setCoord();
+    public abstract int setCoord();
 }

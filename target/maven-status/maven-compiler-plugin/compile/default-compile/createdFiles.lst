@@ -28,6 +28,7 @@ com\engcomp2019\gui\GUI_EasterEgg$12.class
 com\engcomp2019\core\DragWindow.class
 com\engcomp2019\gui\GUI_Config.class
 com\engcomp2019\gui\GUI_MainMenu$9.class
+com\engcomp2019\gui\GUI_Game$24.class
 com\engcomp2019\gui\GUI_Config$2.class
 com\engcomp2019\gui\GUI_Game$8.class
 com\engcomp2019\gui\GUI_MainConfirm$3.class
@@ -94,6 +95,7 @@ com\engcomp2019\gui\GUI_AboutUs$1.class
 com\engcomp2019\gui\GUI_MainConfirm$4.class
 com\engcomp2019\gui\GUI_Config$9.class
 com\engcomp2019\gui\GUI_Victory$4.class
+com\engcomp2019\gui\GUI_Game$23.class
 com\engcomp2019\audio\Audio.class
 com\engcomp2019\core\DragTile.class
 com\engcomp2019\gui\GUI_Config$3.class
