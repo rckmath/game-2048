@@ -128,7 +128,7 @@ public abstract class Engine {
                             flag = 1;
                         }
                         if (j == 1 && flag1 == 1 || (j == 3 && flag0 == 1)) {     // Verifica se ja foi feita a soma
-                            flag = 1;                   // em alguma posicao repetida
+                            flag = 1;                                            // em alguma posicao repetida
                         }
                         if (j == 2 && flag2 == 1 || (j == 3 && flag1 == 1)) {
                             flag = 1;
@@ -188,7 +188,7 @@ public abstract class Engine {
                             flag = 1;
                         }
                         if ((j == 1 && flag1 == 1) || (j == 1 && flag2 == 1)) {     // Verifica se ja foi feita a soma
-                            flag = 1;                   // em alguma posicao repetida
+                            flag = 1;                                               // em alguma posicao repetida
                         }
                         if ((j == 2 && flag2 == 1) || (j == 2 && flag3 == 1)) {
                             flag = 1;
@@ -243,13 +243,13 @@ public abstract class Engine {
                 for (int i = 0; i < boardSize-1; i++) {
                     
                     // Se for igual, soma
-                if(((gameBoard[i][j]) != 0) && ((gameBoard[i + 1][j]) != 0)){
+                  if(((gameBoard[i][j]) != 0) && ((gameBoard[i + 1][j]) != 0)){
                     if ((gameBoard[i][j]) == (gameBoard[i + 1][j])) {
                         if ((i == 0 && flag0 == 1) || (i == 0 && flag1 == 1)) {
                             flag = 1;
                         }
                         if ((i == 1 && flag1 == 1) || (i == 0 && flag2 == 1)) {     // Verifica se ja foi feita a soma
-                            flag = 1;                    // em alguma posicao repetida
+                            flag = 1;                                               // em alguma posicao repetida
                         }
                         if ((i == 2 && flag2 == 1) || (i == 0 && flag3 == 1)) {
                             flag = 1;
@@ -303,13 +303,13 @@ public abstract class Engine {
                flag = 0;
                 for (int i = boardSize-1; i > 0; i--) {
                     // Se for igual, soma
-                if(((gameBoard[i][j]) != 0) && ((gameBoard[i - 1][j]) != 0)){
+                  if(((gameBoard[i][j]) != 0) && ((gameBoard[i - 1][j]) != 0)){
                     if ((gameBoard[i][j]) == (gameBoard[i - 1][j])) {
                         if (i == 0 && flag0 == 1) {
                             flag=1;
                         }
-                        if((i == 1 && flag1 == 1) || (i == 1 && flag0 == 1)){
-                            flag1=1;
+                        if((i == 1 && flag1 == 1) || (i == 1 && flag0 == 1)){   // Verifica se ja foi feita a soma
+                            flag1=1;                                            // em alguma posicao repetida
                         }
                         
                         if ((i == 2 &&flag2 == 1) || (i == 2 && flag1 == 1)) {
@@ -326,8 +326,8 @@ public abstract class Engine {
                         if(i == 0){
                             flag0 = 1;
                         }
-                        if (i == 1) {     // Verifica se ja foi feita a soma
-                            flag1 = 1;    // em alguma posicao repetida
+                        if (i == 1) {     
+                            flag1 = 1;    
                         }
                         if (i == 2) {
                             flag2 = 1;                
