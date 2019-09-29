@@ -8,6 +8,8 @@ import java.awt.event.KeyEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import org.netbeans.lib.awtextra.AbsoluteConstraints;
@@ -344,6 +346,7 @@ public class GUI_Game extends javax.swing.JFrame {
         if (s.getAudioOn()) {
             a.stop();
         }
+
         if (s.getAltTheme()) {
             new GUI_EasterEgg(s).setVisible(true);
         } else {
@@ -557,6 +560,11 @@ public class GUI_Game extends javax.swing.JFrame {
         s.tileSpawn();
         attTiles();
         s.printGameBoard();
+        try {
+            Thread.sleep(10);
+        } catch (InterruptedException ex) {
+            Logger.getLogger(GUI_Game.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
     // </editor-fold>
 

@@ -46,7 +46,7 @@ public class GUI_Victory extends javax.swing.JFrame {
         initMenu();
         loadImages();
 
-        for (int i = 0; i < 3; i++) {
+        for (int i = 0; i < 2; i++) {
             fireworksGif.add(new JLabel(imgFireworksGif));
         }
 
@@ -60,6 +60,9 @@ public class GUI_Victory extends javax.swing.JFrame {
         this.add(btnMainMenu, new AbsoluteConstraints(409, 456, -1, -1));
         btnMainMenu.setVisible(true);
 
+        this.add(fireworksGif.get(0), new AbsoluteConstraints(600, 280, -1, -1));
+        this.add(fireworksGif.get(1), new AbsoluteConstraints(45, 400, -1, -1));
+        
         imgWinGif.getImage().flush();
         victoryGif.setIcon(imgWinGif);
         this.add(victoryGif, new AbsoluteConstraints(271, 180, -1, -1));
