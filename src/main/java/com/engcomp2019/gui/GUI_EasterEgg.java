@@ -21,7 +21,7 @@ public class GUI_EasterEgg extends javax.swing.JFrame {
     private final ImageIcon imgLeoHeadDance = new ImageIcon("imgs/easteregg/leoHeadDance.gif");
     private final DragWindow drag = new DragWindow();
     private final Close close = new Close();
-    private final ArrayList<JLabel> menuItems;
+    private ArrayList<JLabel> menuItems;
     private final ArrayList<JLabel> leoHeads = new ArrayList<>();
     private Boolean menuActive = true;
     private final Audio a = new Audio();
@@ -33,27 +33,16 @@ public class GUI_EasterEgg extends javax.swing.JFrame {
         initComponents();
         this.setResizable(false);
         this.setLocationRelativeTo(null);
-
-        menuItems = new ArrayList<JLabel>() {
-            {
-                add(exitGame);
-                add(newGame);
-                add(mainMenu);
-            }
-        };
-
-        a.play("src/main/java/com/engcomp2019/audio/easterEggMusic.wav");
-
-        // Para inicializar as opções de menu desativadas
-        menuActive = close.menu(0, menuActive, menuDropdown, menuItems);
-
-        menuDropdown.setIcon(imgMenu);
-        this.add(menuDropdown, new AbsoluteConstraints(39, 20, -1, -1));
-        menuDropdown.setVisible(false);
+        initMenu();
+        initAudio();
 
         for (int i = 0; i < 4; i++) {
             leoHeads.add(new JLabel(imgLeoHeadDance));
         }
+
+        menuDropdown.setIcon(imgMenu);
+        this.add(menuDropdown, new AbsoluteConstraints(39, 20, -1, -1));
+        menuDropdown.setVisible(false);
 
         this.add(leoHeads.get(0), new AbsoluteConstraints(330, 50, -1, -1));
         this.add(leoHeads.get(1), new AbsoluteConstraints(450, 370, -1, -1));
@@ -251,40 +240,30 @@ public class GUI_EasterEgg extends javax.swing.JFrame {
 
     private void newGameMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_newGameMouseReleased
         menuActive = close.menu(0, menuActive, menuDropdown, menuItems);
-        // Chamar frame para confirmar ação
-        GUI_RestartConfirm frameConfirm;
-        frameConfirm = new GUI_RestartConfirm(this, s);
-        frameConfirm.setVisible(true);
+        s.restart(this);
     }//GEN-LAST:event_newGameMouseReleased
 
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
+    // <editor-fold defaultstate="collapsed" desc="Initiate the menu">
+    private void initMenu() {
+        menuItems = new ArrayList<JLabel>() {
+            {
+                add(exitGame);
+                add(newGame);
+                add(mainMenu);
             }
-        } catch (ClassNotFoundException | InstantiationException | IllegalAccessException | javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(GUI_EasterEgg.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
+        };
 
-        //</editor-fold>
-
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(() -> {
-            new GUI_EasterEgg(new Session(0)).setVisible(true);
-        });
+        // Para inicializar as opções de menu desativadas
+        menuActive = close.menu(0, menuActive, menuDropdown, menuItems);
     }
+    // </editor-fold>
+
+    // <editor-fold defaultstate="collapsed" desc="Initiate the audio">
+    private void initAudio() {
+        a.setAudioPath("src/main/java/com/engcomp2019/audio/easterEggMusic.wav");
+        a.play(true);
+    }
+    // </editor-fold>
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel btnAbout;

@@ -1,6 +1,7 @@
 package com.engcomp2019.gui;
 
 import com.engcomp2019.core.*;
+import static com.engcomp2019.gui.GUI_MainMenu.a;
 import java.awt.Frame;
 import java.util.ArrayList;
 import javax.swing.ImageIcon;
@@ -20,16 +21,18 @@ public class GUI_Config extends javax.swing.JFrame {
     private final ImageIcon imgLeoHead = new ImageIcon("imgs/easteregg/leoHeadDance.gif");
     private final ArrayList<ImageIcon> imgBtnReset = new ArrayList<>();
     private final ArrayList<ImageIcon> imgBtnTheme = new ArrayList<>();
+    private final ArrayList<ImageIcon> imgVolume = new ArrayList<>();
     private final DragWindow drag = new DragWindow();
     private final Close close = new Close();
     private final ArrayList<JLabel> menuItems;
     private Boolean menuActive = true;
-    protected final Session s;
+    private final Session s;
     private final JFrame previousFrame;
 
     /**
      * Inicializa e instancia a tela de configurações
      *
+     * @param pPreviousFrame Recebe o frame de onde foi chamado
      * @param s Mantém a sessão inicializada
      */
     public GUI_Config(JFrame pPreviousFrame, Session s) {
@@ -61,9 +64,21 @@ public class GUI_Config extends javax.swing.JFrame {
         imgBtnReset.add(new ImageIcon("imgs/buttons/other/btnResetRHov.png"));
         imgBtnReset.add(new ImageIcon("imgs/buttons/other/btnResetRPre.png"));
 
-        easterEgg.setIcon(imgLeoHead);
-        this.add(easterEgg, new AbsoluteConstraints(740, 50, -1, -1));
-        easterEgg.setVisible(false);
+        imgVolume.add(new ImageIcon("imgs/elements/volumeOn.png"));
+        imgVolume.add(new ImageIcon("imgs/elements/volumeOff.png"));
+
+        if (!s.getAudioOn()) {
+            a.stop();
+            btnAudio.setIcon(imgVolume.get(1));
+        } else {
+            btnAudio.setIcon(imgVolume.get(0));
+        }
+
+        this.add(btnAudio, new AbsoluteConstraints(32, 525, -1, -1));
+
+        altTheme.setIcon(imgLeoHead);
+        this.add(altTheme, new AbsoluteConstraints(740, 50, -1, -1));
+        altTheme.setVisible(false);
 
         menuDropdown.setIcon(imgMenu);
         this.add(menuDropdown, new AbsoluteConstraints(39, 20, -1, -1));
@@ -82,7 +97,7 @@ public class GUI_Config extends javax.swing.JFrame {
             btnTheme.setIcon(imgBtnTheme.get(0));
         } else {
             btnTheme.setIcon(imgBtnTheme.get(3));
-            easterEgg.setVisible(true);
+            altTheme.setVisible(true);
         }
 
         frameBackground.setIcon(imgFrame);
@@ -105,8 +120,9 @@ public class GUI_Config extends javax.swing.JFrame {
         btnRecord = new javax.swing.JLabel();
         btnReset = new javax.swing.JLabel();
         btnTheme = new javax.swing.JLabel();
+        btnAudio = new javax.swing.JLabel();
+        altTheme = new javax.swing.JLabel();
         frameDrag = new javax.swing.JLabel();
-        easterEgg = new javax.swing.JLabel();
         frameBackground = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
@@ -115,6 +131,13 @@ public class GUI_Config extends javax.swing.JFrame {
         addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseReleased(java.awt.event.MouseEvent evt) {
                 formMouseReleased(evt);
+            }
+        });
+        addWindowFocusListener(new java.awt.event.WindowFocusListener() {
+            public void windowGainedFocus(java.awt.event.WindowEvent evt) {
+                formWindowGainedFocus(evt);
+            }
+            public void windowLostFocus(java.awt.event.WindowEvent evt) {
             }
         });
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -171,7 +194,6 @@ public class GUI_Config extends javax.swing.JFrame {
         lblRecord.setBackground(new java.awt.Color(255, 255, 255));
         lblRecord.setFont(new java.awt.Font("Dialog", 1, 24)); // NOI18N
         lblRecord.setForeground(new java.awt.Color(255, 255, 255));
-        lblRecord.setText("0");
         getContentPane().add(lblRecord, new org.netbeans.lib.awtextra.AbsoluteConstraints(223, 205, -1, -1));
         getContentPane().add(btnRecord, new org.netbeans.lib.awtextra.AbsoluteConstraints(215, 190, -1, -1));
 
@@ -207,6 +229,14 @@ public class GUI_Config extends javax.swing.JFrame {
         });
         getContentPane().add(btnTheme, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 290, -1, -1));
 
+        btnAudio.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseReleased(java.awt.event.MouseEvent evt) {
+                btnAudioMouseReleased(evt);
+            }
+        });
+        getContentPane().add(btnAudio, new org.netbeans.lib.awtextra.AbsoluteConstraints(32, 515, 32, 32));
+        getContentPane().add(altTheme, new org.netbeans.lib.awtextra.AbsoluteConstraints(740, 50, 30, 30));
+
         frameDrag.setPreferredSize(new java.awt.Dimension(41, 18));
         frameDrag.addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
             public void mouseDragged(java.awt.event.MouseEvent evt) {
@@ -222,7 +252,6 @@ public class GUI_Config extends javax.swing.JFrame {
             }
         });
         getContentPane().add(frameDrag, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 800, 18));
-        getContentPane().add(easterEgg, new org.netbeans.lib.awtextra.AbsoluteConstraints(740, 50, 30, 30));
 
         frameBackground.setBackground(new java.awt.Color(0, 0, 0));
         frameBackground.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
@@ -269,8 +298,6 @@ public class GUI_Config extends javax.swing.JFrame {
 
     private void goBackMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_goBackMouseReleased
         this.dispose();
-        //GUI_MainMenu mainMenu = new GUI_MainMenu(s);
-        //mainMenu.setVisible(true);
         previousFrame.setVisible(true);
         previousFrame.setEnabled(true);
     }//GEN-LAST:event_goBackMouseReleased
@@ -309,10 +336,10 @@ public class GUI_Config extends javax.swing.JFrame {
 
     private void btnThemeMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnThemeMouseReleased
         if (!s.getAltTheme()) {
-            easterEgg.setVisible(false);
+            altTheme.setVisible(false);
             btnTheme.setIcon(imgBtnTheme.get(1));
         } else {
-            easterEgg.setVisible(true);
+            altTheme.setVisible(true);
             btnTheme.setIcon(imgBtnTheme.get(4));
         }
     }//GEN-LAST:event_btnThemeMouseReleased
@@ -342,15 +369,32 @@ public class GUI_Config extends javax.swing.JFrame {
         menuActive = close.menu(0, menuActive, menuDropdown, menuItems);
     }//GEN-LAST:event_formMouseReleased
 
+    private void formWindowGainedFocus(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowGainedFocus
+        lblRecord.setText(String.format("%06d%n", s.getRecordScore()));
+    }//GEN-LAST:event_formWindowGainedFocus
+
+    private void btnAudioMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnAudioMouseReleased
+        if (s.getAudioOn()) {
+            btnAudio.setIcon(imgVolume.get(1));
+            a.stop();
+            s.setAudioOn(false);
+        } else {
+            btnAudio.setIcon(imgVolume.get(0));
+            a.play(true);
+            s.setAudioOn(true);
+        }
+    }//GEN-LAST:event_btnAudioMouseReleased
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JLabel altTheme;
     private javax.swing.JLabel btnAbout;
+    private javax.swing.JLabel btnAudio;
     private javax.swing.JLabel btnClose;
     private javax.swing.JLabel btnFile;
     private javax.swing.JLabel btnMinimize;
     private javax.swing.JLabel btnRecord;
     private javax.swing.JLabel btnReset;
     private javax.swing.JLabel btnTheme;
-    private javax.swing.JLabel easterEgg;
     private javax.swing.JLabel exitGame;
     private javax.swing.JLabel frameBackground;
     private javax.swing.JLabel frameDrag;

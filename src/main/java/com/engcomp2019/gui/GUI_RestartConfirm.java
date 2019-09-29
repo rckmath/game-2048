@@ -18,8 +18,14 @@ public class GUI_RestartConfirm extends javax.swing.JFrame {
     private final ImageIcon imgFrame = new ImageIcon("imgs/frames/frameRestart.png");
     private final ArrayList<ImageIcon> imgBtnYesNo = new ArrayList<>();
     private final JFrame previousFrame;
-    private Session s;
+    private final Session s;
 
+    /**
+     * Confirmar reinício
+     *
+     * @param pPreviousFrame Recebe o frame de onde foi chamado
+     * @param s Mantém a sessão inicializada
+     */
     public GUI_RestartConfirm(JFrame pPreviousFrame, Session s) {
         this.s = s;
 
@@ -161,9 +167,10 @@ public class GUI_RestartConfirm extends javax.swing.JFrame {
             s.setRecordScore(0);
         } else {
             try {
+                // Descarta o frame (jogo) anterior, fecha este e instancia um novo jogo
                 previousFrame.dispose();
                 this.dispose();
-                s.newGame(s, true);
+                s.newGame(s);
             } catch (Exception ex) {
                 System.err.println("ERRO: " + ex);
             }
