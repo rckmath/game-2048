@@ -15,21 +15,29 @@ import javax.sound.sampled.UnsupportedAudioFileException;
 public class Audio {
 
     private Clip clip;
+    private String audioPath;
+
+    public void setAudioPath(String audioPath) {
+        this.audioPath = audioPath;
+    }
 
     /**
      * Executa um áudio
      *
-     * @param filePath Localização do arquivo de áudio
+     * @param repeat True para executar o áudio em loop, false para executar uma
+     * vez
      */
-    public void play(String filePath) {
+    public void play(Boolean repeat) {
         try {
-            File audioPath = new File(filePath);
-            if (audioPath.exists()) {
-                AudioInputStream audioInput = AudioSystem.getAudioInputStream(audioPath);
+            File path = new File(audioPath);
+            if (path.exists()) {
+                AudioInputStream audioInput = AudioSystem.getAudioInputStream(path);
                 clip = AudioSystem.getClip();
                 clip.open(audioInput);
                 clip.start();
-                clip.loop(Clip.LOOP_CONTINUOUSLY);
+                if (repeat) {
+                    clip.loop(Clip.LOOP_CONTINUOUSLY);
+                }
             } else {
                 System.err.println("File not found.");
             }

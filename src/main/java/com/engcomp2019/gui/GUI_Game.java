@@ -3,8 +3,15 @@ package com.engcomp2019.gui;
 import com.engcomp2019.audio.Audio;
 import com.engcomp2019.core.*;
 import java.awt.Frame;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.ImageIcon;
+import javax.swing.JFrame;
 import javax.swing.JLabel;
 import org.netbeans.lib.awtextra.AbsoluteConstraints;
 
@@ -12,16 +19,21 @@ import org.netbeans.lib.awtextra.AbsoluteConstraints;
  *
  * @author erick / rckmath
  */
-public class GUI_Game extends javax.swing.JFrame {
+public class GUI_Game extends JFrame {
 
+    // ImageIcon
     private final ImageIcon imgFrame = new ImageIcon("imgs/frames/frameGame.png");
     private final ImageIcon imgMenu = new ImageIcon("imgs/elements/gameDropdown.png");
-    private final ImageIcon imgTileDef;
+    private final ArrayList<ImageIcon> imgVolume = new ArrayList<>();
+    private final ArrayList<ImageIcon> imgLeoHead = new ArrayList<>();
     private final ArrayList<ImageIcon> imgPad = new ArrayList<>();
     private final ArrayList<ImageIcon> imgBtnReset = new ArrayList<>();
+    // Labels
     private final ArrayList<JLabel> gameTiles = new ArrayList<>();
-    private final ArrayList<JLabel> menuItems;
+    private ArrayList<JLabel> menuItems;
+    // Outros
     private final DragWindow drag = new DragWindow();
+    private final DragTile move = new DragTile();
     private final Close close = new Close();
     private Boolean menuActive = true;
     private final Audio a = new Audio();
@@ -34,55 +46,25 @@ public class GUI_Game extends javax.swing.JFrame {
      */
     public GUI_Game(Session s) {
         this.s = s;
-        s.setRoundScore(0);
-        s.tileSpawn();
-        s.tileSpawn();
-        s.printGameBoard();
-        
         initComponents();
-        this.setResizable(false);
-        this.setLocationRelativeTo(null);
+        setResizable(false);
+        setLocationRelativeTo(null);
+        initArrowPadListener();
+        initKeyboardListener();
+        initGame();
+        initAudio();
+        initMenu();
 
-        menuItems = new ArrayList<JLabel>() {
-            {
-                add(exitGame);
-                add(newGame);
-                add(mainMenu);
-            }
-        };
+        this.add(btnAudio, new AbsoluteConstraints(32, 525, -1, -1));
 
-        lblScore.setText(String.format("%06d%n", s.getRoundScore()));
-        lblRecord.setText(String.format("%06d%n", s.getRecordScore()));
-
-        // Define as tiles de acordo com o status do tema
-        if (!s.getAltTheme()) {
-            a.play("src/main/java/com/engcomp2019/audio/gameMusic.wav");
-            imgTileDef = new ImageIcon("imgs/tiles/def.png");
-        } else {
-            a.play("src/main/java/com/engcomp2019/audio/leoMusic.wav");
-            imgTileDef = new ImageIcon("imgs/tiles/leo.gif");
-        }
-
-        gerarTiles();
-
-        // Para inicializar as opções de menu desativadas
-        menuActive = close.menu(0, menuActive, menuDropdown, menuItems);
-
-        imgPad.add(new ImageIcon("imgs/buttons/pad/bntPadDef.png"));
-        imgPad.add(new ImageIcon("imgs/buttons/pad/bntPadU.png"));
-        imgPad.add(new ImageIcon("imgs/buttons/pad/bntPadD.png"));
-        imgPad.add(new ImageIcon("imgs/buttons/pad/bntPadL.png"));
-        imgPad.add(new ImageIcon("imgs/buttons/pad/bntPadR.png"));
-
-        imgBtnReset.add(new ImageIcon("imgs/buttons/btnResetDef.png"));
-        imgBtnReset.add(new ImageIcon("imgs/buttons/btnResetHov.png"));
-        imgBtnReset.add(new ImageIcon("imgs/buttons/btnResetPre.png"));
+        easterEgg.setIcon(imgLeoHead.get(0));
+        this.add(easterEgg, new AbsoluteConstraints(511, 422, -1, -1));
 
         btnReset.setIcon(imgBtnReset.get(0));
         this.add(btnReset, new AbsoluteConstraints(634, 417, -1, -1));
 
         btnPad.setIcon(imgPad.get(0));
-        this.add(btnPad, new AbsoluteConstraints(474, 252, -1, -1));
+        this.add(btnPad, new AbsoluteConstraints(473, 252, -1, -1));
 
         menuDropdown.setIcon(imgMenu);
         this.add(menuDropdown, new AbsoluteConstraints(39, 20, -1, -1));
@@ -107,11 +89,14 @@ public class GUI_Game extends javax.swing.JFrame {
         btnReset = new javax.swing.JLabel();
         lblRecord = new javax.swing.JLabel();
         lblScore = new javax.swing.JLabel();
-        padU = new javax.swing.JLabel();
-        padD = new javax.swing.JLabel();
-        padL = new javax.swing.JLabel();
-        padR = new javax.swing.JLabel();
+        arrowPadU = new javax.swing.JLabel();
+        arrowPadD = new javax.swing.JLabel();
+        arrowPadL = new javax.swing.JLabel();
+        arrowPadR = new javax.swing.JLabel();
         btnPad = new javax.swing.JLabel();
+        easterEgg = new javax.swing.JLabel();
+        btnAudio = new javax.swing.JLabel();
+        mouseMove = new javax.swing.JLabel();
         frameDrag = new javax.swing.JLabel();
         frameBackground = new javax.swing.JLabel();
 
@@ -126,6 +111,11 @@ public class GUI_Game extends javax.swing.JFrame {
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowClosed(java.awt.event.WindowEvent evt) {
                 formWindowClosed(evt);
+            }
+        });
+        addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                formKeyReleased(evt);
             }
         });
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -214,47 +204,44 @@ public class GUI_Game extends javax.swing.JFrame {
         lblScore.setFont(new java.awt.Font("Dialog", 1, 24)); // NOI18N
         lblScore.setForeground(new java.awt.Color(77, 77, 77));
         getContentPane().add(lblScore, new org.netbeans.lib.awtextra.AbsoluteConstraints(668, 150, -1, -1));
+        getContentPane().add(arrowPadU, new org.netbeans.lib.awtextra.AbsoluteConstraints(519, 254, 28, 42));
+        getContentPane().add(arrowPadD, new org.netbeans.lib.awtextra.AbsoluteConstraints(519, 328, 28, 42));
+        getContentPane().add(arrowPadL, new org.netbeans.lib.awtextra.AbsoluteConstraints(475, 298, 42, 28));
+        getContentPane().add(arrowPadR, new org.netbeans.lib.awtextra.AbsoluteConstraints(549, 298, 42, 28));
+        getContentPane().add(btnPad, new org.netbeans.lib.awtextra.AbsoluteConstraints(473, 252, -1, -1));
 
-        padU.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mousePressed(java.awt.event.MouseEvent evt) {
-                padUMousePressed(evt);
+        easterEgg.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                easterEggMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                easterEggMouseExited(evt);
             }
             public void mouseReleased(java.awt.event.MouseEvent evt) {
-                padUMouseReleased(evt);
+                easterEggMouseReleased(evt);
             }
         });
-        getContentPane().add(padU, new org.netbeans.lib.awtextra.AbsoluteConstraints(520, 254, 28, 42));
+        getContentPane().add(easterEgg, new org.netbeans.lib.awtextra.AbsoluteConstraints(511, 422, -1, -1));
+        easterEgg.getAccessibleContext().setAccessibleName("easterEgg");
 
-        padD.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mousePressed(java.awt.event.MouseEvent evt) {
-                padDMousePressed(evt);
-            }
+        btnAudio.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseReleased(java.awt.event.MouseEvent evt) {
-                padDMouseReleased(evt);
+                btnAudioMouseReleased(evt);
             }
         });
-        getContentPane().add(padD, new org.netbeans.lib.awtextra.AbsoluteConstraints(520, 328, 28, 42));
+        getContentPane().add(btnAudio, new org.netbeans.lib.awtextra.AbsoluteConstraints(32, 515, 32, 32));
 
-        padL.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mousePressed(java.awt.event.MouseEvent evt) {
-                padLMousePressed(evt);
-            }
-            public void mouseReleased(java.awt.event.MouseEvent evt) {
-                padLMouseReleased(evt);
+        mouseMove.addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
+            public void mouseDragged(java.awt.event.MouseEvent evt) {
+                mouseMoveMouseDragged(evt);
             }
         });
-        getContentPane().add(padL, new org.netbeans.lib.awtextra.AbsoluteConstraints(476, 298, 42, 28));
-
-        padR.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mousePressed(java.awt.event.MouseEvent evt) {
-                padRMousePressed(evt);
-            }
+        mouseMove.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseReleased(java.awt.event.MouseEvent evt) {
-                padRMouseReleased(evt);
+                mouseMoveMouseReleased(evt);
             }
         });
-        getContentPane().add(padR, new org.netbeans.lib.awtextra.AbsoluteConstraints(550, 298, 42, 28));
-        getContentPane().add(btnPad, new org.netbeans.lib.awtextra.AbsoluteConstraints(474, 252, -1, -1));
+        getContentPane().add(mouseMove, new org.netbeans.lib.awtextra.AbsoluteConstraints(22, 73, 422, 418));
 
         frameDrag.setPreferredSize(new java.awt.Dimension(41, 18));
         frameDrag.addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
@@ -296,7 +283,7 @@ public class GUI_Game extends javax.swing.JFrame {
     }//GEN-LAST:event_btnFileMouseReleased
 
     private void frameDragMouseDragged(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_frameDragMouseDragged
-        drag.setCoordenates(evt);
+        drag.setInitialCoordenates(evt);
         drag.setFrame(this);
         drag.setCoord();
     }//GEN-LAST:event_frameDragMouseDragged
@@ -304,7 +291,7 @@ public class GUI_Game extends javax.swing.JFrame {
     private void frameDragMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_frameDragMousePressed
         menuActive = close.menu(0, menuActive, menuDropdown, menuItems);
         frameDrag.setCursor(new java.awt.Cursor(java.awt.Cursor.MOVE_CURSOR));
-        drag.setMouseCoordenates(evt);
+        drag.setFinalCoordenates(evt);
     }//GEN-LAST:event_frameDragMousePressed
 
     private void frameDragMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_frameDragMouseReleased
@@ -329,44 +316,15 @@ public class GUI_Game extends javax.swing.JFrame {
         frameExit.setVisible(true);
     }//GEN-LAST:event_exitGameMouseReleased
 
-    private void padUMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_padUMousePressed
-        btnPad.setIcon(imgPad.get(1));
-    }//GEN-LAST:event_padUMousePressed
-
-    private void padUMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_padUMouseReleased
-        btnPad.setIcon(imgPad.get(0));
-    }//GEN-LAST:event_padUMouseReleased
-
     private void formWindowClosed(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosed
-        a.stop();
+        if (s.getAudioOn()) {
+            a.stop();
+        }
     }//GEN-LAST:event_formWindowClosed
 
-    private void padDMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_padDMousePressed
-        btnPad.setIcon(imgPad.get(2));
-    }//GEN-LAST:event_padDMousePressed
-
-    private void padDMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_padDMouseReleased
-        btnPad.setIcon(imgPad.get(0));
-    }//GEN-LAST:event_padDMouseReleased
-
-    private void padLMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_padLMousePressed
-        btnPad.setIcon(imgPad.get(3));
-    }//GEN-LAST:event_padLMousePressed
-
-    private void padLMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_padLMouseReleased
-        btnPad.setIcon(imgPad.get(0));
-    }//GEN-LAST:event_padLMouseReleased
-
-    private void padRMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_padRMousePressed
-        btnPad.setIcon(imgPad.get(4));
-    }//GEN-LAST:event_padRMousePressed
-
-    private void padRMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_padRMouseReleased
-        btnPad.setIcon(imgPad.get(0));
-    }//GEN-LAST:event_padRMouseReleased
-
     private void newGameMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_newGameMouseReleased
-        restart();
+        menuActive = close.menu(0, menuActive, menuDropdown, menuItems);
+        s.restart(this);
     }//GEN-LAST:event_newGameMouseReleased
 
     private void formMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_formMouseReleased
@@ -387,41 +345,281 @@ public class GUI_Game extends javax.swing.JFrame {
 
     private void btnResetMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnResetMouseReleased
         btnReset.setIcon(imgBtnReset.get(1));
-        restart();
+        menuActive = close.menu(0, menuActive, menuDropdown, menuItems);
+        s.restart(this);
     }//GEN-LAST:event_btnResetMouseReleased
 
-    // Gera as tiles nas respectivas posições
-    private void gerarTiles() {
-        int[] pos = {41, 106};
-        int k = 0;
+    private void easterEggMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_easterEggMouseEntered
+        easterEgg.setIcon(imgLeoHead.get(1));
+    }//GEN-LAST:event_easterEggMouseEntered
 
+    private void easterEggMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_easterEggMouseExited
+        easterEgg.setIcon(imgLeoHead.get(0));
+    }//GEN-LAST:event_easterEggMouseExited
+
+    private void easterEggMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_easterEggMouseReleased
+        if (s.getAudioOn()) {
+            a.stop();
+        }
+        this.dispose();
+        if (s.getAltTheme()) {
+            new GUI_EasterEgg(s).setVisible(true);
+        } else {
+            new GUI_Victory(s).setVisible(true);
+        }
+    }//GEN-LAST:event_easterEggMouseReleased
+
+    private void formKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_formKeyReleased
+        evt.getKeyCode();
+    }//GEN-LAST:event_formKeyReleased
+
+    private void btnAudioMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnAudioMouseReleased
+        if (s.getAudioOn()) {
+            btnAudio.setIcon(imgVolume.get(1));
+            a.stop();
+            s.setAudioOn(false);
+        } else {
+            btnAudio.setIcon(imgVolume.get(0));
+            a.play(true);
+            s.setAudioOn(true);
+        }
+    }//GEN-LAST:event_btnAudioMouseReleased
+
+    private void mouseMoveMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_mouseMoveMouseReleased
+        if (move.getBuffer() != 0) {
+            move.setFinalCoordenates(evt);
+            move.setBuffer(0);
+            doMove((char) move.setCoord());
+
+        }
+    }//GEN-LAST:event_mouseMoveMouseReleased
+
+    private void mouseMoveMouseDragged(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_mouseMoveMouseDragged
+        if (move.getBuffer() == 0) {
+            move.setInitialCoordenates(evt);
+            move.setBuffer(1);
+        }
+    }//GEN-LAST:event_mouseMoveMouseDragged
+
+    // <editor-fold defaultstate="collapsed" desc="Update game tiles">
+    // Gera as tiles nas respectivas posições
+    private void attTiles() {
+        int[] pos = {41, 106};  // Posição XY da primeira tile
+        int k = 0;  // Índice contador de tiles geradas p/ posicionar uma a uma
+
+        // Dispoe o ArrayList na tela em formato de matriz
         for (int i = 0; i < s.getBoardSize(); i++) {
             pos[0] = 41;
             for (int j = 0; j < s.getBoardSize(); j++) {
-                gameTiles.add(new JLabel(imgTileDef));
-                this.add(gameTiles.get(k), new AbsoluteConstraints(pos[0], pos[1], -1, -1));
+                if (s.getGameStatus() == -1) {
+                    gameTiles.add(new JLabel(s.getTileImg(i, j)));
+                    this.add(gameTiles.get(k), new AbsoluteConstraints(pos[0], pos[1], -1, -1));
+                } else {
+                    gameTiles.get(k).setIcon(s.getTileImg(i, j));
+                }
                 pos[0] += 100;
                 k++;
             }
             pos[1] += 100;
         }
     }
+    // </editor-fold>
 
-    private void restart() {
+    // <editor-fold defaultstate="collapsed" desc="Initiate the menu">
+    private void initMenu() {
+        menuItems = new ArrayList<JLabel>() {
+            {
+                add(exitGame);
+                add(newGame);
+                add(mainMenu);
+            }
+        };
+
+        // Para inicializar as opções de menu desativadas
         menuActive = close.menu(0, menuActive, menuDropdown, menuItems);
-        // Chamar frame para confirmar ação
-        GUI_RestartConfirm frameConfirm;
-        frameConfirm = new GUI_RestartConfirm(this, s);
-        frameConfirm.setVisible(true);
     }
+    // </editor-fold>
+
+    // <editor-fold defaultstate="collapsed" desc="Initiate the audio">
+    private void initAudio() {
+        if (!s.getAltTheme()) {
+            a.setAudioPath("src/main/java/com/engcomp2019/audio/gameMusic.wav");
+        } else {
+            a.setAudioPath("src/main/java/com/engcomp2019/audio/leoMusic.wav");
+        }
+
+        if (s.getAudioOn()) {
+            a.play(true);
+            btnAudio.setIcon(imgVolume.get(0));
+        } else {
+            btnAudio.setIcon(imgVolume.get(1));
+        }
+    }
+    // </editor-fold>
+
+    // <editor-fold defaultstate="collapsed" desc="Initiate the game">
+    private void initGame() {
+        s.setRoundScore(0);
+        s.tileSpawn();
+        s.tileSpawn();
+        s.printGameBoard();
+        // Depois de inicializar as tiles, status do jogo se torna 0
+        attTiles();
+        s.setGameStatus(0);
+        loadImages();
+
+        lblScore.setText(String.format("%06d%n", s.getRoundScore()));
+        lblRecord.setText(String.format("%06d%n", s.getRecordScore()));
+    }
+    // </editor-fold>
+
+    // <editor-fold defaultstate="collapsed" desc="Load images">
+    private void loadImages() {
+        imgPad.add(new ImageIcon("imgs/buttons/pad/bntPadDef.png"));
+        imgPad.add(new ImageIcon("imgs/buttons/pad/bntPadU.png"));
+        imgPad.add(new ImageIcon("imgs/buttons/pad/bntPadD.png"));
+        imgPad.add(new ImageIcon("imgs/buttons/pad/bntPadL.png"));
+        imgPad.add(new ImageIcon("imgs/buttons/pad/bntPadR.png"));
+
+        imgBtnReset.add(new ImageIcon("imgs/buttons/btnResetDef.png"));
+        imgBtnReset.add(new ImageIcon("imgs/buttons/btnResetHov.png"));
+        imgBtnReset.add(new ImageIcon("imgs/buttons/btnResetPre.png"));
+
+        imgLeoHead.add(new ImageIcon("imgs/easteregg/leoHead.png"));
+        imgLeoHead.add(new ImageIcon("imgs/easteregg/leoHeadTwo.png"));
+
+        imgVolume.add(new ImageIcon("imgs/elements/volumeOn.png"));
+        imgVolume.add(new ImageIcon("imgs/elements/volumeOff.png"));
+    }
+    // </editor-fold>
+
+    // <editor-fold defaultstate="collapsed" desc="Keyboard listener">
+    private void initKeyboardListener() {
+        addKeyListener(new KeyAdapter() {
+            public void keyReleased(KeyEvent evt) {
+                int key = evt.getKeyCode();
+                switch (key) {
+                    case KeyEvent.VK_W:
+                    case KeyEvent.VK_UP:
+                        doMove('U');
+                        break;
+                    case KeyEvent.VK_A:
+                    case KeyEvent.VK_LEFT:
+                        doMove('L');
+                        break;
+                    case KeyEvent.VK_S:
+                    case KeyEvent.VK_DOWN:
+                        doMove('D');
+                        break;
+                    case KeyEvent.VK_D:
+                    case KeyEvent.VK_RIGHT:
+                        doMove('R');
+                        break;
+                    default:
+                        break;
+                }
+            }
+        });
+    } // </editor-fold>
+
+    // <editor-fold defaultstate="collapsed" desc="Arrow pad listener">
+    private void initArrowPadListener() {
+        // Mouse listeners p/ as setas na tela
+        arrowPadU.addMouseListener(new MouseAdapter() {
+            public void mousePressed(MouseEvent evt) {
+                btnPad.setIcon(imgPad.get(1));
+            }
+
+            public void mouseReleased(MouseEvent evt) {
+                btnPad.setIcon(imgPad.get(0));
+                doMove('U');
+            }
+        });
+
+        arrowPadD.addMouseListener(new MouseAdapter() {
+            public void mousePressed(MouseEvent evt) {
+                btnPad.setIcon(imgPad.get(2));
+            }
+
+            public void mouseReleased(MouseEvent evt) {
+                btnPad.setIcon(imgPad.get(0));
+                doMove('D');
+            }
+        });
+
+        arrowPadL.addMouseListener(new MouseAdapter() {
+            public void mousePressed(MouseEvent evt) {
+                btnPad.setIcon(imgPad.get(3));
+            }
+
+            public void mouseReleased(MouseEvent evt) {
+                btnPad.setIcon(imgPad.get(0));
+                doMove('L');
+            }
+        });
+
+        arrowPadR.addMouseListener(new MouseAdapter() {
+            public void mousePressed(MouseEvent evt) {
+                btnPad.setIcon(imgPad.get(4));
+            }
+
+            public void mouseReleased(MouseEvent evt) {
+                btnPad.setIcon(imgPad.get(0));
+                doMove('R');
+            }
+        });
+    }
+    // </editor-fold>
+
+    // <editor-fold defaultstate="collapsed" desc="Execute movement">
+    private void doMove(char id) {
+        Boolean invalidMove = false;
+        switch (id) {
+            case 'U':
+                s.moveUp();
+                break;
+            case 'D':
+                s.moveDown();
+                break;
+            case 'L':
+                s.moveLeft();
+                break;
+            case 'R':
+                s.moveRight();
+                break;
+            default:
+                System.err.println("Movimento inválido.");
+                invalidMove = true;
+                break;
+        }
+        if (!invalidMove) {
+            s.tileSpawn();
+            attTiles();
+            s.printGameBoard();
+            try {
+                Thread.sleep(20);
+            } catch (InterruptedException ex) {
+                Logger.getLogger(GUI_Game.class
+                        .getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+    }
+    // </editor-fold>
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JLabel arrowPadD;
+    private javax.swing.JLabel arrowPadL;
+    private javax.swing.JLabel arrowPadR;
+    private javax.swing.JLabel arrowPadU;
     private javax.swing.JLabel btnAbout;
+    private javax.swing.JLabel btnAudio;
     private javax.swing.JLabel btnClose;
     private javax.swing.JLabel btnFile;
     private javax.swing.JLabel btnMinimize;
     private javax.swing.JLabel btnPad;
     private javax.swing.JLabel btnReset;
+    private javax.swing.JLabel easterEgg;
     private javax.swing.JLabel exitGame;
     private javax.swing.JLabel frameBackground;
     private javax.swing.JLabel frameDrag;
@@ -429,10 +627,7 @@ public class GUI_Game extends javax.swing.JFrame {
     private javax.swing.JLabel lblScore;
     private javax.swing.JLabel mainMenu;
     private javax.swing.JLabel menuDropdown;
+    private javax.swing.JLabel mouseMove;
     private javax.swing.JLabel newGame;
-    private javax.swing.JLabel padD;
-    private javax.swing.JLabel padL;
-    private javax.swing.JLabel padR;
-    private javax.swing.JLabel padU;
     // End of variables declaration//GEN-END:variables
 }

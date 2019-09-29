@@ -20,12 +20,13 @@ public class GUI_MainMenu extends JFrame {
     private final ImageIcon imgLeoHead = new ImageIcon("imgs/easteregg/leoHeadDance.gif");
     private final ArrayList<ImageIcon> imgBtnStart = new ArrayList<>();
     private final ArrayList<ImageIcon> imgBtnGameS = new ArrayList<>();
+    private final ArrayList<ImageIcon> imgVolume = new ArrayList<>();
     private final DragWindow drag = new DragWindow();
     private final Close close = new Close();
-    private final ArrayList<JLabel> menuItems;
+    private ArrayList<JLabel> menuItems;
     private Boolean menuActive = true;
+    protected static Audio a = new Audio();
     private final Session s;
-    private final Audio a = new Audio();
     private int gameBoardSize = 1;
 
     /**
@@ -41,37 +42,20 @@ public class GUI_MainMenu extends JFrame {
         this.setResizable(false);
         this.setLocationRelativeTo(null);
 
-        menuItems = new ArrayList<JLabel>() {
-            {
-                add(exitGame);
-                add(newGame);
-                add(configGame);
-            }
-        };
+        initMenu();
+        loadImages();
 
-        a.play("src/main/java/com/engcomp2019/audio/menuMusic.wav");
-
-        // Para inicializar as opções de menu desativadas
-        menuActive = close.menu(0, menuActive, menuDropdown, menuItems);
-
-        easterEgg.setIcon(imgLeoHead);
-        this.add(easterEgg, new AbsoluteConstraints(740, 50, -1, -1));
-        easterEgg.setVisible(false);
+        altTheme.setIcon(imgLeoHead);
+        this.add(altTheme, new AbsoluteConstraints(740, 50, -1, -1));
+        altTheme.setVisible(false);
 
         if (s.getAltTheme()) {
-            easterEgg.setVisible(true);
+            altTheme.setVisible(true);
         }
 
-        imgBtnStart.add(new ImageIcon("imgs/buttons/btnDefault.png"));
-        imgBtnStart.add(new ImageIcon("imgs/buttons/btnHover.png"));
-        imgBtnStart.add(new ImageIcon("imgs/buttons/btnPressed.png"));
+        initAudio();
 
-        imgBtnGameS.add(new ImageIcon("imgs/buttons/btn3x3Def.png"));
-        imgBtnGameS.add(new ImageIcon("imgs/buttons/btn3x3Hover.png"));
-        imgBtnGameS.add(new ImageIcon("imgs/buttons/btn3x3Pressed.png"));
-        imgBtnGameS.add(new ImageIcon("imgs/buttons/btn4x4Def.png"));
-        imgBtnGameS.add(new ImageIcon("imgs/buttons/btn4x4Hover.png"));
-        imgBtnGameS.add(new ImageIcon("imgs/buttons/btn4x4Pressed.png"));
+        this.add(btnAudio, new AbsoluteConstraints(32, 525, -1, -1));
 
         menuDropdown.setIcon(imgMenu);
         this.add(menuDropdown, new AbsoluteConstraints(39, 20, -1, -1));
@@ -99,10 +83,11 @@ public class GUI_MainMenu extends JFrame {
         btnClose = new javax.swing.JLabel();
         btnFile = new javax.swing.JLabel();
         btnAbout = new javax.swing.JLabel();
-        frameDrag = new javax.swing.JLabel();
         btnGameSize = new javax.swing.JLabel();
         btnStart = new javax.swing.JLabel();
-        easterEgg = new javax.swing.JLabel();
+        btnAudio = new javax.swing.JLabel();
+        altTheme = new javax.swing.JLabel();
+        frameDrag = new javax.swing.JLabel();
         frameBackground = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -178,22 +163,6 @@ public class GUI_MainMenu extends JFrame {
         });
         getContentPane().add(btnAbout, new org.netbeans.lib.awtextra.AbsoluteConstraints(112, 0, 50, 18));
 
-        frameDrag.setPreferredSize(new java.awt.Dimension(41, 18));
-        frameDrag.addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
-            public void mouseDragged(java.awt.event.MouseEvent evt) {
-                frameDragMouseDragged(evt);
-            }
-        });
-        frameDrag.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mousePressed(java.awt.event.MouseEvent evt) {
-                frameDragMousePressed(evt);
-            }
-            public void mouseReleased(java.awt.event.MouseEvent evt) {
-                frameDragMouseReleased(evt);
-            }
-        });
-        getContentPane().add(frameDrag, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 800, 18));
-
         btnGameSize.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         btnGameSize.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseEntered(java.awt.event.MouseEvent evt) {
@@ -227,7 +196,30 @@ public class GUI_MainMenu extends JFrame {
             }
         });
         getContentPane().add(btnStart, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 320, -1, -1));
-        getContentPane().add(easterEgg, new org.netbeans.lib.awtextra.AbsoluteConstraints(740, 50, 30, 30));
+
+        btnAudio.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseReleased(java.awt.event.MouseEvent evt) {
+                btnAudioMouseReleased(evt);
+            }
+        });
+        getContentPane().add(btnAudio, new org.netbeans.lib.awtextra.AbsoluteConstraints(32, 515, 32, 32));
+        getContentPane().add(altTheme, new org.netbeans.lib.awtextra.AbsoluteConstraints(740, 50, 30, 30));
+
+        frameDrag.setPreferredSize(new java.awt.Dimension(41, 18));
+        frameDrag.addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
+            public void mouseDragged(java.awt.event.MouseEvent evt) {
+                frameDragMouseDragged(evt);
+            }
+        });
+        frameDrag.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                frameDragMousePressed(evt);
+            }
+            public void mouseReleased(java.awt.event.MouseEvent evt) {
+                frameDragMouseReleased(evt);
+            }
+        });
+        getContentPane().add(frameDrag, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 800, 18));
 
         frameBackground.setBackground(new java.awt.Color(0, 0, 0));
         frameBackground.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
@@ -247,7 +239,7 @@ public class GUI_MainMenu extends JFrame {
     }//GEN-LAST:event_btnMinimizeMouseReleased
 
     private void frameDragMouseDragged(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_frameDragMouseDragged
-        drag.setCoordenates(evt);
+        drag.setInitialCoordenates(evt);
         drag.setFrame(this);
         drag.setCoord();
     }//GEN-LAST:event_frameDragMouseDragged
@@ -255,7 +247,7 @@ public class GUI_MainMenu extends JFrame {
     private void frameDragMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_frameDragMousePressed
         menuActive = close.menu(0, menuActive, menuDropdown, menuItems);
         frameDrag.setCursor(new java.awt.Cursor(java.awt.Cursor.MOVE_CURSOR));
-        drag.setMouseCoordenates(evt);
+        drag.setFinalCoordenates(evt);
     }//GEN-LAST:event_frameDragMousePressed
 
     private void btnStartMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnStartMouseEntered
@@ -276,7 +268,7 @@ public class GUI_MainMenu extends JFrame {
             a.stop();
             this.dispose();
             start();
-            s.newGame(s, false);
+            s.newGame(s);
         } catch (Exception ex) {
             System.err.println("ERRO: " + ex);
         }
@@ -351,16 +343,28 @@ public class GUI_MainMenu extends JFrame {
         this.dispose();
         a.stop();
         start();
-        s.newGame(s, false);
+        s.newGame(s);
     }//GEN-LAST:event_newGameMouseReleased
 
     private void formWindowGainedFocus(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowGainedFocus
         if (s.getAltTheme()) {
-            easterEgg.setVisible(true);
+            altTheme.setVisible(true);
         } else {
-            easterEgg.setVisible(false);
+            altTheme.setVisible(false);
         }
     }//GEN-LAST:event_formWindowGainedFocus
+
+    private void btnAudioMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnAudioMouseReleased
+        if (s.getAudioOn()) {
+            btnAudio.setIcon(imgVolume.get(1));
+            a.stop();
+            s.setAudioOn(false);
+        } else {
+            btnAudio.setIcon(imgVolume.get(0));
+            a.play(true);
+            s.setAudioOn(true);
+        }
+    }//GEN-LAST:event_btnAudioMouseReleased
 
     private void start() {
         if (gameBoardSize == 1) {
@@ -369,15 +373,62 @@ public class GUI_MainMenu extends JFrame {
             s.setBoardSize(4);
         }
     }
+
+    // <editor-fold defaultstate="collapsed" desc="Initiate the menu">
+    private void initMenu() {
+        menuItems = new ArrayList<JLabel>() {
+            {
+                add(exitGame);
+                add(newGame);
+                add(configGame);
+            }
+        };
+
+        // Para inicializar as opções de menu desativadas
+        menuActive = close.menu(0, menuActive, menuDropdown, menuItems);
+    }
+    // </editor-fold>
+
+    // <editor-fold defaultstate="collapsed" desc="Initiate the audio">
+    private void initAudio() {
+        a.setAudioPath("src/main/java/com/engcomp2019/audio/menuMusic.wav");
+        if (s.getAudioOn()) {
+            a.play(true);
+            btnAudio.setIcon(imgVolume.get(0));
+        } else {
+            btnAudio.setIcon(imgVolume.get(1));
+        }
+    }
+    // </editor-fold>
+
+    // <editor-fold defaultstate="collapsed" desc="Load images">
+    private void loadImages() {
+        imgBtnStart.add(new ImageIcon("imgs/buttons/btnDefault.png"));
+        imgBtnStart.add(new ImageIcon("imgs/buttons/btnHover.png"));
+        imgBtnStart.add(new ImageIcon("imgs/buttons/btnPressed.png"));
+
+        imgBtnGameS.add(new ImageIcon("imgs/buttons/btn3x3Def.png"));
+        imgBtnGameS.add(new ImageIcon("imgs/buttons/btn3x3Hover.png"));
+        imgBtnGameS.add(new ImageIcon("imgs/buttons/btn3x3Pressed.png"));
+        imgBtnGameS.add(new ImageIcon("imgs/buttons/btn4x4Def.png"));
+        imgBtnGameS.add(new ImageIcon("imgs/buttons/btn4x4Hover.png"));
+        imgBtnGameS.add(new ImageIcon("imgs/buttons/btn4x4Pressed.png"));
+
+        imgVolume.add(new ImageIcon("imgs/elements/volumeOn.png"));
+        imgVolume.add(new ImageIcon("imgs/elements/volumeOff.png"));
+    }
+    // </editor-fold>
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JLabel altTheme;
     private javax.swing.JLabel btnAbout;
+    private javax.swing.JLabel btnAudio;
     private javax.swing.JLabel btnClose;
     private javax.swing.JLabel btnFile;
     private javax.swing.JLabel btnGameSize;
     private javax.swing.JLabel btnMinimize;
     private javax.swing.JLabel btnStart;
     private javax.swing.JLabel configGame;
-    private javax.swing.JLabel easterEgg;
     private javax.swing.JLabel exitGame;
     private javax.swing.JLabel frameBackground;
     private javax.swing.JLabel frameDrag;

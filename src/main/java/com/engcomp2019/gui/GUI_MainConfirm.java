@@ -10,13 +10,13 @@ import org.netbeans.lib.awtextra.AbsoluteConstraints;
  *
  * @author erick / rckmath
  */
-public class GUI_MainConfirm extends javax.swing.JFrame {
+public class GUI_MainConfirm extends JFrame {
 
     private final DragWindow drag = new DragWindow();
     private final ImageIcon imgFrame = new ImageIcon("imgs/frames/frameMainConfirm.png");
     private final ArrayList<ImageIcon> imgBtnYesNo = new ArrayList<>();
     private final JFrame previousFrame;
-    private Session s;
+    private final Session s;
 
     /**
      * Menu de confirmação
@@ -35,13 +35,8 @@ public class GUI_MainConfirm extends javax.swing.JFrame {
         initComponents();
         this.setResizable(false);
         this.setLocationRelativeTo(null);
-
-        imgBtnYesNo.add(new ImageIcon("imgs/buttons/confirm/btnYesDef.png"));
-        imgBtnYesNo.add(new ImageIcon("imgs/buttons/confirm/btnYesHover.png"));
-        imgBtnYesNo.add(new ImageIcon("imgs/buttons/confirm/btnYesPressed.png"));
-        imgBtnYesNo.add(new ImageIcon("imgs/buttons/confirm/btnNoDef.png"));
-        imgBtnYesNo.add(new ImageIcon("imgs/buttons/confirm/btnNoHover.png"));
-        imgBtnYesNo.add(new ImageIcon("imgs/buttons/confirm/btnNoHover.png"));
+        
+        loadImages();
 
         btnYes.setIcon(imgBtnYesNo.get(0));
         this.add(btnYes, new AbsoluteConstraints(65, 200, -1, -1));
@@ -168,14 +163,14 @@ public class GUI_MainConfirm extends javax.swing.JFrame {
     }//GEN-LAST:event_btnNoMouseReleased
 
     private void frameDragMouseDragged(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_frameDragMouseDragged
-        drag.setCoordenates(evt);
+        drag.setInitialCoordenates(evt);
         drag.setFrame(this);
         drag.setCoord();
     }//GEN-LAST:event_frameDragMouseDragged
 
     private void frameDragMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_frameDragMousePressed
         frameDrag.setCursor(new java.awt.Cursor(java.awt.Cursor.MOVE_CURSOR));
-        drag.setMouseCoordenates(evt);
+        drag.setFinalCoordenates(evt);
     }//GEN-LAST:event_frameDragMousePressed
 
     private void frameDragMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_frameDragMouseReleased
@@ -186,6 +181,17 @@ public class GUI_MainConfirm extends javax.swing.JFrame {
         previousFrame.setEnabled(true);
         new Close(this, false).frame();
     }//GEN-LAST:event_btnCloseMouseReleased
+
+    // <editor-fold defaultstate="collapsed" desc="Load images">
+    private void loadImages() {
+        imgBtnYesNo.add(new ImageIcon("imgs/buttons/confirm/btnYesDef.png"));
+        imgBtnYesNo.add(new ImageIcon("imgs/buttons/confirm/btnYesHover.png"));
+        imgBtnYesNo.add(new ImageIcon("imgs/buttons/confirm/btnYesPressed.png"));
+        imgBtnYesNo.add(new ImageIcon("imgs/buttons/confirm/btnNoDef.png"));
+        imgBtnYesNo.add(new ImageIcon("imgs/buttons/confirm/btnNoHover.png"));
+        imgBtnYesNo.add(new ImageIcon("imgs/buttons/confirm/btnNoHover.png"));
+    }
+    // </editor-fold>
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel btnClose;

@@ -12,14 +12,20 @@ import org.netbeans.lib.awtextra.AbsoluteConstraints;
  *
  * @author erick / rckmath
  */
-public class GUI_RestartConfirm extends javax.swing.JFrame {
+public class GUI_RestartConfirm extends JFrame {
 
     private final DragWindow drag = new DragWindow();
     private final ImageIcon imgFrame = new ImageIcon("imgs/frames/frameRestart.png");
     private final ArrayList<ImageIcon> imgBtnYesNo = new ArrayList<>();
     private final JFrame previousFrame;
-    private Session s;
+    private final Session s;
 
+    /**
+     * Confirmar reinício
+     *
+     * @param pPreviousFrame Recebe o frame de onde foi chamado
+     * @param s Mantém a sessão inicializada
+     */
     public GUI_RestartConfirm(JFrame pPreviousFrame, Session s) {
         this.s = s;
 
@@ -161,26 +167,27 @@ public class GUI_RestartConfirm extends javax.swing.JFrame {
             s.setRecordScore(0);
         } else {
             try {
+                // Descarta o frame (jogo) anterior, fecha este e instancia um novo jogo
                 previousFrame.dispose();
                 this.dispose();
-                s.newGame(s, true);
+                s.newGame(s);
             } catch (Exception ex) {
                 System.err.println("ERRO: " + ex);
             }
         }
-        previousFrame.setEnabled(true);
+        // previousFrame.setEnabled(true);
         this.dispose();
     }//GEN-LAST:event_btnYesMouseReleased
 
     private void frameDragMouseDragged(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_frameDragMouseDragged
-        drag.setCoordenates(evt);
+        drag.setInitialCoordenates(evt);
         drag.setFrame(this);
         drag.setCoord();
     }//GEN-LAST:event_frameDragMouseDragged
 
     private void frameDragMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_frameDragMousePressed
         frameDrag.setCursor(new java.awt.Cursor(java.awt.Cursor.MOVE_CURSOR));
-        drag.setMouseCoordenates(evt);
+        drag.setFinalCoordenates(evt);
     }//GEN-LAST:event_frameDragMousePressed
 
     private void frameDragMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_frameDragMouseReleased

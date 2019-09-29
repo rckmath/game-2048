@@ -9,7 +9,7 @@ import org.netbeans.lib.awtextra.AbsoluteConstraints;
  *
  * @author erick / rckmath
  */
-public class GUI_Exit extends javax.swing.JFrame {
+public class GUI_Exit extends JFrame {
 
     private final DragWindow drag = new DragWindow();
     private final ImageIcon imgFrame = new ImageIcon("imgs/frames/frameExit.png");
@@ -20,17 +20,17 @@ public class GUI_Exit extends javax.swing.JFrame {
     private final ImageIcon imgBtnNoHov = new ImageIcon("imgs/buttons/confirm/btnNoHover.png");
     private final ImageIcon imgBtnNoPre = new ImageIcon("imgs/buttons/confirm/btnNoPressed.png");
     private final JFrame previousFrame;
-    
+
     /**
      * Constroi o frame "Sair" e desativa o frame atual
      *
      * @param pPreviousFrame Recebe o frame atual
      */
-    public GUI_Exit(JFrame pPreviousFrame) { 
+    public GUI_Exit(JFrame pPreviousFrame) {
         // Desativa o frame anterior para bloqueá-lo enquanto não fechar este
         previousFrame = pPreviousFrame;
         previousFrame.setEnabled(false);
-        
+
         // Inicializa este frame
         initComponents();
         this.setResizable(false);
@@ -129,14 +129,14 @@ public class GUI_Exit extends javax.swing.JFrame {
     }//GEN-LAST:event_btnCloseMouseReleased
 
     private void frameDragMouseDragged(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_frameDragMouseDragged
-        drag.setCoordenates(evt);
+        drag.setInitialCoordenates(evt);
         drag.setFrame(this);
         drag.setCoord();
     }//GEN-LAST:event_frameDragMouseDragged
 
     private void frameDragMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_frameDragMousePressed
         frameDrag.setCursor(new java.awt.Cursor(java.awt.Cursor.MOVE_CURSOR));
-        drag.setMouseCoordenates(evt);
+        drag.setFinalCoordenates(evt);
     }//GEN-LAST:event_frameDragMousePressed
 
     private void frameDragMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_frameDragMouseReleased
