@@ -23,7 +23,7 @@ public class GUI_MainMenu extends JFrame {
     private final ArrayList<ImageIcon> imgVolume = new ArrayList<>();
     private final DragWindow drag = new DragWindow();
     private final Close close = new Close();
-    private final ArrayList<JLabel> menuItems;
+    private ArrayList<JLabel> menuItems;
     private Boolean menuActive = true;
     protected static Audio a = new Audio();
     private final Session s;
@@ -42,18 +42,8 @@ public class GUI_MainMenu extends JFrame {
         this.setResizable(false);
         this.setLocationRelativeTo(null);
 
-        menuItems = new ArrayList<JLabel>() {
-            {
-                add(exitGame);
-                add(newGame);
-                add(configGame);
-            }
-        };
-
-        a.setAudioPath("src/main/java/com/engcomp2019/audio/menuMusic.wav");
-
-        // Para inicializar as opções de menu desativadas
-        menuActive = close.menu(0, menuActive, menuDropdown, menuItems);
+        initMenu();
+        loadImages();
 
         altTheme.setIcon(imgLeoHead);
         this.add(altTheme, new AbsoluteConstraints(740, 50, -1, -1));
@@ -63,27 +53,8 @@ public class GUI_MainMenu extends JFrame {
             altTheme.setVisible(true);
         }
 
-        imgBtnStart.add(new ImageIcon("imgs/buttons/btnDefault.png"));
-        imgBtnStart.add(new ImageIcon("imgs/buttons/btnHover.png"));
-        imgBtnStart.add(new ImageIcon("imgs/buttons/btnPressed.png"));
+        initAudio();
 
-        imgBtnGameS.add(new ImageIcon("imgs/buttons/btn3x3Def.png"));
-        imgBtnGameS.add(new ImageIcon("imgs/buttons/btn3x3Hover.png"));
-        imgBtnGameS.add(new ImageIcon("imgs/buttons/btn3x3Pressed.png"));
-        imgBtnGameS.add(new ImageIcon("imgs/buttons/btn4x4Def.png"));
-        imgBtnGameS.add(new ImageIcon("imgs/buttons/btn4x4Hover.png"));
-        imgBtnGameS.add(new ImageIcon("imgs/buttons/btn4x4Pressed.png"));
-
-        imgVolume.add(new ImageIcon("imgs/elements/volumeOn.png"));
-        imgVolume.add(new ImageIcon("imgs/elements/volumeOff.png"));
-
-        if (s.getAudioOn()) {
-            a.play(true);
-            btnAudio.setIcon(imgVolume.get(0));
-        } else {
-            btnAudio.setIcon(imgVolume.get(1));
-        }
-        
         this.add(btnAudio, new AbsoluteConstraints(32, 525, -1, -1));
 
         menuDropdown.setIcon(imgMenu);
@@ -402,6 +373,52 @@ public class GUI_MainMenu extends JFrame {
             s.setBoardSize(4);
         }
     }
+
+    // <editor-fold defaultstate="collapsed" desc="Initiate the menu">
+    private void initMenu() {
+        menuItems = new ArrayList<JLabel>() {
+            {
+                add(exitGame);
+                add(newGame);
+                add(configGame);
+            }
+        };
+
+        // Para inicializar as opções de menu desativadas
+        menuActive = close.menu(0, menuActive, menuDropdown, menuItems);
+    }
+    // </editor-fold>
+
+    // <editor-fold defaultstate="collapsed" desc="Initiate the audio">
+    private void initAudio() {
+        a.setAudioPath("src/main/java/com/engcomp2019/audio/menuMusic.wav");
+        if (s.getAudioOn()) {
+            a.play(true);
+            btnAudio.setIcon(imgVolume.get(0));
+        } else {
+            btnAudio.setIcon(imgVolume.get(1));
+        }
+    }
+    // </editor-fold>
+
+    // <editor-fold defaultstate="collapsed" desc="Load images">
+    private void loadImages() {
+        imgBtnStart.add(new ImageIcon("imgs/buttons/btnDefault.png"));
+        imgBtnStart.add(new ImageIcon("imgs/buttons/btnHover.png"));
+        imgBtnStart.add(new ImageIcon("imgs/buttons/btnPressed.png"));
+
+        imgBtnGameS.add(new ImageIcon("imgs/buttons/btn3x3Def.png"));
+        imgBtnGameS.add(new ImageIcon("imgs/buttons/btn3x3Hover.png"));
+        imgBtnGameS.add(new ImageIcon("imgs/buttons/btn3x3Pressed.png"));
+        imgBtnGameS.add(new ImageIcon("imgs/buttons/btn4x4Def.png"));
+        imgBtnGameS.add(new ImageIcon("imgs/buttons/btn4x4Hover.png"));
+        imgBtnGameS.add(new ImageIcon("imgs/buttons/btn4x4Pressed.png"));
+
+        imgVolume.add(new ImageIcon("imgs/elements/volumeOn.png"));
+        imgVolume.add(new ImageIcon("imgs/elements/volumeOff.png"));
+    }
+    // </editor-fold>
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel altTheme;
     private javax.swing.JLabel btnAbout;

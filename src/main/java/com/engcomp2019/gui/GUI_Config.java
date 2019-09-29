@@ -298,7 +298,6 @@ public class GUI_Config extends javax.swing.JFrame {
 
     private void goBackMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_goBackMouseReleased
         this.dispose();
-        System.out.println(s.getAudioOn());
         previousFrame.setVisible(true);
         previousFrame.setEnabled(true);
     }//GEN-LAST:event_goBackMouseReleased

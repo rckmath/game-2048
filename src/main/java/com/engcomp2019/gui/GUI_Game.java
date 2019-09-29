@@ -18,14 +18,17 @@ import org.netbeans.lib.awtextra.AbsoluteConstraints;
  */
 public class GUI_Game extends javax.swing.JFrame {
 
+    // ImageIcon
     private final ImageIcon imgFrame = new ImageIcon("imgs/frames/frameGame.png");
     private final ImageIcon imgMenu = new ImageIcon("imgs/elements/gameDropdown.png");
     private final ArrayList<ImageIcon> imgVolume = new ArrayList<>();
     private final ArrayList<ImageIcon> imgLeoHead = new ArrayList<>();
     private final ArrayList<ImageIcon> imgPad = new ArrayList<>();
     private final ArrayList<ImageIcon> imgBtnReset = new ArrayList<>();
+    // Labels
     private final ArrayList<JLabel> gameTiles = new ArrayList<>();
-    private final ArrayList<JLabel> menuItems;
+    private ArrayList<JLabel> menuItems;
+    // Outros
     private final DragWindow drag = new DragWindow();
     private final Close close = new Close();
     private Boolean menuActive = true;
@@ -39,63 +42,14 @@ public class GUI_Game extends javax.swing.JFrame {
      */
     public GUI_Game(Session s) {
         this.s = s;
-        s.setRoundScore(0);
-        s.tileSpawn();
-        s.tileSpawn();
-        s.printGameBoard();
-
         initComponents();
+        setResizable(false);
+        setLocationRelativeTo(null);
         initArrowPadListener();
         initKeyboardListener();
-        this.setResizable(false);
-        this.setLocationRelativeTo(null);
-
-        menuItems = new ArrayList<JLabel>() {
-            {
-                add(exitGame);
-                add(newGame);
-                add(mainMenu);
-            }
-        };
-
-        lblScore.setText(String.format("%06d%n", s.getRoundScore()));
-        lblRecord.setText(String.format("%06d%n", s.getRecordScore()));
-
-        attTiles();
-        s.setGameStatus(0);
-        s.printGameBoard();
-
-        // Para inicializar as opções de menu desativadas
-        menuActive = close.menu(0, menuActive, menuDropdown, menuItems);
-
-        imgPad.add(new ImageIcon("imgs/buttons/pad/bntPadDef.png"));
-        imgPad.add(new ImageIcon("imgs/buttons/pad/bntPadU.png"));
-        imgPad.add(new ImageIcon("imgs/buttons/pad/bntPadD.png"));
-        imgPad.add(new ImageIcon("imgs/buttons/pad/bntPadL.png"));
-        imgPad.add(new ImageIcon("imgs/buttons/pad/bntPadR.png"));
-
-        imgBtnReset.add(new ImageIcon("imgs/buttons/btnResetDef.png"));
-        imgBtnReset.add(new ImageIcon("imgs/buttons/btnResetHov.png"));
-        imgBtnReset.add(new ImageIcon("imgs/buttons/btnResetPre.png"));
-
-        imgLeoHead.add(new ImageIcon("imgs/easteregg/leoHead.png"));
-        imgLeoHead.add(new ImageIcon("imgs/easteregg/leoHeadTwo.png"));
-
-        imgVolume.add(new ImageIcon("imgs/elements/volumeOn.png"));
-        imgVolume.add(new ImageIcon("imgs/elements/volumeOff.png"));
-
-        if (!s.getAltTheme()) {
-            a.setAudioPath("src/main/java/com/engcomp2019/audio/gameMusic.wav");
-        } else {
-            a.setAudioPath("src/main/java/com/engcomp2019/audio/leoMusic.wav");
-        }
-
-        if (s.getAudioOn()) {
-            a.play(true);
-            btnAudio.setIcon(imgVolume.get(0));
-        } else {
-            btnAudio.setIcon(imgVolume.get(1));
-        }
+        initGame();
+        initAudio();
+        initMenu();
 
         this.add(btnAudio, new AbsoluteConstraints(32, 525, -1, -1));
 
@@ -435,6 +389,74 @@ public class GUI_Game extends javax.swing.JFrame {
         }
     }
 
+    // <editor-fold defaultstate="collapsed" desc="Initiate the menu">
+    private void initMenu() {
+        menuItems = new ArrayList<JLabel>() {
+            {
+                add(exitGame);
+                add(newGame);
+                add(mainMenu);
+            }
+        };
+
+        // Para inicializar as opções de menu desativadas
+        menuActive = close.menu(0, menuActive, menuDropdown, menuItems);
+    }
+    // </editor-fold>
+
+    // <editor-fold defaultstate="collapsed" desc="Initiate the audio">
+    private void initAudio() {
+        if (!s.getAltTheme()) {
+            a.setAudioPath("src/main/java/com/engcomp2019/audio/gameMusic.wav");
+        } else {
+            a.setAudioPath("src/main/java/com/engcomp2019/audio/leoMusic.wav");
+        }
+
+        if (s.getAudioOn()) {
+            a.play(true);
+            btnAudio.setIcon(imgVolume.get(0));
+        } else {
+            btnAudio.setIcon(imgVolume.get(1));
+        }
+    }
+    // </editor-fold>
+
+    // <editor-fold defaultstate="collapsed" desc="Initiate the game">
+    private void initGame() {
+        s.setRoundScore(0);
+        s.tileSpawn();
+        s.tileSpawn();
+        s.printGameBoard();
+        // Depois de inicializar as tiles, status do jogo se torna 0
+        attTiles();
+        s.setGameStatus(0);
+        loadImages();
+
+        lblScore.setText(String.format("%06d%n", s.getRoundScore()));
+        lblRecord.setText(String.format("%06d%n", s.getRecordScore()));
+    }
+    // </editor-fold>
+
+    // <editor-fold defaultstate="collapsed" desc="Load images">
+    private void loadImages() {
+        imgPad.add(new ImageIcon("imgs/buttons/pad/bntPadDef.png"));
+        imgPad.add(new ImageIcon("imgs/buttons/pad/bntPadU.png"));
+        imgPad.add(new ImageIcon("imgs/buttons/pad/bntPadD.png"));
+        imgPad.add(new ImageIcon("imgs/buttons/pad/bntPadL.png"));
+        imgPad.add(new ImageIcon("imgs/buttons/pad/bntPadR.png"));
+
+        imgBtnReset.add(new ImageIcon("imgs/buttons/btnResetDef.png"));
+        imgBtnReset.add(new ImageIcon("imgs/buttons/btnResetHov.png"));
+        imgBtnReset.add(new ImageIcon("imgs/buttons/btnResetPre.png"));
+
+        imgLeoHead.add(new ImageIcon("imgs/easteregg/leoHead.png"));
+        imgLeoHead.add(new ImageIcon("imgs/easteregg/leoHeadTwo.png"));
+
+        imgVolume.add(new ImageIcon("imgs/elements/volumeOn.png"));
+        imgVolume.add(new ImageIcon("imgs/elements/volumeOff.png"));
+    }
+    // </editor-fold>
+
     // <editor-fold defaultstate="collapsed" desc="Keyboard listener">
     private void initKeyboardListener() {
         addKeyListener(new KeyAdapter() {
@@ -513,6 +535,7 @@ public class GUI_Game extends javax.swing.JFrame {
     }
     // </editor-fold>
 
+    // <editor-fold defaultstate="collapsed" desc="Execute movement">
     private void doMove(char id) {
         switch (id) {
             case 'U':
@@ -535,6 +558,9 @@ public class GUI_Game extends javax.swing.JFrame {
         attTiles();
         s.printGameBoard();
     }
+    // </editor-fold>
+
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel arrowPadD;
     private javax.swing.JLabel arrowPadL;

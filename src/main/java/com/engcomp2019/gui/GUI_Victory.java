@@ -16,13 +16,17 @@ import org.netbeans.lib.awtextra.AbsoluteConstraints;
  */
 public class GUI_Victory extends javax.swing.JFrame {
 
+    // ImageIcon
     private final ImageIcon imgFrame = new ImageIcon("imgs/frames/frameVictory.png");
     private final ImageIcon imgMenu = new ImageIcon("imgs/elements/gameDropdown.png");
     private final ImageIcon imgWinGif = new ImageIcon("imgs/victory/endingAnim.gif");
     private final ImageIcon imgFireworksGif = new ImageIcon("imgs/victory/fireworksAnim.gif");
     private final ArrayList<ImageIcon> imgBtnReset = new ArrayList<>();
     private final ArrayList<ImageIcon> imgBtnMain = new ArrayList<>();
-    private final ArrayList<JLabel> menuItems;
+    // JLabel
+    private final ArrayList<JLabel> fireworksGif = new ArrayList<>();
+    private ArrayList<JLabel> menuItems;
+    // Outros
     private final DragWindow drag = new DragWindow();
     private final Close close = new Close();
     private Boolean menuActive = true;
@@ -39,28 +43,15 @@ public class GUI_Victory extends javax.swing.JFrame {
         initComponents();
         this.setResizable(false);
         this.setLocationRelativeTo(null);
+        initMenu();
+        loadImages();
 
-        menuItems = new ArrayList<JLabel>() {
-            {
-                add(exitGame);
-                add(newGame);
-                add(mainMenu);
-            }
-        };
+        for (int i = 0; i < 3; i++) {
+            fireworksGif.add(new JLabel(imgFireworksGif));
+        }
 
         lblScore.setText(String.format("%06d%n", s.getRoundScore()));
         lblRecord.setText(String.format("%06d%n", s.getRecordScore()));
-
-        // Para inicializar as opções de menu desativadas
-        menuActive = close.menu(0, menuActive, menuDropdown, menuItems);
-
-        imgBtnReset.add(new ImageIcon("imgs/buttons/btnResetDef.png"));
-        imgBtnReset.add(new ImageIcon("imgs/buttons/btnResetHov.png"));
-        imgBtnReset.add(new ImageIcon("imgs/buttons/btnResetPre.png"));
-
-        imgBtnMain.add(new ImageIcon("imgs/buttons/btnMenuDef.png"));
-        imgBtnMain.add(new ImageIcon("imgs/buttons/btnMenuHov.png"));
-        imgBtnMain.add(new ImageIcon("imgs/buttons/btnMenuPre.png"));
 
         btnReset.setIcon(imgBtnReset.get(0));
         this.add(btnReset, new AbsoluteConstraints(245, 456, -1, -1));
@@ -72,9 +63,7 @@ public class GUI_Victory extends javax.swing.JFrame {
         imgWinGif.getImage().flush();
         victoryGif.setIcon(imgWinGif);
         this.add(victoryGif, new AbsoluteConstraints(271, 180, -1, -1));
-
-        a.setAudioPath("src/main/java/com/engcomp2019/audio/youWin.wav");
-        a.play(false);
+        initAudio();
 
         menuDropdown.setIcon(imgMenu);
         this.add(menuDropdown, new AbsoluteConstraints(39, 20, -1, -1));
@@ -349,40 +338,40 @@ public class GUI_Victory extends javax.swing.JFrame {
 
     }//GEN-LAST:event_btnMainMenuMouseReleased
 
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
+    // <editor-fold defaultstate="collapsed" desc="Initiate the menu">
+    private void initMenu() {
+        menuItems = new ArrayList<JLabel>() {
+            {
+                add(exitGame);
+                add(newGame);
+                add(mainMenu);
             }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(GUI_Victory.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(GUI_Victory.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(GUI_Victory.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(GUI_Victory.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
+        };
 
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new GUI_Victory(new Session(1)).setVisible(true);
-            }
-        });
+        // Para inicializar as opções de menu desativadas
+        menuActive = close.menu(0, menuActive, menuDropdown, menuItems);
     }
+    // </editor-fold>
+
+    // <editor-fold defaultstate="collapsed" desc="Initiate the audio">
+    private void initAudio() {
+        a.setAudioPath("src/main/java/com/engcomp2019/audio/youWin.wav");
+        a.play(false);
+
+    }
+    // </editor-fold>
+
+    // <editor-fold defaultstate="collapsed" desc="Load images">
+    private void loadImages() {
+        imgBtnReset.add(new ImageIcon("imgs/buttons/btnResetDef.png"));
+        imgBtnReset.add(new ImageIcon("imgs/buttons/btnResetHov.png"));
+        imgBtnReset.add(new ImageIcon("imgs/buttons/btnResetPre.png"));
+
+        imgBtnMain.add(new ImageIcon("imgs/buttons/btnMenuDef.png"));
+        imgBtnMain.add(new ImageIcon("imgs/buttons/btnMenuHov.png"));
+        imgBtnMain.add(new ImageIcon("imgs/buttons/btnMenuPre.png"));
+    }
+    // </editor-fold>
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel btnAbout;
