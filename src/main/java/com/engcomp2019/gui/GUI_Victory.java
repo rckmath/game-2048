@@ -28,7 +28,7 @@ public class GUI_Victory extends javax.swing.JFrame {
     private Boolean menuActive = true;
     private final Audio a = new Audio();
     private final Session s;
-    
+
     /**
      * Inicializa e instancia a tela de vitória
      *
@@ -39,7 +39,7 @@ public class GUI_Victory extends javax.swing.JFrame {
         initComponents();
         this.setResizable(false);
         this.setLocationRelativeTo(null);
-        
+
         menuItems = new ArrayList<JLabel>() {
             {
                 add(exitGame);
@@ -47,22 +47,35 @@ public class GUI_Victory extends javax.swing.JFrame {
                 add(mainMenu);
             }
         };
-        
-        a.play("src/main/java/com/engcomp2019/audio/youWin.wav", false);
-        
+
         lblScore.setText(String.format("%06d%n", s.getRoundScore()));
         lblRecord.setText(String.format("%06d%n", s.getRecordScore()));
-        
+
         // Para inicializar as opções de menu desativadas
         menuActive = close.menu(0, menuActive, menuDropdown, menuItems);
-        
+
         imgBtnReset.add(new ImageIcon("imgs/buttons/btnResetDef.png"));
         imgBtnReset.add(new ImageIcon("imgs/buttons/btnResetHov.png"));
         imgBtnReset.add(new ImageIcon("imgs/buttons/btnResetPre.png"));
-        
+
+        imgBtnMain.add(new ImageIcon("imgs/buttons/btnMenuDef.png"));
+        imgBtnMain.add(new ImageIcon("imgs/buttons/btnMenuHov.png"));
+        imgBtnMain.add(new ImageIcon("imgs/buttons/btnMenuPre.png"));
+
+        btnReset.setIcon(imgBtnReset.get(0));
+        this.add(btnReset, new AbsoluteConstraints(245, 456, -1, -1));
+
+        btnMainMenu.setIcon(imgBtnMain.get(0));
+        this.add(btnMainMenu, new AbsoluteConstraints(409, 456, -1, -1));
+        btnMainMenu.setVisible(true);
+
+        imgWinGif.getImage().flush();
         victoryGif.setIcon(imgWinGif);
         this.add(victoryGif, new AbsoluteConstraints(271, 180, -1, -1));
-        
+
+        a.setAudioPath("src/main/java/com/engcomp2019/audio/youWin.wav");
+        a.play(false);
+
         menuDropdown.setIcon(imgMenu);
         this.add(menuDropdown, new AbsoluteConstraints(39, 20, -1, -1));
         menuDropdown.setVisible(false);
@@ -84,6 +97,7 @@ public class GUI_Victory extends javax.swing.JFrame {
         btnFile = new javax.swing.JLabel();
         btnClose = new javax.swing.JLabel();
         btnReset = new javax.swing.JLabel();
+        btnMainMenu = new javax.swing.JLabel();
         lblRecord = new javax.swing.JLabel();
         lblScore = new javax.swing.JLabel();
         victoryGif = new javax.swing.JLabel();
@@ -96,6 +110,11 @@ public class GUI_Victory extends javax.swing.JFrame {
         addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseReleased(java.awt.event.MouseEvent evt) {
                 formMouseReleased(evt);
+            }
+        });
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowClosed(java.awt.event.WindowEvent evt) {
+                formWindowClosed(evt);
             }
         });
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -175,7 +194,23 @@ public class GUI_Victory extends javax.swing.JFrame {
                 btnResetMouseReleased(evt);
             }
         });
-        getContentPane().add(btnReset, new org.netbeans.lib.awtextra.AbsoluteConstraints(634, 447, -1, -1));
+        getContentPane().add(btnReset, new org.netbeans.lib.awtextra.AbsoluteConstraints(245, 456, -1, -1));
+
+        btnMainMenu.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                btnMainMenuMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                btnMainMenuMouseExited(evt);
+            }
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                btnMainMenuMousePressed(evt);
+            }
+            public void mouseReleased(java.awt.event.MouseEvent evt) {
+                btnMainMenuMouseReleased(evt);
+            }
+        });
+        getContentPane().add(btnMainMenu, new org.netbeans.lib.awtextra.AbsoluteConstraints(409, 456, -1, -1));
 
         lblRecord.setFont(new java.awt.Font("Dialog", 1, 24)); // NOI18N
         lblRecord.setForeground(new java.awt.Color(77, 77, 77));
@@ -256,7 +291,8 @@ public class GUI_Victory extends javax.swing.JFrame {
     }//GEN-LAST:event_frameDragMouseReleased
 
     private void newGameMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_newGameMouseReleased
-        restart();
+        menuActive = close.menu(0, menuActive, menuDropdown, menuItems);
+        s.restart(this);
     }//GEN-LAST:event_newGameMouseReleased
 
     private void exitGameMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_exitGameMouseReleased
@@ -279,12 +315,39 @@ public class GUI_Victory extends javax.swing.JFrame {
 
     private void btnResetMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnResetMouseReleased
         btnReset.setIcon(imgBtnReset.get(1));
-        restart();
+        menuActive = close.menu(0, menuActive, menuDropdown, menuItems);
+        s.restart(this);
     }//GEN-LAST:event_btnResetMouseReleased
 
     private void formMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_formMouseReleased
         menuActive = close.menu(0, menuActive, menuDropdown, menuItems);
     }//GEN-LAST:event_formMouseReleased
+
+    private void formWindowClosed(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosed
+        a.stop();
+    }//GEN-LAST:event_formWindowClosed
+
+    private void btnMainMenuMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnMainMenuMouseEntered
+        btnMainMenu.setIcon(imgBtnMain.get(1));
+    }//GEN-LAST:event_btnMainMenuMouseEntered
+
+    private void btnMainMenuMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnMainMenuMouseExited
+        btnMainMenu.setIcon(imgBtnMain.get(0));
+    }//GEN-LAST:event_btnMainMenuMouseExited
+
+    private void btnMainMenuMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnMainMenuMousePressed
+        btnMainMenu.setIcon(imgBtnMain.get(2));
+    }//GEN-LAST:event_btnMainMenuMousePressed
+
+    private void btnMainMenuMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnMainMenuMouseReleased
+        btnMainMenu.setIcon(imgBtnMain.get(1));
+        menuActive = close.menu(0, menuActive, menuDropdown, menuItems);
+        // Chamar frame para confirmar ação
+        GUI_MainConfirm frameConfirm;
+        frameConfirm = new GUI_MainConfirm(this, s);
+        frameConfirm.setVisible(true);
+
+    }//GEN-LAST:event_btnMainMenuMouseReleased
 
     /**
      * @param args the command line arguments
@@ -320,19 +383,12 @@ public class GUI_Victory extends javax.swing.JFrame {
             }
         });
     }
-    
-    private void restart() {
-        menuActive = close.menu(0, menuActive, menuDropdown, menuItems);
-        // Chamar frame para confirmar ação
-        GUI_RestartConfirm frameConfirm;
-        frameConfirm = new GUI_RestartConfirm(this, s);
-        frameConfirm.setVisible(true);
-    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel btnAbout;
     private javax.swing.JLabel btnClose;
     private javax.swing.JLabel btnFile;
+    private javax.swing.JLabel btnMainMenu;
     private javax.swing.JLabel btnMinimize;
     private javax.swing.JLabel btnReset;
     private javax.swing.JLabel exitGame;

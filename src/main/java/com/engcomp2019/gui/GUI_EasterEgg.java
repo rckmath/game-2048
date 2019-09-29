@@ -42,7 +42,8 @@ public class GUI_EasterEgg extends javax.swing.JFrame {
             }
         };
 
-        a.play("src/main/java/com/engcomp2019/audio/easterEggMusic.wav", true);
+        a.setAudioPath("src/main/java/com/engcomp2019/audio/easterEggMusic.wav");
+        a.play(true);
 
         // Para inicializar as opções de menu desativadas
         menuActive = close.menu(0, menuActive, menuDropdown, menuItems);
@@ -251,10 +252,7 @@ public class GUI_EasterEgg extends javax.swing.JFrame {
 
     private void newGameMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_newGameMouseReleased
         menuActive = close.menu(0, menuActive, menuDropdown, menuItems);
-        // Chamar frame para confirmar ação
-        GUI_RestartConfirm frameConfirm;
-        frameConfirm = new GUI_RestartConfirm(this, s);
-        frameConfirm.setVisible(true);
+        s.restart(this);
     }//GEN-LAST:event_newGameMouseReleased
 
     /**

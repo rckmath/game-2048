@@ -20,17 +20,17 @@ public class GUI_Exit extends javax.swing.JFrame {
     private final ImageIcon imgBtnNoHov = new ImageIcon("imgs/buttons/confirm/btnNoHover.png");
     private final ImageIcon imgBtnNoPre = new ImageIcon("imgs/buttons/confirm/btnNoPressed.png");
     private final JFrame previousFrame;
-    
+
     /**
      * Constroi o frame "Sair" e desativa o frame atual
      *
      * @param pPreviousFrame Recebe o frame atual
      */
-    public GUI_Exit(JFrame pPreviousFrame) { 
+    public GUI_Exit(JFrame pPreviousFrame) {
         // Desativa o frame anterior para bloqueá-lo enquanto não fechar este
         previousFrame = pPreviousFrame;
         previousFrame.setEnabled(false);
-        
+
         // Inicializa este frame
         initComponents();
         this.setResizable(false);

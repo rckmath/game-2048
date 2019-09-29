@@ -2,15 +2,20 @@ package com.engcomp2019.core;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
+import javax.swing.ImageIcon;
+import javax.swing.JFrame;
 
 /**
  *
  * @author erick / rckmath
  */
-public class Engine {
+public abstract class Engine {
 
     private int[][] gameBoard; // Board do jogo
     private int boardSize; // Tamanho da board
+    private ImageIcon imgTileDef;
+    private final HashMap<Integer, ImageIcon> imgTiles = new HashMap<>();
 
     /**
      * Construtor inicializando nossa board
@@ -18,12 +23,18 @@ public class Engine {
      * @param bSizeOp Tamanho da board, 1 para 3x3 e qualquer para 4x4
      */
     public Engine(int bSizeOp) {
+        // Define o tamanho da gameBoard
         if (bSizeOp == 1) {
             this.boardSize = 3;
             this.gameBoard = new int[3][3];
         } else {
             this.boardSize = 4;
             this.gameBoard = new int[4][4];
+        }
+        Integer tileNum = 2;
+        for (int i = 0; i < 11; i++) {
+            imgTiles.put(tileNum, new ImageIcon("imgs/tiles/gifs/" + tileNum + ".gif"));
+            tileNum *= 2;
         }
     }
 
@@ -43,6 +54,14 @@ public class Engine {
 
     public void setBoardSize(int boardSize) {
         this.boardSize = boardSize;
+    }
+
+    public ImageIcon getImgTileDef() {
+        return imgTileDef;
+    }
+
+    public void setImgTileDef(ImageIcon imgTileDef) {
+        this.imgTileDef = imgTileDef;
     }
 
     // Outros
@@ -99,8 +118,8 @@ public class Engine {
             for (int z = 0; z < boardSize; z++) {
                 vetPos[z] = 0;
             }
-            for (int v = 0; v < boardSize-1; v++) {
-                for (int j = boardSize-1; j > 0; j--) {
+            for (int v = 0; v < boardSize; v++) {
+                for (int j = boardSize - 1; j > 0; j--) {
                     flag = 0;
 
                     // Se for igual, soma/junta
@@ -140,8 +159,8 @@ public class Engine {
             for (int z = 0; z < boardSize; z++) {
                 vetPos[z] = 0;
             }
-            for (int v = 0; v < boardSize-1; v++) {
-                for (int j = 0; j < boardSize-1; j++) {
+            for (int v = 0; v < boardSize; v++) {
+                for (int j = 0; j < boardSize - 1; j++) {
                     flag = 0;
 
                     // Se for igual, soma/junta
@@ -180,7 +199,7 @@ public class Engine {
             flag2 = 0;  // a junção naquela posição
             flag3 = 0;
             for (int v = 0; v < boardSize; v++) {
-                for (int i = 0; i < boardSize-1; i++) {
+                for (int i = 0; i < boardSize - 1; i++) {
                     flag = 0;
                     // Se for igual, soma
                     if ((gameBoard[i][j]) == (gameBoard[i + 1][j])) {
@@ -237,7 +256,7 @@ public class Engine {
             flag2 = 0;  // a junção naquela posição
             flag3 = 0;
             for (int v = 0; v < boardSize; v++) {
-                for (int i = 0; i < boardSize-1; i++) {
+                for (int i = 0; i < boardSize - 1; i++) {
                     flag = 0;
                     // Se for igual, soma
                     if ((gameBoard[i][j]) == (gameBoard[i + 1][j])) {
@@ -283,4 +302,19 @@ public class Engine {
             }
         }
     }
+
+    public ImageIcon getTileImg(int i, int j) {
+        int val = getGameBoardValue(i, j);
+
+        if (val == 0) {
+            return imgTileDef;
+        } else {
+            imgTiles.get(val).getImage().flush();
+            return imgTiles.get(val);
+        }
+    }
+
+    public abstract int getGameBoardValue(int i, int j);
+
+    public abstract void restart(JFrame pPreviousFrame);
 }

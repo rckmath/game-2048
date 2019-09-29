@@ -16,7 +16,7 @@ public class GUI_MainConfirm extends javax.swing.JFrame {
     private final ImageIcon imgFrame = new ImageIcon("imgs/frames/frameMainConfirm.png");
     private final ArrayList<ImageIcon> imgBtnYesNo = new ArrayList<>();
     private final JFrame previousFrame;
-    private Session s;
+    private final Session s;
 
     /**
      * Menu de confirmação

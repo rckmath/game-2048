@@ -11,8 +11,8 @@ import javax.swing.JFrame;
 /* Main utilizada para inicializar nossa sessão e chamar o splash */
 public class Main {
 
-    public  Session s;
-    
+    private Session s;
+
     public static void main(String arg[]) {
         Main m = new Main(new Session(1));
     }
@@ -29,10 +29,10 @@ public class Main {
         splash.setUndecorated(true);
         splash.setLocationRelativeTo(null);
         splash.setVisible(true);
-        
+
         // Sleep de 2,475 segundos
         try {
-            Thread.sleep(2475);
+            Thread.sleep(0);
         } catch (InterruptedException ex) {
             System.err.println("ERRO: " + ex);
         }
