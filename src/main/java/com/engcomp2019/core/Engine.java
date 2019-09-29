@@ -116,28 +116,27 @@ public abstract class Engine {
             flag1 = 0;  // para verificar se ja¡ foi feita
             flag2 = 0;  // a juncao naquela posicao
             flag3 = 0;
-            for (int v = 0; v < boardSize - 1; v++) {
-
+            for (int v = 0; v < boardSize; v++) {
+                flag = 0;
                 for (int j = boardSize - 1; j > 0; j--) {
-                    flag = 0;
+                 
                     // Se for igual, soma
-
+                  if(((gameBoard[i][j]) != 0) && ((gameBoard[i][j-1]) != 0)){
                     if ((gameBoard[i][j]) == (gameBoard[i][j - 1])) {
                         if (j == 0 && flag0 == 1) {
                             flag = 1;
                         }
-                        if (j == 1 && flag1 == 1) {     // Verifica se ja foi feita a soma
-                            flag = 1;                   // em alguma posicao repetida
+                        if (j == 1 && flag1 == 1 || (j == 3 && flag0 == 1)) {     // Verifica se ja foi feita a soma
+                            flag = 1;                                            // em alguma posicao repetida
                         }
-                        if (j == 2 && flag2 == 1) {
+                        if (j == 2 && flag2 == 1 || (j == 3 && flag1 == 1)) {
                             flag = 1;
                         }
-                        if (j == 3 && flag3 == 1) {
+                        if ((j == 3 && flag3 == 1) || (j == 3 && flag2 == 1) ) {
                             flag = 1;
                         }
 
                         if (flag == 0) {
-
                             gameBoard[i][j] = (gameBoard[i][j]) * 2;	// Junta/soma
                             gameBoard[i][j - 1] = 0;	// Zera o outro
                             /* Ve em qual posicao ja foi feita uma juncao
@@ -156,7 +155,7 @@ public abstract class Engine {
                             }
                         }
                     }
-
+                }
                     // Se for vazio, passa para cima
                     if (((gameBoard[i][j]) == 0) && ((gameBoard[i][j - 1]) != 0)) {
                         gameBoard[i][j] = gameBoard[i][j - 1];  // Passa pra cima
@@ -172,24 +171,25 @@ public abstract class Engine {
 
         for (int i = 0; i < boardSize; i++) {
             // Zerar as flags
+           
             flag0 = 0;  // Cada flag eh utilizada
             flag1 = 0;  // para verificar se ja¡ foi feita
             flag2 = 0;  // a juncao naquela posicao
             flag3 = 0;
-            for (int v = 0; v < boardSize - 1; v++) {
-
+            for (int v = 0; v < boardSize; v++) {
+                   flag = 0;
                 for (int j = 0; j < boardSize - 1; j++) {
-                    flag = 0;
+                   
                     // Se for igual, soma
-
+                  if(((gameBoard[i][j]) != 0) && ((gameBoard[i][j + 1]) != 0)){
                     if ((gameBoard[i][j]) == (gameBoard[i][j + 1])) {
-                        if (j == 0 && flag0 == 1) {
+                        if ((j == 0 && flag0 == 1) || (j == 0 && flag1 == 1) ) {
                             flag = 1;
                         }
-                        if (j == 1 && flag1 == 1) {     // Verifica se ja foi feita a soma
-                            flag = 1;                   // em alguma posicao repetida
+                        if ((j == 1 && flag1 == 1) || (j == 1 && flag2 == 1)) {     // Verifica se ja foi feita a soma
+                            flag = 1;                                               // em alguma posicao repetida
                         }
-                        if (j == 2 && flag2 == 1) {
+                        if ((j == 2 && flag2 == 1) || (j == 2 && flag3 == 1)) {
                             flag = 1;
                         }
                         if (j == 3 && flag3 == 1) {
@@ -216,7 +216,7 @@ public abstract class Engine {
                             }
                         }
                     }
-
+                }
                     // Se for vazio, passa para cima
                     if (((gameBoard[i][j]) == 0) && ((gameBoard[i][j + 1]) != 0)) {
                         gameBoard[i][j] = gameBoard[i][j + 1];  // Passa pra cima
@@ -232,24 +232,25 @@ public abstract class Engine {
 
         for (int j = 0; j < boardSize; j++) {
             // Zerar as flags
+            
             flag0 = 0;  // Cada flag eh utilizada
             flag1 = 0;  // para verificar se ja¡ foi feita
             flag2 = 0;  // a juncao naquela posicao
             flag3 = 0;
             for (int v = 0; v < boardSize; v++) {
-
-                for (int i = boardSize - 1; i > 0; i--) {
-                    flag = 0;
+              flag = 0;
+                for (int i = 0; i < boardSize-1; i++) {
+                    
                     // Se for igual, soma
-
-                    if ((gameBoard[i][j]) == (gameBoard[i - 1][j])) {
-                        if (i == 0 && flag0 == 1) {
+                  if(((gameBoard[i][j]) != 0) && ((gameBoard[i + 1][j]) != 0)){
+                    if ((gameBoard[i][j]) == (gameBoard[i + 1][j])) {
+                        if ((i == 0 && flag0 == 1) || (i == 0 && flag1 == 1)) {
                             flag = 1;
                         }
-                        if (i == 1 && flag1 == 1) {     // Verifica se ja foi feita a soma
-                            flag = 1;                    // em alguma posicao repetida
+                        if ((i == 1 && flag1 == 1) || (i == 0 && flag2 == 1)) {     // Verifica se ja foi feita a soma
+                            flag = 1;                                               // em alguma posicao repetida
                         }
-                        if (i == 2 && flag2 == 1) {
+                        if ((i == 2 && flag2 == 1) || (i == 0 && flag3 == 1)) {
                             flag = 1;
                         }
                         if (i == 3 && flag3 == 1) {
@@ -258,8 +259,8 @@ public abstract class Engine {
 
                         if (flag == 0) {
 
-                            gameBoard[i - 1][j] = (gameBoard[i - 1][j]) * 2;	// Junta/soma
-                            gameBoard[i][j] = 0;	// Zera o outro
+                            gameBoard[i][j] = (gameBoard[i][j]) * 2;	// Junta/soma
+                            gameBoard[i + 1][j] = 0;	// Zera o outro
                             /* Ve em qual posicao ja foi feita uma juncao
                             para nao repeti-la novamente */
                             if (i == 0) {
@@ -276,11 +277,11 @@ public abstract class Engine {
                             }
                         }
                     }
-
+                }
                     // Se for vazio, passa para cima
-                    if (((gameBoard[i - 1][j]) == 0) && ((gameBoard[i][j]) != 0)) {
-                        gameBoard[i - 1][j] = gameBoard[i][j];  // Passa pra cima
-                        gameBoard[i][j] = 0;    // Zera o outro
+                    if (((gameBoard[i][j]) == 0) && ((gameBoard[i + 1][j]) != 0)) {
+                        gameBoard[i][j] = gameBoard[i+1][j];  // Passa pra cima
+                        gameBoard[i + 1][j] = 0;    // Zera o outro
                     }
                 }
             }
@@ -292,56 +293,55 @@ public abstract class Engine {
 
         for (int j = 0; j < boardSize; j++) {
             // Zerar as flags
-            flag = 0;
+            
             flag0 = 0;  // Cada flag eh utilizada
             flag1 = 0;  // para verificar se ja¡ foi feita
             flag2 = 0;  // a juncao naquela posicao
             flag3 = 0;
             for (int v = 0; v < boardSize; v++) {
-                flag = 0;
-                for (int i = 0; i < boardSize - 1; i++) {
-                    flag = 0;
+               flag = 0;
+                for (int i = boardSize-1; i > 0; i--) {
                     // Se for igual, soma
-
-                    if ((gameBoard[i][j]) == (gameBoard[i + 1][j])) {
+                  if(((gameBoard[i][j]) != 0) && ((gameBoard[i - 1][j]) != 0)){
+                    if ((gameBoard[i][j]) == (gameBoard[i - 1][j])) {
                         if (i == 0 && flag0 == 1) {
+                            flag=1;
+                        }
+                        if((i == 1 && flag1 == 1) || (i == 1 && flag0 == 1)){   // Verifica se ja foi feita a soma
+                            flag1=1;                                            // em alguma posicao repetida
+                        }
+                        
+                        if ((i == 2 &&flag2 == 1) || (i == 2 && flag1 == 1)) {
                             flag = 1;
                         }
-                        if (i == 1 && flag1 == 1) {     // Verifica se ja foi feita a soma
-                            flag = 1;                   // em alguma posicao repetida
-                        }
-                        if (i == 2 && flag2 == 1) {
-                            flag = 1;
-                        }
-                        if (i == 3 && flag3 == 1) {
+                        if ((i == 3 && flag3 == 1) || (i == 3 && flag2 == 1)) {
                             flag = 1;
                         }
 
                         if (flag == 0) {
-
-                            gameBoard[i + 1][j] = (gameBoard[i + 1][j]) * 2;    // Junta/soma
-                            gameBoard[i][j] = 0;    // Zera o outro
-                            /* Salva em qual posicao ja¡ foi feita uma juncao
-                            para nao repeti-la novamente */
-                            if (i == 0) {
-                                flag0 = 1;
-                            }
-                            if (i == 1) {
-                                flag1 = 1;
-                            }
-                            if (i == 2) {
-                                flag2 = 1;
-                            }
-                            if (i == 3) {
-                                flag3 = 1;
-                            }
+           
+                            gameBoard[i][j] = (gameBoard[i][j]) * 2;    // Junta/soma
+                            gameBoard[i - 1][j] = 0;    // Zera o outro
+                        if(i == 0){
+                            flag0 = 1;
                         }
-                    }
+                        if (i == 1) {     
+                            flag1 = 1;    
+                        }
+                        if (i == 2) {
+                            flag2 = 1;                
 
+                        }
+                        if (i == 3) {
+                            flag3 = 1;
+                        }
+                    }       
+                }
+            }
                     // Se for vazio, passa pra baixo
-                    if (((gameBoard[i + 1][j]) == 0) && ((gameBoard[i][j]) != 0)) {
-                        gameBoard[i + 1][j] = gameBoard[i][j];  // Passa pra baixo
-                        gameBoard[i][j] = 0;    // Zera o outro
+                    if (((gameBoard[i][j]) == 0) && ((gameBoard[i - 1][j]) != 0)) {
+                        gameBoard[i][j] = gameBoard[i-1][j];  // Passa pra baixo
+                        gameBoard[i - 1][j] = 0;    // Zera o outro
                     }
                 }
             }
