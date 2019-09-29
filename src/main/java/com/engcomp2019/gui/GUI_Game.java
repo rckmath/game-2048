@@ -89,14 +89,14 @@ public class GUI_Game extends javax.swing.JFrame {
         } else {
             a.setAudioPath("src/main/java/com/engcomp2019/audio/leoMusic.wav");
         }
-        
+
         if (s.getAudioOn()) {
             a.play(true);
             btnAudio.setIcon(imgVolume.get(0));
         } else {
             btnAudio.setIcon(imgVolume.get(1));
         }
-        
+
         this.add(btnAudio, new AbsoluteConstraints(32, 525, -1, -1));
 
         easterEgg.setIcon(imgLeoHead.get(0));
@@ -387,7 +387,9 @@ public class GUI_Game extends javax.swing.JFrame {
     }//GEN-LAST:event_easterEggMouseExited
 
     private void easterEggMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_easterEggMouseReleased
-        a.stop();
+        if (s.getAudioOn()) {
+            a.stop();
+        }
         if (s.getAltTheme()) {
             new GUI_EasterEgg(s).setVisible(true);
         } else {
