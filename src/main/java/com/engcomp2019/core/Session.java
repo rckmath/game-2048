@@ -79,7 +79,7 @@ public class Session extends Engine {
     /**
      * Inicia um novo jogo e instancia a interface
      *
-     * @param s
+     * @param s Recebe a sessão instaciada e cria um novo jogo
      */
     public void newGame(Session s) {
         GUI_Game game;
@@ -99,7 +99,7 @@ public class Session extends Engine {
         game = new GUI_Game(session);
         game.setVisible(true);
     }
-
+    
     /**
      *
      * @param pPreviousFrame Recebe o frame de onde foi chamado

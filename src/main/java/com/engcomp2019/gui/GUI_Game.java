@@ -353,15 +353,11 @@ public class GUI_Game extends JFrame {
     }//GEN-LAST:event_easterEggMouseExited
 
     private void easterEggMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_easterEggMouseReleased
-        if (s.getAudioOn()) {
-            a.stop();
-        }
-        this.dispose();
-        if (s.getAltTheme()) {
-            new GUI_EasterEgg(s).setVisible(true);
-        } else {
-            new GUI_Victory(s).setVisible(true);
-        }
+        int[][] array2D = new int[s.getBoardSize()][s.getBoardSize()];
+        array2D[1][0] = 1024;
+        array2D[1][1] = 1024;
+        s.setGameBoard(array2D);
+        updateInfo(true);
     }//GEN-LAST:event_easterEggMouseReleased
 
     private void btnAudioMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnAudioMouseReleased
@@ -392,32 +388,7 @@ public class GUI_Game extends JFrame {
         }
     }//GEN-LAST:event_mouseMoveMouseDragged
 
-    // <editor-fold defaultstate="collapsed" desc="Update game tiles">
-    // Gera as tiles nas respectivas posições
-    private void attTiles() {
-        int[] pos = {41, 106};  // Posição XY da primeira tile
-        int k = 0;  // Índice contador de tiles geradas p/ posicionar uma a uma
-
-        // Dispoe o ArrayList na tela em formato de matriz
-        for (int i = 0; i < s.getBoardSize(); i++) {
-            pos[0] = 41;
-            for (int j = 0; j < s.getBoardSize(); j++) {
-                if (s.getGameStatus() == -1) {
-                    gameTiles.add(new JLabel(s.getTileImg(i, j)));
-                    this.add(gameTiles.get(k), new AbsoluteConstraints(pos[0], pos[1], -1, -1));
-                } else {
-
-                    gameTiles.get(k).setIcon(s.getTileImg(i, j));
-                }
-                pos[0] += 100;
-                k++;
-            }
-            pos[1] += 100;
-        }
-    }
-    // </editor-fold>
-
-    // <editor-fold defaultstate="collapsed" desc="Initiate the menu">
+    // <editor-fold defaultstate="collapsed" desc="Inicializar menu">
     private void initMenu() {
         menuItems = new ArrayList<JLabel>() {
             {
@@ -432,7 +403,7 @@ public class GUI_Game extends JFrame {
     }
     // </editor-fold>
 
-    // <editor-fold defaultstate="collapsed" desc="Initiate the audio">
+    // <editor-fold defaultstate="collapsed" desc="Inicializar áudio">
     private void initAudio() {
         if (!s.getAltTheme()) {
             a.setAudioPath("src/main/java/com/engcomp2019/audio/gameMusic.wav");
@@ -449,14 +420,14 @@ public class GUI_Game extends JFrame {
     }
     // </editor-fold>
 
-    // <editor-fold defaultstate="collapsed" desc="Initiate the game">
+    // <editor-fold defaultstate="collapsed" desc="Inicializar game">
     private void initGame() {
         s.setRoundScore(0);
         s.tileSpawn();
         s.tileSpawn();
         s.printGameBoard();
         // Depois de inicializar as tiles, status do jogo se torna 0
-        attTiles();
+        updateTiles();
         s.setGameStatus(0);
         loadImages();
 
@@ -465,7 +436,7 @@ public class GUI_Game extends JFrame {
     }
     // </editor-fold>
 
-    // <editor-fold defaultstate="collapsed" desc="Load images">
+    // <editor-fold defaultstate="collapsed" desc="Carregar imagens">
     private void loadImages() {
         imgPad.add(new ImageIcon("imgs/buttons/pad/bntPadDef.png"));
         imgPad.add(new ImageIcon("imgs/buttons/pad/bntPadU.png"));
@@ -563,7 +534,53 @@ public class GUI_Game extends JFrame {
     }
     // </editor-fold>
 
-    // <editor-fold defaultstate="collapsed" desc="Execute movement">
+    // <editor-fold defaultstate="collapsed" desc="Atualizar tiles">
+    // Gera as tiles nas respectivas posições
+    private void updateTiles() {
+        int[] pos = {41, 106};  // Posição XY da primeira tile
+        int k = 0;  // Índice contador de tiles geradas p/ posicionar uma a uma
+
+        // Dispoe o ArrayList na tela em formato de matriz
+        for (int i = 0; i < s.getBoardSize(); i++) {
+            pos[0] = 41;
+            for (int j = 0; j < s.getBoardSize(); j++) {
+                if (s.getGameStatus() == -1) {
+                    gameTiles.add(new JLabel(s.getTileImg(i, j)));
+                    this.add(gameTiles.get(k), new AbsoluteConstraints(pos[0], pos[1], -1, -1));
+                } else {
+
+                    gameTiles.get(k).setIcon(s.getTileImg(i, j));
+                }
+                pos[0] += 100;
+                k++;
+            }
+            pos[1] += 100;
+        }
+    }
+    // </editor-fold>
+
+    // <editor-fold defaultstate="collapsed" desc="Atualizar informações na tela">
+    /**
+     * 
+     * @param easterEgg Se easterEgg true, não spawna nova tile
+     */
+    private void updateInfo(boolean easterEgg) {
+        updateTiles();
+        if (!easterEgg) {
+            s.tileSpawn();
+            updateTiles();
+        }
+        if (s.getRoundScore() > s.getRecordScore()) {
+            s.setRecordScore(s.getRoundScore());
+        }
+        s.printGameBoard();
+        lblScore.setText(String.format("%06d%n", s.getRoundScore()));
+        lblRecord.setText(String.format("%06d%n", s.getRecordScore()));
+        isGameFinished();
+    }
+    // </editor-fold>
+
+    // <editor-fold defaultstate="collapsed" desc="Executar movimentos">
     private void doMove(char id) {
         Boolean invalidMove = false;
 
@@ -586,19 +603,40 @@ public class GUI_Game extends JFrame {
                 break;
         }
         if (!invalidMove) {
-            attTiles();
-            s.tileSpawn();
-            attTiles();
-            s.printGameBoard();
-            if (s.getRoundScore() > s.getRecordScore()) {
-                s.setRecordScore(s.getRoundScore());
-            }
-            lblScore.setText(String.format("%06d%n", s.getRoundScore()));
-            lblRecord.setText(String.format("%06d%n", s.getRecordScore()));
+            updateInfo(false);
         }
     }
     // </editor-fold>
 
+    // <editor-fold defaultstate="collapsed" desc="Verificar progresso do jogo">
+    public void isGameFinished() {
+        for (int i = 0; i < s.getBoardSize(); i++) {
+            for (int j = 0; j < s.getBoardSize(); j++) {
+                if (s.getGameBoardValue(i, j) == 2048) {
+                    new Thread() {
+                        public void run() {
+                            try {
+                                Thread.sleep(1000);
+                                s.setGameStatus(1);
+                                dispose();
+                                if (s.getAudioOn()) {
+                                    a.stop();
+                                }
+                                if (s.getAltTheme()) {
+                                    new GUI_EasterEgg(s).setVisible(true);
+                                } else {
+                                    new GUI_Victory(s).setVisible(true);
+                                }
+                            } catch (InterruptedException ex) {
+                                Logger.getLogger(GUI_Game.class.getName()).log(Level.SEVERE, null, ex);
+                            }
+                        }
+                    }.start();
+                }
+            }
+        }
+    }
+    // </editor-fold>
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel arrowPadD;
