@@ -6,9 +6,14 @@ import com.engcomp2019.core.DragWindow;
 import com.engcomp2019.core.Session;
 import java.awt.Frame;
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+//import javax.swing.Timer;
+import java.util.Timer;
+import java.util.TimerTask;
 import org.netbeans.lib.awtextra.AbsoluteConstraints;
 
 /**
@@ -33,6 +38,10 @@ public class GUI_Victory extends JFrame {
     private Boolean menuActive = true;
     private final Audio a = new Audio();
     private final Session s;
+    // Score
+    private int scoreIncrement = 0;
+    private Boolean audioStop = false;
+    private Timer timer;
 
     /**
      * Inicializa e instancia a tela de vitória
@@ -47,12 +56,8 @@ public class GUI_Victory extends JFrame {
         initMenu();
         loadImages();
 
-        for (int i = 0; i < 2; i++) {
-            fireworksGif.add(new JLabel(imgFireworksGif));
-        }
-
-        lblScore.setText(String.format("%06d%n", s.getRoundScore()));
-        lblRecord.setText(String.format("%06d%n", s.getRecordScore()));
+        fireworksGif.add(new JLabel(imgFireworksGif));
+        fireworksGif.add(new JLabel(imgFireworksGif));
 
         btnReset.setIcon(imgBtnReset.get(0));
         this.add(btnReset, new AbsoluteConstraints(245, 456, -1, -1));
@@ -61,9 +66,13 @@ public class GUI_Victory extends JFrame {
         this.add(btnMainMenu, new AbsoluteConstraints(409, 456, -1, -1));
         btnMainMenu.setVisible(true);
 
-        this.add(fireworksGif.get(0), new AbsoluteConstraints(600, 280, -1, -1));
-        this.add(fireworksGif.get(1), new AbsoluteConstraints(45, 400, -1, -1));
-        
+        this.add(fireworksGif.get(0), new AbsoluteConstraints(600, 330, -1, -1));
+        this.add(fireworksGif.get(1), new AbsoluteConstraints(45, 330, -1, -1));
+
+        this.add(lblScore, new AbsoluteConstraints(82, 240, -1, -1));
+        lblRecord.setText(String.format("%06d%n", s.getRecordScore()));
+        this.add(lblRecord, new AbsoluteConstraints(632, 240, -1, -1));
+
         imgWinGif.getImage().flush();
         victoryGif.setIcon(imgWinGif);
         this.add(victoryGif, new AbsoluteConstraints(271, 180, -1, -1));
@@ -100,14 +109,21 @@ public class GUI_Victory extends JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setName("frameVictory"); // NOI18N
         setUndecorated(true);
+        addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                formFocusGained(evt);
+            }
+        });
         addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseReleased(java.awt.event.MouseEvent evt) {
                 formMouseReleased(evt);
             }
         });
-        addWindowListener(new java.awt.event.WindowAdapter() {
-            public void windowClosed(java.awt.event.WindowEvent evt) {
-                formWindowClosed(evt);
+        addWindowFocusListener(new java.awt.event.WindowFocusListener() {
+            public void windowGainedFocus(java.awt.event.WindowEvent evt) {
+                formWindowGainedFocus(evt);
+            }
+            public void windowLostFocus(java.awt.event.WindowEvent evt) {
             }
         });
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -206,12 +222,12 @@ public class GUI_Victory extends JFrame {
         getContentPane().add(btnMainMenu, new org.netbeans.lib.awtextra.AbsoluteConstraints(409, 456, -1, -1));
 
         lblRecord.setFont(new java.awt.Font("Dialog", 1, 24)); // NOI18N
-        lblRecord.setForeground(new java.awt.Color(77, 77, 77));
-        getContentPane().add(lblRecord, new org.netbeans.lib.awtextra.AbsoluteConstraints(668, 265, -1, -1));
+        lblRecord.setForeground(new java.awt.Color(255, 255, 255));
+        getContentPane().add(lblRecord, new org.netbeans.lib.awtextra.AbsoluteConstraints(632, 250, -1, -1));
 
         lblScore.setFont(new java.awt.Font("Dialog", 1, 24)); // NOI18N
-        lblScore.setForeground(new java.awt.Color(77, 77, 77));
-        getContentPane().add(lblScore, new org.netbeans.lib.awtextra.AbsoluteConstraints(668, 150, -1, -1));
+        lblScore.setForeground(new java.awt.Color(255, 255, 255));
+        getContentPane().add(lblScore, new org.netbeans.lib.awtextra.AbsoluteConstraints(82, 250, -1, -1));
         getContentPane().add(victoryGif, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 180, -1, -1));
 
         frameDrag.setPreferredSize(new java.awt.Dimension(41, 18));
@@ -229,8 +245,6 @@ public class GUI_Victory extends JFrame {
             }
         });
         getContentPane().add(frameDrag, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 800, 18));
-
-        frameBackground.setIcon(new javax.swing.ImageIcon("C:\\Users\\erick\\Documents\\NetBeansProjects\\prj2048\\imgs\\frames\\frameVictory.png")); // NOI18N
         getContentPane().add(frameBackground, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 800, 576));
 
         pack();
@@ -316,10 +330,6 @@ public class GUI_Victory extends JFrame {
         menuActive = close.menu(0, menuActive, menuDropdown, menuItems);
     }//GEN-LAST:event_formMouseReleased
 
-    private void formWindowClosed(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosed
-        a.stop();
-    }//GEN-LAST:event_formWindowClosed
-
     private void btnMainMenuMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnMainMenuMouseEntered
         btnMainMenu.setIcon(imgBtnMain.get(1));
     }//GEN-LAST:event_btnMainMenuMouseEntered
@@ -341,6 +351,62 @@ public class GUI_Victory extends JFrame {
         frameConfirm.setVisible(true);
 
     }//GEN-LAST:event_btnMainMenuMouseReleased
+
+    private void formWindowGainedFocus(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowGainedFocus
+
+    }//GEN-LAST:event_formWindowGainedFocus
+
+    private void formFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_formFocusGained
+        new Thread() {
+            public void run() {
+                try {
+                    Thread.sleep(3300);
+                    loadScore();
+                    count();
+                } catch (InterruptedException ex) {
+                    System.err.println("ERRO: " + ex);
+                }
+            }
+        }.start();
+    }//GEN-LAST:event_formFocusGained
+
+    // <editor-fold defaultstate="collapsed" desc="Score counter aux">
+    private void count() {
+        if (s.getRoundScore() != 0) {
+            Timer counter = new Timer();
+            counter.scheduleAtFixedRate(new TimerTask() {
+                int timeRunning = 3;
+
+                public void run() {
+                    timeRunning -= 1;
+                    if (timeRunning == 0) {
+                        timer.cancel();
+                        lblScore.setText(String.format("%06d%n", s.getRoundScore()));
+                    }
+                }
+            }, 1000, 1000);
+        }
+    }
+    // </editor-fold>
+
+    // <editor-fold defaultstate="collapsed" desc="Initiate score count">
+    private void loadScore() {
+        // Ativa a progress bar quando a janela estiver ativa
+        if (s.getRoundScore() != 0) {
+            // Incrementa o score do zero até nosso score em 1 seg
+            timer = new Timer();
+            timer.scheduleAtFixedRate(new TimerTask() {
+                public void run() {
+                    scoreIncrement += 1;
+                    lblScore.setText(String.format("%06d%n", scoreIncrement));
+                    if (scoreIncrement == s.getRoundScore()) {
+                        timer.cancel();
+                    }
+                }
+            }, 25, 25);
+        }
+    }
+    // </editor-fold>
 
     // <editor-fold defaultstate="collapsed" desc="Initiate the menu">
     private void initMenu() {

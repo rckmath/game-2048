@@ -175,7 +175,7 @@ public class GUI_RestartConfirm extends JFrame {
                 System.err.println("ERRO: " + ex);
             }
         }
-        // previousFrame.setEnabled(true);
+        previousFrame.setEnabled(true);
         this.dispose();
     }//GEN-LAST:event_btnYesMouseReleased
 

@@ -113,11 +113,6 @@ public class GUI_Game extends JFrame {
                 formWindowClosed(evt);
             }
         });
-        addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyReleased(java.awt.event.KeyEvent evt) {
-                formKeyReleased(evt);
-            }
-        });
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         exitGame.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -369,10 +364,6 @@ public class GUI_Game extends JFrame {
         }
     }//GEN-LAST:event_easterEggMouseReleased
 
-    private void formKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_formKeyReleased
-        evt.getKeyCode();
-    }//GEN-LAST:event_formKeyReleased
-
     private void btnAudioMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnAudioMouseReleased
         if (s.getAudioOn()) {
             btnAudio.setIcon(imgVolume.get(1));
@@ -390,8 +381,8 @@ public class GUI_Game extends JFrame {
             move.setFinalCoordenates(evt);
             move.setBuffer(0);
             doMove((char) move.setCoord());
-
         }
+        menuActive = close.menu(0, menuActive, menuDropdown, menuItems);
     }//GEN-LAST:event_mouseMoveMouseReleased
 
     private void mouseMoveMouseDragged(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_mouseMoveMouseDragged
@@ -415,6 +406,7 @@ public class GUI_Game extends JFrame {
                     gameTiles.add(new JLabel(s.getTileImg(i, j)));
                     this.add(gameTiles.get(k), new AbsoluteConstraints(pos[0], pos[1], -1, -1));
                 } else {
+
                     gameTiles.get(k).setIcon(s.getTileImg(i, j));
                 }
                 pos[0] += 100;
@@ -574,34 +566,35 @@ public class GUI_Game extends JFrame {
     // <editor-fold defaultstate="collapsed" desc="Execute movement">
     private void doMove(char id) {
         Boolean invalidMove = false;
+
         switch (id) {
             case 'U':
-                s.moveUp();
+                s.setRoundScore(s.getRoundScore() + s.moveUp());
                 break;
             case 'D':
-                s.moveDown();
+                s.setRoundScore(s.getRoundScore() + s.moveDown());
                 break;
             case 'L':
-                s.moveLeft();
+                s.setRoundScore(s.getRoundScore() + s.moveLeft());
                 break;
             case 'R':
-                s.moveRight();
+                s.setRoundScore(s.getRoundScore() + s.moveRight());
                 break;
             default:
-                System.err.println("Movimento inválido.");
+                System.err.println("\nMovimento inválido.");
                 invalidMove = true;
                 break;
         }
         if (!invalidMove) {
+            attTiles();
             s.tileSpawn();
             attTiles();
             s.printGameBoard();
-            try {
-                Thread.sleep(20);
-            } catch (InterruptedException ex) {
-                Logger.getLogger(GUI_Game.class
-                        .getName()).log(Level.SEVERE, null, ex);
+            if (s.getRoundScore() > s.getRecordScore()) {
+                s.setRecordScore(s.getRoundScore());
             }
+            lblScore.setText(String.format("%06d%n", s.getRoundScore()));
+            lblRecord.setText(String.format("%06d%n", s.getRecordScore()));
         }
     }
     // </editor-fold>

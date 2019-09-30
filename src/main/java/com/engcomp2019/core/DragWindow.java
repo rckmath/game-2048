@@ -8,12 +8,13 @@ import javax.swing.JOptionPane;
  * @author erick / rckmath
  */
 public class DragWindow extends Drag {
+
     private Frame frame;
-    
-    /* CONSTRUTOR(ES) */ 
+
+    /* CONSTRUTOR(ES) */
     public DragWindow() {
     }
-    
+
     /* METODOS */
     public Frame getFrame() {
         return frame;
@@ -22,7 +23,7 @@ public class DragWindow extends Drag {
     public void setFrame(Frame frame) {
         this.frame = frame;
     }
-    
+
     // Define e seta no frame a coordenada de destino
     @Override
     public int setCoord() {

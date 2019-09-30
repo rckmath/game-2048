@@ -21,7 +21,7 @@ import javax.swing.Timer;
 public class Splash extends JFrame {
 
     private static JLabel lblArt;   // Label que definiremos nossa imagem
-    private JProgressBar progressBar = new JProgressBar();   // Progress bar
+    private final JProgressBar progressBar = new JProgressBar();   // Progress bar
     private final ImageIcon imgArt;
     private final Session s;
 
@@ -34,21 +34,7 @@ public class Splash extends JFrame {
             imgArt = new ImageIcon("imgs/easteregg/leoSplash.gif");
         }
 
-        //Ativa a progress bar quando a janela estiver ativa
-        this.addWindowListener(new WindowAdapter() {
-            @Override
-            public void windowActivated(WindowEvent arg0) {
-                // Carrega nossa barra em 2,3 seg
-                final Timer t = new Timer(23, (ActionEvent e) -> {
-                    // Incrementa a progress bar a cada "rodada" de timer
-                    progressBar.setValue(progressBar.getValue() + 1);
-                    if (progressBar.getValue() == 100) {
-                        ((Timer) e.getSource()).stop();
-                    }
-                });
-                t.start();
-            }
-        });
+        loadingBar();
 
         // Padrao de layout do pane ativo como nulo
         this.setLayout(null);
@@ -75,5 +61,23 @@ public class Splash extends JFrame {
         super.dispose();
         GUI_MainMenu oFrame = new GUI_MainMenu(this.s);
         oFrame.setVisible(true);
+    }
+
+    private void loadingBar() {
+        // Ativa a progress bar quando a janela estiver ativa
+        this.addWindowListener(new WindowAdapter() {
+            @Override
+            public void windowActivated(WindowEvent arg0) {
+                // Carrega nossa barra em 2,3 seg
+                final Timer t = new Timer(20, (ActionEvent e) -> {
+                    // Incrementa a progress bar a cada "rodada" de timer
+                    progressBar.setValue(progressBar.getValue() + 1);
+                    if (progressBar.getValue() == 100) {
+                        ((Timer) e.getSource()).stop();
+                    }
+                });
+                t.start();
+            }
+        });
     }
 }

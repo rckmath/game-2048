@@ -31,8 +31,8 @@ public class DragTile extends Drag {
         this.deltaX = super.getFinalX() - super.getX();
         this.deltaY = super.getFinalY() - super.getY();
 
-        System.out.println("Delta X:" + deltaX);
-        System.out.println("Delta Y:" + deltaY);
+        System.out.println("Delta X: " + deltaX);
+        System.out.println("Delta Y: " + deltaY);
         System.out.println();
     }
 
@@ -59,37 +59,45 @@ public class DragTile extends Drag {
         try {
             // Se ambos forem positivos
             if (deltaX > 0 && deltaY > 0) {
-                if (deltaX > 2 && deltaY > 2) {
-                    if (deltaX > deltaY) {
+                if (deltaX > deltaY) {
+                    if (deltaX > 50) {
                         moveDirection = 'R';
-                    } else {
+                    }
+                } else {
+                    if (deltaY > 50) {
                         moveDirection = 'D';
                     }
                 }
                 // Se o deltaX for positivo e deltaY negativo
             } else if (deltaX > 0 && deltaY < 0) {
-                if (deltaX > 2 && deltaY < -2) {
-                    if (deltaX > (deltaY * -1)) {
+                if (deltaX > (deltaY * -1)) {
+                    if (deltaX > 50) {
                         moveDirection = 'R';
-                    } else {
+                    }
+                } else {
+                    if (deltaY < -50) {
                         moveDirection = 'U';
                     }
                 }
                 // Se o deltaX for negativo e deltaY positivo
             } else if (deltaX < 0 && deltaY > 0) {
-                if (deltaX < -2 && deltaY > 2) {
-                    if ((deltaX * -1) > deltaY) {
+                if ((deltaX * -1) > deltaY) {
+                    if (deltaX < -50) {
                         moveDirection = 'L';
-                    } else {
+                    }
+                } else {
+                    if (deltaY > 50) {
                         moveDirection = 'D';
                     }
                 }
                 // Se ambos forem negativos
             } else {
-                if (deltaX < -2 && deltaY < -2) {
-                    if ((deltaX * -1) > (deltaY * -1)) {
+                if ((deltaX * -1) > (deltaY * -1)) {
+                    if (deltaX < -50) {
                         moveDirection = 'L';
-                    } else {
+                    }
+                } else {
+                    if (deltaY < -50) {
                         moveDirection = 'U';
                     }
                 }
