@@ -376,37 +376,39 @@ public abstract class Engine {
     }
 
     public void gameOver(){
-       int gameOver1 = 0,gameOver2 = 0;
-       // Copiar matriz do jogo atual
+       int gameOver1 = 0;   // Ve se nao tem movimento possivel
+       int gameOver2 = 0;   // Ve se nao tem espaco livre
+       
+    // Copiar matriz do jogo atual para uma auxiliar
            for(int i =0; i<boardSize;i++){
-            for(int j =0; j<boardSize;j++){
-                gameAux[i][j] = gameBoard[i][j];    
+            for(int j =0; j<boardSize;j++){       
+                gameAux[i][j] = gameBoard[i][j];        
             }
         }
 
        moveDown(gameAux);
-       moveUp(gameAux); 
-       moveRight(gameAux);
+       moveUp(gameAux);        // Realiza todos os movimentos,
+       moveRight(gameAux);     // pra ver se tem movimento possivel
        moveLeft(gameAux);
        
        // Comparar matrizes
-           for(int i =0; i<boardSize;i++){
-            for(int j =0; j<boardSize;j++){
+           for(int i =0; i<boardSize;i++){    // Analisa se tem algum movimento possivel antecipado,
+            for(int j =0; j<boardSize;j++){   // se a matriz mudou
                 if(gameBoard[i][j] != gameAux[i][j]){
                     gameOver1 = 1;
                 }
             }
         }
            
-           for(int i =0; i<boardSize;i++){
-            for(int j =0; j<boardSize;j++){
+           for(int i =0; i<boardSize;i++){    // Verifica se tem algum espaco vazio
+            for(int j =0; j<boardSize;j++){   // na matriz
                 if(gameAux[i][j] == 0){
                     gameOver2 = 1;
                 }
             }
         }
            
-           
+    // Verifica se nao houve movimento possivel antecipado e se nao tem algum lugar vazio
         if(gameOver1 == 0 && gameOver2 == 0){
            System.out.println("-------- GAME OVER --------");
         }

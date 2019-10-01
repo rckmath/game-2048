@@ -587,19 +587,19 @@ public class GUI_Game extends JFrame {
         switch (id) {
             case 'U':
                 s.setRoundScore(s.getRoundScore() + s.moveUp(s.getGameBoard()));
-                s.gameOver();
+                s.gameOver();   // Analisa pra ver se deu game over
                 break;
             case 'D':
                 s.setRoundScore(s.getRoundScore() + s.moveDown(s.getGameBoard()));
-                s.gameOver();
+                s.gameOver();   // Analisa pra ver se deu game over
                 break;
             case 'L':
                 s.setRoundScore(s.getRoundScore() + s.moveLeft(s.getGameBoard()));
-                s.gameOver();
+                s.gameOver();   // Analisa pra ver se deu game over
                 break;
             case 'R':
                 s.setRoundScore(s.getRoundScore() + s.moveRight(s.getGameBoard()));
-                s.gameOver();
+                s.gameOver();   // Analisa pra ver se deu game over
                 break;
             default:
                 System.err.println("\nMovimento inválido.");
