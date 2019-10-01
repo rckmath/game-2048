@@ -42,6 +42,7 @@ public class GUI_Config extends JFrame {
         initComponents();
         this.setResizable(false);
         this.setLocationRelativeTo(null);
+        loadImages();
 
         menuItems = new ArrayList<JLabel>() {
             {
@@ -52,20 +53,6 @@ public class GUI_Config extends JFrame {
 
         // Para inicializar as opções de menu desativadas
         menuActive = close.menu(0, menuActive, menuDropdown, menuItems);
-
-        /* Instancia e define nossos elementos na tela */
-        imgBtnTheme.add(new ImageIcon("imgs/buttons/other/btnTemaFDef.png"));
-        imgBtnTheme.add(new ImageIcon("imgs/buttons/other/btnTemaFHover.png"));
-        imgBtnTheme.add(new ImageIcon("imgs/buttons/other/btnTemaFPressed.png"));
-        imgBtnTheme.add(new ImageIcon("imgs/buttons/other/btnTemaTDef.png"));
-        imgBtnTheme.add(new ImageIcon("imgs/buttons/other/btnTemaTHover.png"));
-        imgBtnTheme.add(new ImageIcon("imgs/buttons/other/btnTemaTPressed.png"));
-        imgBtnReset.add(new ImageIcon("imgs/buttons/other/btnResetRDef.png"));
-        imgBtnReset.add(new ImageIcon("imgs/buttons/other/btnResetRHov.png"));
-        imgBtnReset.add(new ImageIcon("imgs/buttons/other/btnResetRPre.png"));
-
-        imgVolume.add(new ImageIcon("imgs/elements/volumeOn.png"));
-        imgVolume.add(new ImageIcon("imgs/elements/volumeOff.png"));
 
         if (!s.getAudioOn()) {
             a.stop();
@@ -384,6 +371,24 @@ public class GUI_Config extends JFrame {
             s.setAudioOn(true);
         }
     }//GEN-LAST:event_btnAudioMouseReleased
+
+    // <editor-fold defaultstate="collapsed" desc="Carregar imagens">
+    private void loadImages() {
+        /* Instancia e define nossos elementos na tela */
+        imgBtnTheme.add(new ImageIcon("imgs/buttons/other/btnTemaFDef.png"));
+        imgBtnTheme.add(new ImageIcon("imgs/buttons/other/btnTemaFHover.png"));
+        imgBtnTheme.add(new ImageIcon("imgs/buttons/other/btnTemaFPressed.png"));
+        imgBtnTheme.add(new ImageIcon("imgs/buttons/other/btnTemaTDef.png"));
+        imgBtnTheme.add(new ImageIcon("imgs/buttons/other/btnTemaTHover.png"));
+        imgBtnTheme.add(new ImageIcon("imgs/buttons/other/btnTemaTPressed.png"));
+        imgBtnReset.add(new ImageIcon("imgs/buttons/other/btnResetRDef.png"));
+        imgBtnReset.add(new ImageIcon("imgs/buttons/other/btnResetRHov.png"));
+        imgBtnReset.add(new ImageIcon("imgs/buttons/other/btnResetRPre.png"));
+
+        imgVolume.add(new ImageIcon("imgs/elements/volumeOn.png"));
+        imgVolume.add(new ImageIcon("imgs/elements/volumeOff.png"));
+    }
+    // </editor-fold>
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel altTheme;

@@ -38,7 +38,6 @@ public class GUI_Victory extends JFrame {
     private final Audio a = new Audio();
     private final Session s;
     // Score
-    private int scoreIncrement = 0;
     private Timer timer;
 
     /**
@@ -361,6 +360,7 @@ public class GUI_Victory extends JFrame {
             starGif.setVisible(true);
         }
         new Thread() {
+            @Override
             public void run() {
                 try {
                     Thread.sleep(3300);
@@ -414,6 +414,8 @@ public class GUI_Victory extends JFrame {
             // Incrementa o score do zero até nosso score em 1 seg
             timer = new Timer();
             timer.scheduleAtFixedRate(new TimerTask() {
+                int scoreIncrement = 0;
+                @Override
                 public void run() {
                     scoreIncrement += 1;
                     lblScore.setText(String.format("%06d%n", scoreIncrement));

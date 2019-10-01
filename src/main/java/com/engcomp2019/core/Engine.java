@@ -127,10 +127,10 @@ public abstract class Engine {
                             if (j == 0 && flag0 == 1) {
                                 flag = 1;
                             }
-                            if (j == 1 && flag1 == 1 || (j == 3 && flag0 == 1)) {     // Verifica se ja foi feita a soma
+                            if (j == 1 && flag1 == 1 || (j == 1 && flag0 == 1)) {     // Verifica se ja foi feita a soma
                                 flag = 1;                                            // em alguma posicao repetida
                             }
-                            if (j == 2 && flag2 == 1 || (j == 3 && flag1 == 1)) {
+                            if (j == 2 && flag2 == 1 || (j == 2 && flag1 == 1)) {
                                 flag = 1;
                             }
                             if ((j == 3 && flag3 == 1) || (j == 3 && flag2 == 1)) {
@@ -255,10 +255,10 @@ public abstract class Engine {
                             if ((i == 0 && flag0 == 1) || (i == 0 && flag1 == 1)) {
                                 flag = 1;
                             }
-                            if ((i == 1 && flag1 == 1) || (i == 0 && flag2 == 1)) {     // Verifica se ja foi feita a soma
+                            if ((i == 1 && flag1 == 1) || (i == 1 && flag2 == 1)) {     // Verifica se ja foi feita a soma
                                 flag = 1;                                               // em alguma posicao repetida
                             }
-                            if ((i == 2 && flag2 == 1) || (i == 0 && flag3 == 1)) {
+                            if ((i == 2 && flag2 == 1) || (i == 2 && flag3 == 1)) {
                                 flag = 1;
                             }
                             if (i == 3 && flag3 == 1) {

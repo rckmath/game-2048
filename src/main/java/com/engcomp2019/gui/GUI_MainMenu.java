@@ -352,6 +352,11 @@ public class GUI_MainMenu extends JFrame {
         } else {
             altTheme.setVisible(false);
         }
+        if (s.getAudioOn()) {
+            btnAudio.setIcon(imgVolume.get(0));
+        } else {
+            btnAudio.setIcon(imgVolume.get(1));
+        }
     }//GEN-LAST:event_formWindowGainedFocus
 
     private void btnAudioMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnAudioMouseReleased
