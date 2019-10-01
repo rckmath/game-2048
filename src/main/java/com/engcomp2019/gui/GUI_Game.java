@@ -406,9 +406,9 @@ public class GUI_Game extends JFrame {
     // <editor-fold defaultstate="collapsed" desc="Inicializar áudio">
     private void initAudio() {
         if (!s.getAltTheme()) {
-            a.setAudioPath("src/main/java/com/engcomp2019/audio/gameMusic.wav");
+            a.setAudioPath("src/main/resources/audio/gameMusic.wav");
         } else {
-            a.setAudioPath("src/main/java/com/engcomp2019/audio/leoMusic.wav");
+            a.setAudioPath("src/main/resources/audio/leoMusic.wav");
         }
 
         if (s.getAudioOn()) {
@@ -561,7 +561,7 @@ public class GUI_Game extends JFrame {
 
     // <editor-fold defaultstate="collapsed" desc="Atualizar informações na tela">
     /**
-     * 
+     *
      * @param easterEgg Se easterEgg true, não spawna nova tile
      */
     private void updateInfo(boolean easterEgg) {

@@ -244,7 +244,7 @@ public class GUI_EasterEgg extends JFrame {
         s.restart(this);
     }//GEN-LAST:event_newGameMouseReleased
 
-    // <editor-fold defaultstate="collapsed" desc="Initiate the menu">
+    // <editor-fold defaultstate="collapsed" desc="Inicializar menu">
     private void initMenu() {
         menuItems = new ArrayList<JLabel>() {
             {
@@ -259,9 +259,9 @@ public class GUI_EasterEgg extends JFrame {
     }
     // </editor-fold>
 
-    // <editor-fold defaultstate="collapsed" desc="Initiate the audio">
+    // <editor-fold defaultstate="collapsed" desc="Inicializar áudio">
     private void initAudio() {
-        a.setAudioPath("src/main/java/com/engcomp2019/audio/easterEggMusic.wav");
+        a.setAudioPath("src/main/resources/audio/easterEggMusic.wav");
         a.play(true);
     }
     // </editor-fold>

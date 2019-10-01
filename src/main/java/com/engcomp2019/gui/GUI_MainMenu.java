@@ -374,7 +374,7 @@ public class GUI_MainMenu extends JFrame {
         }
     }
 
-    // <editor-fold defaultstate="collapsed" desc="Initiate the menu">
+    // <editor-fold defaultstate="collapsed" desc="Inicializar menu">
     private void initMenu() {
         menuItems = new ArrayList<JLabel>() {
             {
@@ -389,9 +389,9 @@ public class GUI_MainMenu extends JFrame {
     }
     // </editor-fold>
 
-    // <editor-fold defaultstate="collapsed" desc="Initiate the audio">
+    // <editor-fold defaultstate="collapsed" desc="Inicializar áudio">
     private void initAudio() {
-        a.setAudioPath("src/main/java/com/engcomp2019/audio/menuMusic.wav");
+        a.setAudioPath("src/main/resources/audio/menuMusic.wav");
         if (s.getAudioOn()) {
             a.play(true);
             btnAudio.setIcon(imgVolume.get(0));
@@ -401,7 +401,7 @@ public class GUI_MainMenu extends JFrame {
     }
     // </editor-fold>
 
-    // <editor-fold defaultstate="collapsed" desc="Load images">
+    // <editor-fold defaultstate="collapsed" desc="Carregar imagens">
     private void loadImages() {
         imgBtnStart.add(new ImageIcon("imgs/buttons/btnDefault.png"));
         imgBtnStart.add(new ImageIcon("imgs/buttons/btnHover.png"));

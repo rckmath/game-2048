@@ -6,12 +6,10 @@ import com.engcomp2019.core.DragWindow;
 import com.engcomp2019.core.Session;
 import java.awt.Frame;
 import java.util.ArrayList;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import java.util.Objects;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
-//import javax.swing.Timer;
 import java.util.Timer;
 import java.util.TimerTask;
 import org.netbeans.lib.awtextra.AbsoluteConstraints;
@@ -27,6 +25,7 @@ public class GUI_Victory extends JFrame {
     private final ImageIcon imgMenu = new ImageIcon("imgs/elements/gameDropdown.png");
     private final ImageIcon imgWinGif = new ImageIcon("imgs/victory/endingAnim.gif");
     private final ImageIcon imgFireworksGif = new ImageIcon("imgs/victory/fireworksAnim.gif");
+    private final ImageIcon imgStarGif = new ImageIcon("imgs/victory/marioStar.gif");
     private final ArrayList<ImageIcon> imgBtnReset = new ArrayList<>();
     private final ArrayList<ImageIcon> imgBtnMain = new ArrayList<>();
     // JLabel
@@ -40,7 +39,6 @@ public class GUI_Victory extends JFrame {
     private final Session s;
     // Score
     private int scoreIncrement = 0;
-    private Boolean audioStop = false;
     private Timer timer;
 
     /**
@@ -55,6 +53,12 @@ public class GUI_Victory extends JFrame {
         this.setLocationRelativeTo(null);
         initMenu();
         loadImages();
+
+        imgWinGif.getImage().flush();
+
+        starGif.setIcon(imgStarGif);
+        this.add(starGif, new AbsoluteConstraints(740, 275, -1, -1));
+        starGif.setVisible(false);
 
         fireworksGif.add(new JLabel(imgFireworksGif));
         fireworksGif.add(new JLabel(imgFireworksGif));
@@ -73,7 +77,6 @@ public class GUI_Victory extends JFrame {
         lblRecord.setText(String.format("%06d%n", s.getRecordScore()));
         this.add(lblRecord, new AbsoluteConstraints(632, 240, -1, -1));
 
-        imgWinGif.getImage().flush();
         victoryGif.setIcon(imgWinGif);
         this.add(victoryGif, new AbsoluteConstraints(271, 180, -1, -1));
         initAudio();
@@ -101,7 +104,9 @@ public class GUI_Victory extends JFrame {
         btnReset = new javax.swing.JLabel();
         btnMainMenu = new javax.swing.JLabel();
         lblRecord = new javax.swing.JLabel();
+        newRecord = new javax.swing.JLabel();
         lblScore = new javax.swing.JLabel();
+        starGif = new javax.swing.JLabel();
         victoryGif = new javax.swing.JLabel();
         frameDrag = new javax.swing.JLabel();
         frameBackground = new javax.swing.JLabel();
@@ -109,21 +114,14 @@ public class GUI_Victory extends JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setName("frameVictory"); // NOI18N
         setUndecorated(true);
-        addFocusListener(new java.awt.event.FocusAdapter() {
-            public void focusGained(java.awt.event.FocusEvent evt) {
-                formFocusGained(evt);
-            }
-        });
         addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseReleased(java.awt.event.MouseEvent evt) {
                 formMouseReleased(evt);
             }
         });
-        addWindowFocusListener(new java.awt.event.WindowFocusListener() {
-            public void windowGainedFocus(java.awt.event.WindowEvent evt) {
-                formWindowGainedFocus(evt);
-            }
-            public void windowLostFocus(java.awt.event.WindowEvent evt) {
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowOpened(java.awt.event.WindowEvent evt) {
+                formWindowOpened(evt);
             }
         });
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -225,9 +223,15 @@ public class GUI_Victory extends JFrame {
         lblRecord.setForeground(new java.awt.Color(255, 255, 255));
         getContentPane().add(lblRecord, new org.netbeans.lib.awtextra.AbsoluteConstraints(632, 250, -1, -1));
 
+        newRecord.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
+        newRecord.setForeground(new java.awt.Color(255, 255, 255));
+        newRecord.setToolTipText("");
+        getContentPane().add(newRecord, new org.netbeans.lib.awtextra.AbsoluteConstraints(580, 280, -1, -1));
+
         lblScore.setFont(new java.awt.Font("Dialog", 1, 24)); // NOI18N
         lblScore.setForeground(new java.awt.Color(255, 255, 255));
         getContentPane().add(lblScore, new org.netbeans.lib.awtextra.AbsoluteConstraints(82, 250, -1, -1));
+        getContentPane().add(starGif, new org.netbeans.lib.awtextra.AbsoluteConstraints(740, 275, 32, 32));
         getContentPane().add(victoryGif, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 180, -1, -1));
 
         frameDrag.setPreferredSize(new java.awt.Dimension(41, 18));
@@ -252,7 +256,7 @@ public class GUI_Victory extends JFrame {
 
     private void btnMinimizeMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnMinimizeMouseReleased
         menuActive = close.menu(0, menuActive, menuDropdown, menuItems);
-        setState(Frame.ICONIFIED);  // Minimize our frame
+        setState(Frame.ICONIFIED);
     }//GEN-LAST:event_btnMinimizeMouseReleased
 
     private void btnFileMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnFileMouseReleased
@@ -345,18 +349,17 @@ public class GUI_Victory extends JFrame {
     private void btnMainMenuMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnMainMenuMouseReleased
         btnMainMenu.setIcon(imgBtnMain.get(1));
         menuActive = close.menu(0, menuActive, menuDropdown, menuItems);
-        // Chamar frame para confirmar ação
+        // Chama frame para confirmar ação
         GUI_MainConfirm frameConfirm;
         frameConfirm = new GUI_MainConfirm(this, s);
         frameConfirm.setVisible(true);
-
     }//GEN-LAST:event_btnMainMenuMouseReleased
 
-    private void formWindowGainedFocus(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowGainedFocus
-
-    }//GEN-LAST:event_formWindowGainedFocus
-
-    private void formFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_formFocusGained
+    private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
+        if (Objects.equals(s.getRecordScore(), s.getRoundScore())) {
+            newRecord.setText("NOVO RECORDE");
+            starGif.setVisible(true);
+        }
         new Thread() {
             public void run() {
                 try {
@@ -368,28 +371,43 @@ public class GUI_Victory extends JFrame {
                 }
             }
         }.start();
-    }//GEN-LAST:event_formFocusGained
+    }//GEN-LAST:event_formWindowOpened
 
-    // <editor-fold defaultstate="collapsed" desc="Score counter aux">
-    private void count() {
-        if (s.getRoundScore() != 0) {
-            Timer counter = new Timer();
-            counter.scheduleAtFixedRate(new TimerTask() {
-                int timeRunning = 3;
+    // <editor-fold defaultstate="collapsed" desc="Inicializar menu">
+    private void initMenu() {
+        menuItems = new ArrayList<JLabel>() {
+            {
+                add(exitGame);
+                add(newGame);
+                add(mainMenu);
+            }
+        };
 
-                public void run() {
-                    timeRunning -= 1;
-                    if (timeRunning == 0) {
-                        timer.cancel();
-                        lblScore.setText(String.format("%06d%n", s.getRoundScore()));
-                    }
-                }
-            }, 1000, 1000);
-        }
+        // Para inicializar as opções de menu desativadas
+        menuActive = close.menu(0, menuActive, menuDropdown, menuItems);
     }
     // </editor-fold>
 
-    // <editor-fold defaultstate="collapsed" desc="Initiate score count">
+    // <editor-fold defaultstate="collapsed" desc="Inicializar áudio">
+    private void initAudio() {
+        a.setAudioPath("src/main/resources/audio/youWin.wav");
+        a.play(false);
+    }
+    // </editor-fold>
+
+    // <editor-fold defaultstate="collapsed" desc="Carregar imagens">
+    private void loadImages() {
+        imgBtnReset.add(new ImageIcon("imgs/buttons/btnResetDef.png"));
+        imgBtnReset.add(new ImageIcon("imgs/buttons/btnResetHov.png"));
+        imgBtnReset.add(new ImageIcon("imgs/buttons/btnResetPre.png"));
+
+        imgBtnMain.add(new ImageIcon("imgs/buttons/btnMenuDef.png"));
+        imgBtnMain.add(new ImageIcon("imgs/buttons/btnMenuHov.png"));
+        imgBtnMain.add(new ImageIcon("imgs/buttons/btnMenuPre.png"));
+    }
+    // </editor-fold>
+
+    // <editor-fold defaultstate="collapsed" desc="Inicializar contador de score">
     private void loadScore() {
         // Ativa a progress bar quando a janela estiver ativa
         if (s.getRoundScore() != 0) {
@@ -408,38 +426,22 @@ public class GUI_Victory extends JFrame {
     }
     // </editor-fold>
 
-    // <editor-fold defaultstate="collapsed" desc="Initiate the menu">
-    private void initMenu() {
-        menuItems = new ArrayList<JLabel>() {
-            {
-                add(exitGame);
-                add(newGame);
-                add(mainMenu);
-            }
-        };
+    // <editor-fold defaultstate="collapsed" desc="Contador auxiliar para score">
+    private void count() {
+        if (s.getRoundScore() != 0) {
+            Timer counter = new Timer();
+            counter.scheduleAtFixedRate(new TimerTask() {
+                int timeRunning = 3;
 
-        // Para inicializar as opções de menu desativadas
-        menuActive = close.menu(0, menuActive, menuDropdown, menuItems);
-    }
-    // </editor-fold>
-
-    // <editor-fold defaultstate="collapsed" desc="Initiate the audio">
-    private void initAudio() {
-        a.setAudioPath("src/main/java/com/engcomp2019/audio/youWin.wav");
-        a.play(false);
-
-    }
-    // </editor-fold>
-
-    // <editor-fold defaultstate="collapsed" desc="Load images">
-    private void loadImages() {
-        imgBtnReset.add(new ImageIcon("imgs/buttons/btnResetDef.png"));
-        imgBtnReset.add(new ImageIcon("imgs/buttons/btnResetHov.png"));
-        imgBtnReset.add(new ImageIcon("imgs/buttons/btnResetPre.png"));
-
-        imgBtnMain.add(new ImageIcon("imgs/buttons/btnMenuDef.png"));
-        imgBtnMain.add(new ImageIcon("imgs/buttons/btnMenuHov.png"));
-        imgBtnMain.add(new ImageIcon("imgs/buttons/btnMenuPre.png"));
+                public void run() {
+                    timeRunning -= 1;
+                    if (timeRunning == 0) {
+                        timer.cancel();
+                        lblScore.setText(String.format("%06d%n", s.getRoundScore()));
+                    }
+                }
+            }, 1000, 1000);
+        }
     }
     // </editor-fold>
 
@@ -458,6 +460,8 @@ public class GUI_Victory extends JFrame {
     private javax.swing.JLabel mainMenu;
     private javax.swing.JLabel menuDropdown;
     private javax.swing.JLabel newGame;
+    private javax.swing.JLabel newRecord;
+    private javax.swing.JLabel starGif;
     private javax.swing.JLabel victoryGif;
     // End of variables declaration//GEN-END:variables
 }
