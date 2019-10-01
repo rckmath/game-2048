@@ -586,16 +586,20 @@ public class GUI_Game extends JFrame {
 
         switch (id) {
             case 'U':
-                s.setRoundScore(s.getRoundScore() + s.moveUp());
+                s.setRoundScore(s.getRoundScore() + s.moveUp(s.getGameBoard()));
+                s.gameOver();
                 break;
             case 'D':
-                s.setRoundScore(s.getRoundScore() + s.moveDown());
+                s.setRoundScore(s.getRoundScore() + s.moveDown(s.getGameBoard()));
+                s.gameOver();
                 break;
             case 'L':
-                s.setRoundScore(s.getRoundScore() + s.moveLeft());
+                s.setRoundScore(s.getRoundScore() + s.moveLeft(s.getGameBoard()));
+                s.gameOver();
                 break;
             case 'R':
-                s.setRoundScore(s.getRoundScore() + s.moveRight());
+                s.setRoundScore(s.getRoundScore() + s.moveRight(s.getGameBoard()));
+                s.gameOver();
                 break;
             default:
                 System.err.println("\nMovimento inválido.");

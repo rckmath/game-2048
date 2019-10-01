@@ -12,6 +12,7 @@ import javax.swing.JFrame;
  */
 public abstract class Engine {
 
+    private int[][] gameAux;
     private int[][] gameBoard; // Board do jogo
     private int boardSize; // Tamanho da board
     private ImageIcon imgTileDef;
@@ -27,9 +28,11 @@ public abstract class Engine {
         if (bSizeOp == 1) {
             this.boardSize = 3;
             this.gameBoard = new int[3][3];
+            this.gameAux = new int[3][3];
         } else {
             this.boardSize = 4;
             this.gameBoard = new int[4][4];
+            this.gameAux = new int[4][4];
         }
         Integer tileNum = 2;
         for (int i = 0; i < 11; i++) {
@@ -107,7 +110,7 @@ public abstract class Engine {
     }
 
     // Funcoes de movimentos
-    public int moveRight() {
+    public int moveRight(int gameBoard[][]) {
         int flag = 0, flag0 = 0, flag1 = 0, flag2 = 0, flag3 = 0;
         int moveScore = 0;
 
@@ -170,7 +173,7 @@ public abstract class Engine {
         return moveScore;
     }
 
-    public int moveLeft() {
+    public int moveLeft(int gameBoard[][]) {
         int flag = 0, flag0 = 0, flag1 = 0, flag2 = 0, flag3 = 0;
         int moveScore = 0;
 
@@ -234,7 +237,7 @@ public abstract class Engine {
         return moveScore;
     }
 
-    public int moveUp() {
+    public int moveUp(int gameBoard[][]) {
         int flag = 0, flag0 = 0, flag1 = 0, flag2 = 0, flag3 = 0;
         int moveScore = 0;
 
@@ -298,7 +301,7 @@ public abstract class Engine {
         return moveScore;
     }
 
-    public int moveDown() {
+    public int moveDown(int gameBoard[][]) {
         int flag = 0, flag0 = 0, flag1 = 0, flag2 = 0, flag3 = 0;
         int moveScore = 0;
 
@@ -372,6 +375,43 @@ public abstract class Engine {
         }
     }
 
+    public void gameOver(){
+       int gameOver1 = 0,gameOver2 = 0;
+       // Copiar matriz do jogo atual
+           for(int i =0; i<boardSize;i++){
+            for(int j =0; j<boardSize;j++){
+                gameAux[i][j] = gameBoard[i][j];    
+            }
+        }
+
+       moveDown(gameAux);
+       moveUp(gameAux); 
+       moveRight(gameAux);
+       moveLeft(gameAux);
+       
+       // Comparar matrizes
+           for(int i =0; i<boardSize;i++){
+            for(int j =0; j<boardSize;j++){
+                if(gameBoard[i][j] != gameAux[i][j]){
+                    gameOver1 = 1;
+                }
+            }
+        }
+           
+           for(int i =0; i<boardSize;i++){
+            for(int j =0; j<boardSize;j++){
+                if(gameAux[i][j] == 0){
+                    gameOver2 = 1;
+                }
+            }
+        }
+           
+           
+        if(gameOver1 == 0 && gameOver2 == 0){
+           System.out.println("-------- GAME OVER --------");
+        }
+    }
+    
     public abstract int getGameBoardValue(int i, int j);
 
     public abstract void restart(JFrame pPreviousFrame);
