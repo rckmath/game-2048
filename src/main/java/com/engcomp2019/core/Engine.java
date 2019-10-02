@@ -2,8 +2,6 @@ package com.engcomp2019.core;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.HashMap;
-import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 
 /**
@@ -12,11 +10,8 @@ import javax.swing.JFrame;
  */
 public abstract class Engine {
 
-    private int[][] gameAux;
     private int[][] gameBoard; // Board do jogo
     private int boardSize; // Tamanho da board
-    private ImageIcon imgTileDef;
-    private final HashMap<Integer, ImageIcon> imgTiles = new HashMap<>();
 
     /**
      * Construtor inicializando nossa board
@@ -28,16 +23,9 @@ public abstract class Engine {
         if (bSizeOp == 1) {
             this.boardSize = 3;
             this.gameBoard = new int[3][3];
-            this.gameAux = new int[3][3];
         } else {
             this.boardSize = 4;
             this.gameBoard = new int[4][4];
-            this.gameAux = new int[4][4];
-        }
-        Integer tileNum = 2;
-        for (int i = 0; i < 11; i++) {
-            imgTiles.put(tileNum, new ImageIcon("imgs/tiles/gifs/" + tileNum + ".gif"));
-            tileNum *= 2;
         }
     }
 
@@ -57,14 +45,6 @@ public abstract class Engine {
 
     public void setBoardSize(int boardSize) {
         this.boardSize = boardSize;
-    }
-
-    public ImageIcon getImgTileDef() {
-        return imgTileDef;
-    }
-
-    public void setImgTileDef(ImageIcon imgTileDef) {
-        this.imgTileDef = imgTileDef;
     }
 
     // Outros
@@ -364,56 +344,6 @@ public abstract class Engine {
         return moveScore;
     }
 
-    public ImageIcon getTileImg(int i, int j) {
-        int val = getGameBoardValue(i, j);
-
-        if (val == 0) {
-            return imgTileDef;
-        } else {
-            imgTiles.get(val).getImage().flush();
-            return imgTiles.get(val);
-        }
-    }
-
-    public void gameOver(){
-       int gameOver1 = 0;   // Ve se nao tem movimento possivel
-       int gameOver2 = 0;   // Ve se nao tem espaco livre
-       
-    // Copiar matriz do jogo atual para uma auxiliar
-           for(int i =0; i<boardSize;i++){
-            for(int j =0; j<boardSize;j++){       
-                gameAux[i][j] = gameBoard[i][j];        
-            }
-        }
-
-       moveDown(gameAux);
-       moveUp(gameAux);        // Realiza todos os movimentos,
-       moveRight(gameAux);     // pra ver se tem movimento possivel
-       moveLeft(gameAux);
-       
-       // Comparar matrizes
-           for(int i =0; i<boardSize;i++){    // Analisa se tem algum movimento possivel antecipado,
-            for(int j =0; j<boardSize;j++){   // se a matriz mudou
-                if(gameBoard[i][j] != gameAux[i][j]){
-                    gameOver1 = 1;
-                }
-            }
-        }
-           
-           for(int i =0; i<boardSize;i++){    // Verifica se tem algum espaco vazio
-            for(int j =0; j<boardSize;j++){   // na matriz
-                if(gameAux[i][j] == 0){
-                    gameOver2 = 1;
-                }
-            }
-        }
-           
-    // Verifica se nao houve movimento possivel antecipado e se nao tem algum lugar vazio
-        if(gameOver1 == 0 && gameOver2 == 0){
-           System.out.println("-------- GAME OVER --------");
-        }
-    }
-    
     public abstract int getGameBoardValue(int i, int j);
 
     public abstract void restart(JFrame pPreviousFrame);

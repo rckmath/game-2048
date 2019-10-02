@@ -182,7 +182,7 @@ public class GUI_MainConfirm extends JFrame {
         new Close(this, false).frame();
     }//GEN-LAST:event_btnCloseMouseReleased
 
-    // <editor-fold defaultstate="collapsed" desc="Load images">
+    // <editor-fold defaultstate="collapsed" desc="Carregar imagens">
     private void loadImages() {
         imgBtnYesNo.add(new ImageIcon("imgs/buttons/confirm/btnYesDef.png"));
         imgBtnYesNo.add(new ImageIcon("imgs/buttons/confirm/btnYesHover.png"));

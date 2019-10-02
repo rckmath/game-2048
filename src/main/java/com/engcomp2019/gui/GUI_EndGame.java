@@ -18,14 +18,16 @@ import org.netbeans.lib.awtextra.AbsoluteConstraints;
  *
  * @author erick / rckmath
  */
-public class GUI_Victory extends JFrame {
+public class GUI_EndGame extends JFrame {
 
     // ImageIcon
     private final ImageIcon imgFrame = new ImageIcon("imgs/frames/frameVictory.png");
     private final ImageIcon imgMenu = new ImageIcon("imgs/elements/gameDropdown.png");
-    private final ImageIcon imgWinGif = new ImageIcon("imgs/victory/endingAnim.gif");
+    private final ImageIcon imgWinGif = new ImageIcon("imgs/victory/victoryAnim.gif");
+    private final ImageIcon imgLoseGif = new ImageIcon("imgs/victory/loseAnim.gif");
     private final ImageIcon imgFireworksGif = new ImageIcon("imgs/victory/fireworksAnim.gif");
     private final ImageIcon imgStarGif = new ImageIcon("imgs/victory/marioStar.gif");
+    private final ArrayList<ImageIcon> imgHead = new ArrayList<>();
     private final ArrayList<ImageIcon> imgBtnReset = new ArrayList<>();
     private final ArrayList<ImageIcon> imgBtnMain = new ArrayList<>();
     // JLabel
@@ -45,7 +47,7 @@ public class GUI_Victory extends JFrame {
      *
      * @param s Mantém a sessão inicializada
      */
-    public GUI_Victory(Session s) {
+    public GUI_EndGame(Session s) {
         this.s = s;
         initComponents();
         this.setResizable(false);
@@ -59,8 +61,25 @@ public class GUI_Victory extends JFrame {
         this.add(starGif, new AbsoluteConstraints(740, 275, -1, -1));
         starGif.setVisible(false);
 
-        fireworksGif.add(new JLabel(imgFireworksGif));
-        fireworksGif.add(new JLabel(imgFireworksGif));
+        if (s.getGameStatus() == 1) {
+            headImage.setIcon(imgHead.get(0));
+        } else {
+            headImage.setIcon(imgHead.get(1));
+        }
+
+        this.add(headImage, new AbsoluteConstraints(255, 63, -1, -1));
+
+        if (s.getGameStatus() == 1) {
+            fireworksGif.add(new JLabel(imgFireworksGif));
+            fireworksGif.add(new JLabel(imgFireworksGif));
+
+            this.add(fireworksGif.get(0), new AbsoluteConstraints(600, 330, -1, -1));
+            this.add(fireworksGif.get(1), new AbsoluteConstraints(45, 330, -1, -1));
+
+            middleGif.setIcon(imgWinGif);
+        } else {
+            middleGif.setIcon(imgLoseGif);
+        }
 
         btnReset.setIcon(imgBtnReset.get(0));
         this.add(btnReset, new AbsoluteConstraints(245, 456, -1, -1));
@@ -69,15 +88,11 @@ public class GUI_Victory extends JFrame {
         this.add(btnMainMenu, new AbsoluteConstraints(409, 456, -1, -1));
         btnMainMenu.setVisible(true);
 
-        this.add(fireworksGif.get(0), new AbsoluteConstraints(600, 330, -1, -1));
-        this.add(fireworksGif.get(1), new AbsoluteConstraints(45, 330, -1, -1));
-
-        this.add(lblScore, new AbsoluteConstraints(82, 240, -1, -1));
+        this.add(lblScore, new AbsoluteConstraints(83, 240, -1, -1));
         lblRecord.setText(String.format("%06d%n", s.getRecordScore()));
-        this.add(lblRecord, new AbsoluteConstraints(632, 240, -1, -1));
+        this.add(lblRecord, new AbsoluteConstraints(633, 240, -1, -1));
 
-        victoryGif.setIcon(imgWinGif);
-        this.add(victoryGif, new AbsoluteConstraints(271, 180, -1, -1));
+        this.add(middleGif, new AbsoluteConstraints(271, 180, -1, -1));
         initAudio();
 
         menuDropdown.setIcon(imgMenu);
@@ -100,13 +115,14 @@ public class GUI_Victory extends JFrame {
         btnMinimize = new javax.swing.JLabel();
         btnFile = new javax.swing.JLabel();
         btnClose = new javax.swing.JLabel();
+        headImage = new javax.swing.JLabel();
         btnReset = new javax.swing.JLabel();
         btnMainMenu = new javax.swing.JLabel();
         lblRecord = new javax.swing.JLabel();
         newRecord = new javax.swing.JLabel();
         lblScore = new javax.swing.JLabel();
         starGif = new javax.swing.JLabel();
-        victoryGif = new javax.swing.JLabel();
+        middleGif = new javax.swing.JLabel();
         frameDrag = new javax.swing.JLabel();
         frameBackground = new javax.swing.JLabel();
 
@@ -185,6 +201,7 @@ public class GUI_Victory extends JFrame {
             }
         });
         getContentPane().add(btnClose, new org.netbeans.lib.awtextra.AbsoluteConstraints(768, 7, 24, 24));
+        getContentPane().add(headImage, new org.netbeans.lib.awtextra.AbsoluteConstraints(255, 63, -1, -1));
 
         btnReset.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseEntered(java.awt.event.MouseEvent evt) {
@@ -220,7 +237,7 @@ public class GUI_Victory extends JFrame {
 
         lblRecord.setFont(new java.awt.Font("Dialog", 1, 24)); // NOI18N
         lblRecord.setForeground(new java.awt.Color(255, 255, 255));
-        getContentPane().add(lblRecord, new org.netbeans.lib.awtextra.AbsoluteConstraints(632, 250, -1, -1));
+        getContentPane().add(lblRecord, new org.netbeans.lib.awtextra.AbsoluteConstraints(633, 250, -1, -1));
 
         newRecord.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
         newRecord.setForeground(new java.awt.Color(255, 255, 255));
@@ -229,9 +246,9 @@ public class GUI_Victory extends JFrame {
 
         lblScore.setFont(new java.awt.Font("Dialog", 1, 24)); // NOI18N
         lblScore.setForeground(new java.awt.Color(255, 255, 255));
-        getContentPane().add(lblScore, new org.netbeans.lib.awtextra.AbsoluteConstraints(82, 250, -1, -1));
+        getContentPane().add(lblScore, new org.netbeans.lib.awtextra.AbsoluteConstraints(83, 250, -1, -1));
         getContentPane().add(starGif, new org.netbeans.lib.awtextra.AbsoluteConstraints(740, 275, 32, 32));
-        getContentPane().add(victoryGif, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 180, -1, -1));
+        getContentPane().add(middleGif, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 180, -1, -1));
 
         frameDrag.setPreferredSize(new java.awt.Dimension(41, 18));
         frameDrag.addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
@@ -273,11 +290,9 @@ public class GUI_Victory extends JFrame {
     }//GEN-LAST:event_btnCloseMouseReleased
 
     private void mainMenuMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_mainMenuMouseReleased
-        menuActive = close.menu(0, menuActive, menuDropdown, menuItems);
-        // Chamar frame para confirmar ação
-        GUI_MainConfirm frameConfirm;
-        frameConfirm = new GUI_MainConfirm(this, s);
-        frameConfirm.setVisible(true);
+        a.stop();
+        this.dispose();
+        new GUI_MainMenu(s).setVisible(true);
     }//GEN-LAST:event_mainMenuMouseReleased
 
     private void menuDropdownMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_menuDropdownMouseReleased
@@ -301,8 +316,9 @@ public class GUI_Victory extends JFrame {
     }//GEN-LAST:event_frameDragMouseReleased
 
     private void newGameMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_newGameMouseReleased
-        menuActive = close.menu(0, menuActive, menuDropdown, menuItems);
-        s.restart(this);
+        a.stop();
+        this.dispose();
+        s.newGame(s);
     }//GEN-LAST:event_newGameMouseReleased
 
     private void exitGameMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_exitGameMouseReleased
@@ -324,9 +340,9 @@ public class GUI_Victory extends JFrame {
     }//GEN-LAST:event_btnResetMousePressed
 
     private void btnResetMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnResetMouseReleased
-        btnReset.setIcon(imgBtnReset.get(1));
-        menuActive = close.menu(0, menuActive, menuDropdown, menuItems);
-        s.restart(this);
+        a.stop();
+        this.dispose();
+        s.newGame(s);
     }//GEN-LAST:event_btnResetMouseReleased
 
     private void formMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_formMouseReleased
@@ -346,12 +362,9 @@ public class GUI_Victory extends JFrame {
     }//GEN-LAST:event_btnMainMenuMousePressed
 
     private void btnMainMenuMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnMainMenuMouseReleased
-        btnMainMenu.setIcon(imgBtnMain.get(1));
-        menuActive = close.menu(0, menuActive, menuDropdown, menuItems);
-        // Chama frame para confirmar ação
-        GUI_MainConfirm frameConfirm;
-        frameConfirm = new GUI_MainConfirm(this, s);
-        frameConfirm.setVisible(true);
+        a.stop();
+        this.dispose();
+        new GUI_MainMenu(s).setVisible(true);
     }//GEN-LAST:event_btnMainMenuMouseReleased
 
     private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
@@ -359,18 +372,23 @@ public class GUI_Victory extends JFrame {
             newRecord.setText("NOVO RECORDE");
             starGif.setVisible(true);
         }
-        new Thread() {
-            @Override
-            public void run() {
-                try {
-                    Thread.sleep(3300);
-                    loadScore();
-                    count();
-                } catch (InterruptedException ex) {
-                    System.err.println("ERRO: " + ex);
+        if (s.getGameStatus() == 1) {
+            new Thread() {
+                @Override
+                public void run() {
+                    try {
+                        Thread.sleep(3300);
+                        loadScore();
+                        count();
+                    } catch (InterruptedException ex) {
+                        System.err.println("ERRO: " + ex);
+                    }
                 }
-            }
-        }.start();
+            }.start();
+        } else {
+            lblScore.setText(String.format("%06d%n", s.getRoundScore()));
+        }
+
     }//GEN-LAST:event_formWindowOpened
 
     // <editor-fold defaultstate="collapsed" desc="Inicializar menu">
@@ -390,7 +408,12 @@ public class GUI_Victory extends JFrame {
 
     // <editor-fold defaultstate="collapsed" desc="Inicializar áudio">
     private void initAudio() {
-        a.setAudioPath("src/main/resources/audio/youWin.wav");
+        if (s.getGameStatus() == 1) {
+            a.setAudioPath("src/main/resources/audio/youWin.wav");
+        } else {
+            a.setAudioPath("src/main/resources/audio/youLose.wav");
+        }
+
         a.play(false);
     }
     // </editor-fold>
@@ -404,6 +427,9 @@ public class GUI_Victory extends JFrame {
         imgBtnMain.add(new ImageIcon("imgs/buttons/btnMenuDef.png"));
         imgBtnMain.add(new ImageIcon("imgs/buttons/btnMenuHov.png"));
         imgBtnMain.add(new ImageIcon("imgs/buttons/btnMenuPre.png"));
+
+        imgHead.add(new ImageIcon("imgs/victory/victoryHead.png"));
+        imgHead.add(new ImageIcon("imgs/victory/defeatedHead.png"));
     }
     // </editor-fold>
 
@@ -415,6 +441,7 @@ public class GUI_Victory extends JFrame {
             timer = new Timer();
             timer.scheduleAtFixedRate(new TimerTask() {
                 int scoreIncrement = 0;
+
                 @Override
                 public void run() {
                     scoreIncrement += 1;
@@ -457,13 +484,14 @@ public class GUI_Victory extends JFrame {
     private javax.swing.JLabel exitGame;
     private javax.swing.JLabel frameBackground;
     private javax.swing.JLabel frameDrag;
+    private javax.swing.JLabel headImage;
     private javax.swing.JLabel lblRecord;
     private javax.swing.JLabel lblScore;
     private javax.swing.JLabel mainMenu;
     private javax.swing.JLabel menuDropdown;
+    private javax.swing.JLabel middleGif;
     private javax.swing.JLabel newGame;
     private javax.swing.JLabel newRecord;
     private javax.swing.JLabel starGif;
-    private javax.swing.JLabel victoryGif;
     // End of variables declaration//GEN-END:variables
 }

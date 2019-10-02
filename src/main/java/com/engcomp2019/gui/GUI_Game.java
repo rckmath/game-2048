@@ -562,11 +562,11 @@ public class GUI_Game extends JFrame {
     // <editor-fold defaultstate="collapsed" desc="Atualizar informações na tela">
     /**
      *
-     * @param easterEgg Se easterEgg true, não spawna nova tile
+     * @param easterEgg Se notSpawnTile true, não spawna nova tile
      */
-    private void updateInfo(boolean easterEgg) {
+    private void updateInfo(Boolean notSpawnTile) {
         updateTiles();
-        if (!easterEgg) {
+        if (!notSpawnTile) {
             s.tileSpawn();
             updateTiles();
         }
@@ -576,51 +576,56 @@ public class GUI_Game extends JFrame {
         s.printGameBoard();
         lblScore.setText(String.format("%06d%n", s.getRoundScore()));
         lblRecord.setText(String.format("%06d%n", s.getRecordScore()));
-        isGameFinished();
     }
     // </editor-fold>
 
     // <editor-fold defaultstate="collapsed" desc="Executar movimentos">
     private void doMove(char id) {
+        Boolean notSpawnTile;
         Boolean invalidMove = false;
+        int[][] gameAux = new int[s.getBoardSize()][s.getBoardSize()];
+        s.arrayCopy(gameAux);
 
         switch (id) {
             case 'U':
                 s.setRoundScore(s.getRoundScore() + s.moveUp(s.getGameBoard()));
-                s.gameOver();   // Analisa pra ver se deu game over
                 break;
             case 'D':
                 s.setRoundScore(s.getRoundScore() + s.moveDown(s.getGameBoard()));
-                s.gameOver();   // Analisa pra ver se deu game over
                 break;
             case 'L':
                 s.setRoundScore(s.getRoundScore() + s.moveLeft(s.getGameBoard()));
-                s.gameOver();   // Analisa pra ver se deu game over
                 break;
             case 'R':
                 s.setRoundScore(s.getRoundScore() + s.moveRight(s.getGameBoard()));
-                s.gameOver();   // Analisa pra ver se deu game over
                 break;
             default:
                 System.err.println("\nMovimento inválido.");
                 invalidMove = true;
                 break;
         }
+        verifyGameOver();
+
+        notSpawnTile = isGameFinished();
+        if (!notSpawnTile) {
+            notSpawnTile = verifyTileSpawn(gameAux);
+        }
+
         if (!invalidMove) {
-            updateInfo(false);
+            updateInfo(notSpawnTile);
         }
     }
     // </editor-fold>
 
     // <editor-fold defaultstate="collapsed" desc="Verificar progresso do jogo">
-    public void isGameFinished() {
+    private Boolean isGameFinished() {
         for (int i = 0; i < s.getBoardSize(); i++) {
             for (int j = 0; j < s.getBoardSize(); j++) {
                 if (s.getGameBoardValue(i, j) == 2048) {
                     new Thread() {
                         public void run() {
                             try {
-                                Thread.sleep(1000);
+                                Thread.sleep(500);
                                 s.setGameStatus(1);
                                 dispose();
                                 if (s.getAudioOn()) {
@@ -629,16 +634,55 @@ public class GUI_Game extends JFrame {
                                 if (s.getAltTheme()) {
                                     new GUI_EasterEgg(s).setVisible(true);
                                 } else {
-                                    new GUI_Victory(s).setVisible(true);
+                                    new GUI_EndGame(s).setVisible(true);
                                 }
                             } catch (InterruptedException ex) {
                                 Logger.getLogger(GUI_Game.class.getName()).log(Level.SEVERE, null, ex);
                             }
                         }
                     }.start();
+                    return true;
                 }
             }
         }
+        return false;
+    }
+    // </editor-fold>
+
+    // <editor-fold defaultstate="collapsed" desc="Verificar game over">
+    public void verifyGameOver() {
+        if (s.isGameOver()) {
+            new Thread() {
+                public void run() {
+                    try {
+                        Thread.sleep(500);
+                        s.setGameStatus(2);
+                        dispose();
+                        if (s.getAudioOn()) {
+                            a.stop();
+                        }
+                        new GUI_EndGame(s).setVisible(true);
+                    } catch (InterruptedException ex) {
+                        Logger.getLogger(GUI_Game.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                }
+            }.start();
+        }
+    }
+    // </editor-fold>
+
+    // <editor-fold defaultstate="collapsed" desc="Verificar spawn de tile">
+    /**
+     * Se a matriz permaneceu igual pós-movimento, retorna true
+     *
+     * @param array2D Matriz a comparar com a original
+     * @return True para caso forem iguais, false para se forem diferentes
+     */
+    public Boolean verifyTileSpawn(int array2D[][]) {
+        if (s.areEqual(array2D)) {
+            return true;
+        }
+        return false;
     }
     // </editor-fold>
 

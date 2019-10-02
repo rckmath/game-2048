@@ -30,9 +30,9 @@ public class Main {
         splash.setLocationRelativeTo(null);
         splash.setVisible(true);
 
-        // Sleep de 2,175 segundos
+        // Sleep de 2,075 segundos
         try {
-            Thread.sleep(2175);
+            Thread.sleep(1975);
         } catch (InterruptedException ex) {
             System.err.println("ERRO: " + ex);
         }

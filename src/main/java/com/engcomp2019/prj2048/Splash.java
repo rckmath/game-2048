@@ -69,7 +69,7 @@ public class Splash extends JFrame {
             @Override
             public void windowActivated(WindowEvent arg0) {
                 // Carrega nossa barra em 2,3 seg
-                final Timer t = new Timer(20, (ActionEvent e) -> {
+                final Timer t = new Timer(18, (ActionEvent e) -> {
                     // Incrementa a progress bar a cada "rodada" de timer
                     progressBar.setValue(progressBar.getValue() + 1);
                     if (progressBar.getValue() == 100) {
