@@ -15,11 +15,11 @@ import org.netbeans.lib.awtextra.AbsoluteConstraints;
  */
 public class GUI_EasterEgg extends JFrame {
 
-    private final ImageIcon imgFrame = new ImageIcon("src/main/resources/imgs/easteregg/frameEasterEgg.png");
-    private final ImageIcon imgMenu = new ImageIcon("src/main/resources/imgs/elements/gameDropdown.png");
-    private final ImageIcon imgLeoHorse = new ImageIcon("src/main/resources/imgs/easteregg/leoCavalo.gif");
-    private final ImageIcon imgLeoOx = new ImageIcon("src/main/resources/imgs/easteregg/leoBoi.gif");
-    private final ImageIcon imgLeoHeadDance = new ImageIcon("src/main/resources/imgs/easteregg/leoHeadDance.gif");
+    private final ImageIcon imgFrame = new ImageIcon(this.getClass().getResource("/imgs/easteregg/frameEasterEgg.png"));
+    private final ImageIcon imgMenu = new ImageIcon(this.getClass().getResource("/imgs/elements/gameDropdown.png"));
+    private final ImageIcon imgLeoHorse = new ImageIcon(this.getClass().getResource("/imgs/easteregg/leoCavalo.gif"));
+    private final ImageIcon imgLeoOx = new ImageIcon(this.getClass().getResource("/imgs/easteregg/leoBoi.gif"));
+    private final ImageIcon imgLeoHeadDance = new ImageIcon(this.getClass().getResource("/imgs/easteregg/leoHeadDance.gif"));
     private final DragWindow drag = new DragWindow();
     private final Close close = new Close();
     private ArrayList<JLabel> menuItems;
@@ -262,7 +262,7 @@ public class GUI_EasterEgg extends JFrame {
 
     // <editor-fold defaultstate="collapsed" desc="Inicializar áudio">
     private void initAudio() {
-        a.setAudioPath("src/main/resources/audio/easterEggMusic.wav");
+        a.setAudioPath(this.getClass().getResource("/audio/easterEggMusic.wav").getPath());
         a.play(true);
     }
     // </editor-fold>

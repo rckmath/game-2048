@@ -15,7 +15,7 @@ import org.netbeans.lib.awtextra.AbsoluteConstraints;
 public class GUI_RestartConfirm extends JFrame {
 
     private final DragWindow drag = new DragWindow();
-    private final ImageIcon imgFrame = new ImageIcon("src/main/resources/imgs/frames/frameRestart.png");
+    private final ImageIcon imgFrame = new ImageIcon(this.getClass().getResource("/imgs/frames/frameRestart.png"));
     private final ArrayList<ImageIcon> imgBtnYesNo = new ArrayList<>();
     private final JFrame previousFrame;
     private final Session s;
@@ -195,12 +195,12 @@ public class GUI_RestartConfirm extends JFrame {
 
     // <editor-fold defaultstate="collapsed" desc="Carregar imagens">
     private void loadImages() {
-        imgBtnYesNo.add(new ImageIcon("src/main/resources/imgs/buttons/confirm/btnYesDef.png"));
-        imgBtnYesNo.add(new ImageIcon("src/main/resources/imgs/buttons/confirm/btnYesHover.png"));
-        imgBtnYesNo.add(new ImageIcon("src/main/resources/imgs/buttons/confirm/btnYesPressed.png"));
-        imgBtnYesNo.add(new ImageIcon("src/main/resources/imgs/buttons/confirm/btnNoDef.png"));
-        imgBtnYesNo.add(new ImageIcon("src/main/resources/imgs/buttons/confirm/btnNoHover.png"));
-        imgBtnYesNo.add(new ImageIcon("src/main/resources/imgs/buttons/confirm/btnNoHover.png"));
+        imgBtnYesNo.add(new ImageIcon(this.getClass().getResource("/imgs/buttons/confirm/btnYesDef.png")));
+        imgBtnYesNo.add(new ImageIcon(this.getClass().getResource("/imgs/buttons/confirm/btnYesHover.png")));
+        imgBtnYesNo.add(new ImageIcon(this.getClass().getResource("/imgs/buttons/confirm/btnYesPressed.png")));
+        imgBtnYesNo.add(new ImageIcon(this.getClass().getResource("/imgs/buttons/confirm/btnNoDef.png")));
+        imgBtnYesNo.add(new ImageIcon(this.getClass().getResource("/imgs/buttons/confirm/btnNoHover.png")));
+        imgBtnYesNo.add(new ImageIcon(this.getClass().getResource("/imgs/buttons/confirm/btnNoHover.png")));
     }
     // </editor-fold>
 

@@ -22,8 +22,8 @@ import org.netbeans.lib.awtextra.AbsoluteConstraints;
 public class GUI_Game extends JFrame {
 
     // ImageIcon
-    private final ImageIcon imgFrame = new ImageIcon("src/main/resources/imgs/frames/frameGame.png");
-    private final ImageIcon imgMenu = new ImageIcon("src/main/resources/imgs/elements/gameDropdown.png");
+    private final ImageIcon imgFrame = new ImageIcon(this.getClass().getResource("/imgs/frames/frameGame.png"));
+    private final ImageIcon imgMenu = new ImageIcon(this.getClass().getResource("/imgs/elements/gameDropdown.png"));
     private final ArrayList<ImageIcon> imgVolume = new ArrayList<>();
     private final ArrayList<ImageIcon> imgLeoHead = new ArrayList<>();
     private final ArrayList<ImageIcon> imgPad = new ArrayList<>();
@@ -439,9 +439,9 @@ public class GUI_Game extends JFrame {
     // <editor-fold defaultstate="collapsed" desc="Inicializar áudio">
     private void initAudio() {
         if (!s.getAltTheme()) {
-            a.setAudioPath("src/main/resources/audio/gameMusic.wav");
+            a.setAudioPath(this.getClass().getResource("/audio/gameMusic.wav").getPath());
         } else {
-            a.setAudioPath("src/main/resources/audio/leoMusic.wav");
+            a.setAudioPath(this.getClass().getResource("/audio/leoMusic.wav").getPath());
         }
 
         if (s.getAudioOn()) {
@@ -471,24 +471,24 @@ public class GUI_Game extends JFrame {
 
     // <editor-fold defaultstate="collapsed" desc="Carregar imagens">
     private void loadImages() {
-        imgPad.add(new ImageIcon("src/main/resources/imgs/buttons/pad/bntPadDef.png"));
-        imgPad.add(new ImageIcon("src/main/resources/imgs/buttons/pad/bntPadU.png"));
-        imgPad.add(new ImageIcon("src/main/resources/imgs/buttons/pad/bntPadD.png"));
-        imgPad.add(new ImageIcon("src/main/resources/imgs/buttons/pad/bntPadL.png"));
-        imgPad.add(new ImageIcon("src/main/resources/imgs/buttons/pad/bntPadR.png"));
+        imgPad.add(new ImageIcon(this.getClass().getResource("/imgs/buttons/pad/bntPadDef.png")));
+        imgPad.add(new ImageIcon(this.getClass().getResource("/imgs/buttons/pad/bntPadU.png")));
+        imgPad.add(new ImageIcon(this.getClass().getResource("/imgs/buttons/pad/bntPadD.png")));
+        imgPad.add(new ImageIcon(this.getClass().getResource("/imgs/buttons/pad/bntPadL.png")));
+        imgPad.add(new ImageIcon(this.getClass().getResource("/imgs/buttons/pad/bntPadR.png")));
 
-        imgBtnReset.add(new ImageIcon("src/main/resources/imgs/buttons/btnResetDef.png"));
-        imgBtnReset.add(new ImageIcon("src/main/resources/imgs/buttons/btnResetHov.png"));
-        imgBtnReset.add(new ImageIcon("src/main/resources/imgs/buttons/btnResetPre.png"));
+        imgBtnReset.add(new ImageIcon(this.getClass().getResource("/imgs/buttons/btnResetDef.png")));
+        imgBtnReset.add(new ImageIcon(this.getClass().getResource("/imgs/buttons/btnResetHov.png")));
+        imgBtnReset.add(new ImageIcon(this.getClass().getResource("/imgs/buttons/btnResetPre.png")));
 
-        imgLeoHead.add(new ImageIcon("src/main/resources/imgs/easteregg/leoHead.png"));
-        imgLeoHead.add(new ImageIcon("src/main/resources/imgs/easteregg/leoHeadTwo.png"));
+        imgLeoHead.add(new ImageIcon(this.getClass().getResource("/imgs/easteregg/leoHead.png")));
+        imgLeoHead.add(new ImageIcon(this.getClass().getResource("/imgs/easteregg/leoHeadTwo.png")));
 
-        imgVolume.add(new ImageIcon("src/main/resources/imgs/elements/volumeOn.png"));
-        imgVolume.add(new ImageIcon("src/main/resources/imgs/elements/volumeOff.png"));
+        imgVolume.add(new ImageIcon(this.getClass().getResource("/imgs/elements/volumeOn.png")));
+        imgVolume.add(new ImageIcon(this.getClass().getResource("/imgs/elements/volumeOff.png")));
 
-        imgUndo.add(new ImageIcon("src/main/resources/imgs/elements/btnUndoDef.png"));
-        imgUndo.add(new ImageIcon("src/main/resources/imgs/elements/btnUndoPre.png"));
+        imgUndo.add(new ImageIcon(this.getClass().getResource("/imgs/elements/btnUndoDef.png")));
+        imgUndo.add(new ImageIcon(this.getClass().getResource("/imgs/elements/btnUndoPre.png")));
 
         s.setFrameIcon(this);
     }

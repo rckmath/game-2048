@@ -28,10 +28,9 @@ public class Splash extends JFrame {
     public Splash(Session s) {
         this.s = s;
         if (!s.getAltTheme()) {
-            imgArt = new ImageIcon("src/main/resources/imgs/elements/gameLogoFinal.gif");
+            imgArt = new ImageIcon(this.getClass().getResource("/imgs/elements/gameLogoFinal.gif"));
         } else {
-            System.out.println(s.getAltTheme());
-            imgArt = new ImageIcon("src/main/resources/imgs/easteregg/leoSplash.gif");
+            imgArt = new ImageIcon(this.getClass().getResource("/imgs/easteregg/leoSplash.gif"));
         }
 
         loadingBar();

@@ -23,10 +23,10 @@ public class Session extends Engine {
 
     public Session(int bSizeOp) {
         super(bSizeOp);
-        setImgTileDef(new ImageIcon("src/main/resources/imgs/tiles/def.png"));
+        setImgTileDef(new ImageIcon(this.getClass().getResource("/imgs/tiles/def.png")));
         Integer tileNum = 2;
         for (int i = 0; i < 11; i++) {
-            imgTiles.put(tileNum, new ImageIcon("src/main/resources/imgs/tiles/gifs/" + tileNum + ".gif"));
+            imgTiles.put(tileNum, new ImageIcon(this.getClass().getResource("/imgs/tiles/gifs/" + tileNum + ".gif")));
             tileNum *= 2;
         }
     }
@@ -112,7 +112,7 @@ public class Session extends Engine {
         session.setRoundScore(0);
         session.setRecordScore(s.getRecordScore());
         if (s.getAltTheme()) {
-            session.setImgTileDef(new ImageIcon("src/main/resources/imgs/tiles/leo.gif"));
+            session.setImgTileDef(new ImageIcon(this.getClass().getResource("/imgs/tiles/leo.gif")));
         }
 
         game = new GUI_Game(session);

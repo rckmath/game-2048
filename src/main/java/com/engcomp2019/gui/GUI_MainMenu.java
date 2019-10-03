@@ -15,9 +15,9 @@ import org.netbeans.lib.awtextra.AbsoluteConstraints;
  */
 public class GUI_MainMenu extends JFrame {
 
-    private final ImageIcon imgFrame = new ImageIcon("src/main/resources/imgs/frames/frameBackground.png");
-    private final ImageIcon imgMenu = new ImageIcon("src/main/resources/imgs/elements/mainMenuDropdown.png");
-    private final ImageIcon imgLeoHead = new ImageIcon("src/main/resources/imgs/easteregg/leoHeadDance.gif");
+    private final ImageIcon imgFrame = new ImageIcon(this.getClass().getResource("/imgs/frames/frameBackground.png"));
+    private final ImageIcon imgMenu = new ImageIcon(this.getClass().getResource("/imgs/elements/mainMenuDropdown.png"));
+    private final ImageIcon imgLeoHead = new ImageIcon(this.getClass().getResource("/imgs/easteregg/leoHeadDance.gif"));
     private final ArrayList<ImageIcon> imgBtnStart = new ArrayList<>();
     private final ArrayList<ImageIcon> imgBtnGameS = new ArrayList<>();
     private final ArrayList<ImageIcon> imgVolume = new ArrayList<>();
@@ -396,7 +396,7 @@ public class GUI_MainMenu extends JFrame {
 
     // <editor-fold defaultstate="collapsed" desc="Inicializar áudio">
     private void initAudio() {
-        a.setAudioPath("src/main/resources/audio/menuMusic.wav");
+        a.setAudioPath(this.getClass().getResource("/audio/menuMusic.wav").getPath());
         if (s.getAudioOn()) {
             a.play(true);
             btnAudio.setIcon(imgVolume.get(0));
@@ -408,19 +408,19 @@ public class GUI_MainMenu extends JFrame {
 
     // <editor-fold defaultstate="collapsed" desc="Carregar imagens">
     private void loadImages() {
-        imgBtnStart.add(new ImageIcon("src/main/resources/imgs/buttons/btnDefault.png"));
-        imgBtnStart.add(new ImageIcon("src/main/resources/imgs/buttons/btnHover.png"));
-        imgBtnStart.add(new ImageIcon("src/main/resources/imgs/buttons/btnPressed.png"));
+        imgBtnStart.add(new ImageIcon(this.getClass().getResource("/imgs/buttons/btnDefault.png")));
+        imgBtnStart.add(new ImageIcon(this.getClass().getResource("/imgs/buttons/btnHover.png")));
+        imgBtnStart.add(new ImageIcon(this.getClass().getResource("/imgs/buttons/btnPressed.png")));
 
-        imgBtnGameS.add(new ImageIcon("src/main/resources/imgs/buttons/btn3x3Def.png"));
-        imgBtnGameS.add(new ImageIcon("src/main/resources/imgs/buttons/btn3x3Hover.png"));
-        imgBtnGameS.add(new ImageIcon("src/main/resources/imgs/buttons/btn3x3Pressed.png"));
-        imgBtnGameS.add(new ImageIcon("src/main/resources/imgs/buttons/btn4x4Def.png"));
-        imgBtnGameS.add(new ImageIcon("src/main/resources/imgs/buttons/btn4x4Hover.png"));
-        imgBtnGameS.add(new ImageIcon("src/main/resources/imgs/buttons/btn4x4Pressed.png"));
+        imgBtnGameS.add(new ImageIcon(this.getClass().getResource("/imgs/buttons/btn3x3Def.png")));
+        imgBtnGameS.add(new ImageIcon(this.getClass().getResource("/imgs/buttons/btn3x3Hover.png")));
+        imgBtnGameS.add(new ImageIcon(this.getClass().getResource("/imgs/buttons/btn3x3Pressed.png")));
+        imgBtnGameS.add(new ImageIcon(this.getClass().getResource("/imgs/buttons/btn4x4Def.png")));
+        imgBtnGameS.add(new ImageIcon(this.getClass().getResource("/imgs/buttons/btn4x4Hover.png")));
+        imgBtnGameS.add(new ImageIcon(this.getClass().getResource("/imgs/buttons/btn4x4Pressed.png")));
 
-        imgVolume.add(new ImageIcon("src/main/resources/imgs/elements/volumeOn.png"));
-        imgVolume.add(new ImageIcon("src/main/resources/imgs/elements/volumeOff.png"));
+        imgVolume.add(new ImageIcon(this.getClass().getResource("/imgs/elements/volumeOn.png")));
+        imgVolume.add(new ImageIcon(this.getClass().getResource("/imgs/elements/volumeOff.png")));
 
         s.setFrameIcon(this);
     }
