@@ -32,7 +32,7 @@ OBS²: If the Archive .jar does not open in Linux, open the terminal on the root
 
 # Developers
 
-Erick M. L. Pacheco, R.A. 18711630
+Erick M. L. Pacheco, R.A. 18711630</br >
 Leonardo Sanavio, R.A. 18054395
 
 Thanks!
