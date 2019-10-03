@@ -16,7 +16,7 @@ public class GUI_Exit extends JFrame {
     private final ImageIcon imgFrame = new ImageIcon("imgs/frames/frameExit.png");
     private final ArrayList<ImageIcon> imgBtnYesNo = new ArrayList<>();
     private final JFrame previousFrame;
-    
+
     /**
      * Constroi o frame "Sair" e desativa o frame atual
      *
