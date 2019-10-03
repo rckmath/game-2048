@@ -30,4 +30,10 @@ OBS²: If the Archive .jar does not open in Linux, open the terminal on the root
 4 - To return a movements realized click on left oriented arrow.
 5 - Click on "ARCHIVE" on upper left corner to access the available options.
 
+# Developers
+
+Erick M. L. Pacheco, R.A. 18711630
+Leonardo Sanavio, R.A. 18054395
+
 Thanks!
+
