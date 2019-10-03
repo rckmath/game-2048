@@ -3,6 +3,7 @@ package com.engcomp2019.gui;
 import com.engcomp2019.audio.Audio;
 import com.engcomp2019.core.*;
 import java.awt.Frame;
+import java.net.URL;
 import java.util.ArrayList;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
@@ -262,7 +263,8 @@ public class GUI_EasterEgg extends JFrame {
 
     // <editor-fold defaultstate="collapsed" desc="Inicializar áudio">
     private void initAudio() {
-        a.setAudioPath(this.getClass().getResource("/audio/easterEggMusic.wav").getPath());
+        URL url = this.getClass().getResource("/audio/easterEggMusic.wav");
+        a.setAudioPath(url);
         a.play(true);
     }
     // </editor-fold>

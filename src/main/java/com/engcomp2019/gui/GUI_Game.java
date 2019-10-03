@@ -7,6 +7,7 @@ import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -439,9 +440,11 @@ public class GUI_Game extends JFrame {
     // <editor-fold defaultstate="collapsed" desc="Inicializar áudio">
     private void initAudio() {
         if (!s.getAltTheme()) {
-            a.setAudioPath(this.getClass().getResource("/audio/gameMusic.wav").getPath());
+            URL url = this.getClass().getResource("/audio/gameMusic.wav");
+            a.setAudioPath(url);
         } else {
-            a.setAudioPath(this.getClass().getResource("/audio/leoMusic.wav").getPath());
+            URL url = this.getClass().getResource("/audio/leoMusic.wav");
+            a.setAudioPath(url);
         }
 
         if (s.getAudioOn()) {

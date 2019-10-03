@@ -1,7 +1,7 @@
 package com.engcomp2019.audio;
 
-import java.io.File;
 import java.io.IOException;
+import java.net.URL;
 import javax.sound.sampled.AudioInputStream;
 import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.Clip;
@@ -15,9 +15,9 @@ import javax.sound.sampled.UnsupportedAudioFileException;
 public class Audio {
 
     private Clip clip;
-    private String audioPath;
+    private URL audioPath;
 
-    public void setAudioPath(String audioPath) {
+    public void setAudioPath(URL audioPath) {
         this.audioPath = audioPath;
     }
 
@@ -29,17 +29,12 @@ public class Audio {
      */
     public void play(Boolean repeat) {
         try {
-            File path = new File(audioPath);
-            if (path.exists()) {
-                AudioInputStream audioInput = AudioSystem.getAudioInputStream(path);
-                clip = AudioSystem.getClip();
-                clip.open(audioInput);
-                clip.start();
-                if (repeat) {
-                    clip.loop(Clip.LOOP_CONTINUOUSLY);
-                }
-            } else {
-                System.err.println("File not found.");
+            AudioInputStream audioInput = AudioSystem.getAudioInputStream(audioPath);
+            clip = AudioSystem.getClip();
+            clip.open(audioInput);
+            clip.start();
+            if (repeat) {
+                clip.loop(Clip.LOOP_CONTINUOUSLY);
             }
         } catch (IOException | LineUnavailableException | UnsupportedAudioFileException e) {
             System.err.println("ERRO: " + e);

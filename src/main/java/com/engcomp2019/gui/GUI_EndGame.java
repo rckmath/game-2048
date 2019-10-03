@@ -5,6 +5,7 @@ import com.engcomp2019.core.Close;
 import com.engcomp2019.core.DragWindow;
 import com.engcomp2019.core.Session;
 import java.awt.Frame;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.Objects;
 import javax.swing.ImageIcon;
@@ -410,9 +411,11 @@ public class GUI_EndGame extends JFrame {
     // <editor-fold defaultstate="collapsed" desc="Inicializar áudio">
     private void initAudio() {
         if (s.getGameStatus() == 1) {
-            a.setAudioPath(this.getClass().getResource("/audio/youWin.wav").getPath());
+            URL url = this.getClass().getResource("/audio/youWin.wav");
+            a.setAudioPath(url);
         } else {
-            a.setAudioPath(this.getClass().getResource("/audio/youLose.wav").getPath());
+            URL url = this.getClass().getResource("/audio/youLose.wav");
+            a.setAudioPath(url);
         }
 
         a.play(false);

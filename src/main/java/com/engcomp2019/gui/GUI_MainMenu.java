@@ -3,6 +3,7 @@ package com.engcomp2019.gui;
 import com.engcomp2019.audio.Audio;
 import com.engcomp2019.core.*;
 import java.awt.Frame;
+import java.net.URL;
 import java.util.ArrayList;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
@@ -396,7 +397,8 @@ public class GUI_MainMenu extends JFrame {
 
     // <editor-fold defaultstate="collapsed" desc="Inicializar áudio">
     private void initAudio() {
-        a.setAudioPath(this.getClass().getResource("/audio/menuMusic.wav").getPath());
+        URL url = this.getClass().getResource("/audio/menuMusic.wav");
+        a.setAudioPath(url);
         if (s.getAudioOn()) {
             a.play(true);
             btnAudio.setIcon(imgVolume.get(0));
