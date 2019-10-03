@@ -63,6 +63,7 @@ public class Splash extends JFrame {
     }
 
     private void loadingBar() {
+        s.setFrameIcon(this);
         // Ativa a progress bar quando a janela estiver ativa
         this.addWindowListener(new WindowAdapter() {
             @Override

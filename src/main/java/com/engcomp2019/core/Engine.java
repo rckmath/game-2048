@@ -14,7 +14,6 @@ public abstract class Engine {
 
     private int[][] gameBoard; // Board do jogo
     private int boardSize; // Tamanho da board
-    private final ImageIcon imgLeoHead;
 
     /**
      * Construtor inicializando nossa board
@@ -22,7 +21,6 @@ public abstract class Engine {
      * @param bSizeOp Tamanho da board, 1 para 3x3 e qualquer para 4x4
      */
     public Engine(int bSizeOp) {
-        imgLeoHead = new ImageIcon(this.getClass().getResource("/imgs/easteregg/leoHead.png"));
         // Define o tamanho da gameBoard
         if (bSizeOp == 1) {
             this.boardSize = 3;
@@ -347,7 +345,7 @@ public abstract class Engine {
     }
     
     public void setFrameIcon(JFrame frame){
-        frame.setIconImage(imgLeoHead.getImage());
+        frame.setIconImage(new ImageIcon(getClass().getResource("/imgs/easteregg/leoHead.png")).getImage());
     }
 
     public abstract int getGameBoardValue(int i, int j);

@@ -9,6 +9,7 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.Objects;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.ImageIcon;
@@ -41,7 +42,8 @@ public class GUI_Game extends JFrame {
     private final Audio a = new Audio();
     private final Session s;
     private int undoBuffer = 1;
-    int[][] gameAux;
+    private int[][] gameAux;
+    private int scoreAux;
 
     /**
      * Inicializa e instancia a tela de jogo
@@ -413,6 +415,10 @@ public class GUI_Game extends JFrame {
             for (int i = 0; i < s.getBoardSize(); i++) {
                 System.arraycopy(gameAux[i], 0, s.getGameBoard()[i], 0, s.getBoardSize());
             }
+            if (Objects.equals(s.getRoundScore(), s.getRecordScore())) {
+                s.setRecordScore(scoreAux);
+            }
+            s.setRoundScore(scoreAux);
             updateInfo(true);
             undoBuffer = 1;
         }
@@ -630,6 +636,7 @@ public class GUI_Game extends JFrame {
         Boolean notSpawnTile;
         Boolean invalidMove = false;
         s.arrayCopy(gameAux);
+        scoreAux = s.getRoundScore();
 
         if (s.getGameStatus() != 2) {
             switch (id) {
