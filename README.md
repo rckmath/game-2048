@@ -19,7 +19,7 @@ it forms a 2048 block.
 3 - Open the 2048 v1.0.jar. file.<br />
 4 - Just play!
 
-OBS: Check if the machine has installed ![JAVA SE 8+](https://www.oracle.com/technetwork/pt/java/javase/downloads/index.html)<br />
+OBS: Check if the machine has installed [JAVA SE 8+](https://www.oracle.com/technetwork/pt/java/javase/downloads/index.html)<br />
 OBS²: If the Archive .jar does not open in Linux, open the terminal on the root folder, and execute the command "java -jar 2048 v1.0.jar".
 
 # Instructions in game
