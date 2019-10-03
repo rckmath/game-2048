@@ -82,7 +82,9 @@ public class Session extends Engine {
     }
 
     // Outros
-    // Inicializa a sessão zerada
+    /**
+     * Inicializa a sessão zerada
+     */
     public void initializeSession() {
         if (this.altTheme == null) {
             this.altTheme = false;
@@ -140,6 +142,13 @@ public class Session extends Engine {
         return getGameBoard()[i][j];
     }
 
+    /**
+     * Busca a imagem correspondente a determinado número
+     *
+     * @param i Linha da matriz
+     * @param j Coluna da matriz
+     * @return Imagem correspondente ao elemento da matriz
+     */
     public ImageIcon getTileImg(int i, int j) {
         int val = getGameBoardValue(i, j);
 
@@ -157,7 +166,6 @@ public class Session extends Engine {
      * @param array2D Matriz que receberá a cópia da nossa original
      */
     public void arrayCopy(int array2D[][]) {
-
         for (int i = 0; i < getBoardSize(); i++) {
             System.arraycopy(getGameBoard()[i], 0, array2D[i], 0, getBoardSize());
         }
@@ -169,7 +177,6 @@ public class Session extends Engine {
      * @return True p/ fim de jogo, false p/ continuar jogo
      */
     public Boolean isGameOver() {
-
         int[][] gameAux = new int[getBoardSize()][getBoardSize()];
 
         arrayCopy(gameAux);
@@ -183,9 +190,12 @@ public class Session extends Engine {
 
         /* Se não houver nenhuma casa vazia após os moves ou todos
         os elementos forem iguais a matriz original, game over */
+        if (!areEqual(gameAux)) {
+            return false;
+        }
         for (int i = 0; i < getBoardSize(); i++) {
-            for (int j = 0; j < getBoardSize(); j++) {
-                if (gameAux[i][j] == 0 || (!areEqual(gameAux))) {
+            for (int element : getGameBoard()[i]) {
+                if (element == 0) {
                     return false;
                 }
             }
@@ -202,5 +212,4 @@ public class Session extends Engine {
     public Boolean areEqual(int array2D[][]) {
         return Arrays.deepEquals(array2D, getGameBoard());
     }
-
 }

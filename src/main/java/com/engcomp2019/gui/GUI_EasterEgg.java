@@ -36,6 +36,7 @@ public class GUI_EasterEgg extends JFrame {
         this.setLocationRelativeTo(null);
         initMenu();
         initAudio();
+        s.setFrameIcon(this);
 
         for (int i = 0; i < 4; i++) {
             leoHeads.add(new JLabel(imgLeoHeadDance));

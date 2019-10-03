@@ -1,6 +1,7 @@
 package com.engcomp2019.gui;
 
 import com.engcomp2019.core.*;
+import java.util.ArrayList;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import org.netbeans.lib.awtextra.AbsoluteConstraints;
@@ -13,14 +14,9 @@ public class GUI_Exit extends JFrame {
 
     private final DragWindow drag = new DragWindow();
     private final ImageIcon imgFrame = new ImageIcon("imgs/frames/frameExit.png");
-    private final ImageIcon imgBtnYesDef = new ImageIcon("imgs/buttons/confirm/btnYesDef.png");
-    private final ImageIcon imgBtnYesHov = new ImageIcon("imgs/buttons/confirm/btnYesHover.png");
-    private final ImageIcon imgBtnYesPre = new ImageIcon("imgs/buttons/confirm/btnYesPressed.png");
-    private final ImageIcon imgBtnNoDef = new ImageIcon("imgs/buttons/confirm/btnNoDef.png");
-    private final ImageIcon imgBtnNoHov = new ImageIcon("imgs/buttons/confirm/btnNoHover.png");
-    private final ImageIcon imgBtnNoPre = new ImageIcon("imgs/buttons/confirm/btnNoPressed.png");
+    private final ArrayList<ImageIcon> imgBtnYesNo = new ArrayList<>();
     private final JFrame previousFrame;
-
+    
     /**
      * Constroi o frame "Sair" e desativa o frame atual
      *
@@ -35,11 +31,12 @@ public class GUI_Exit extends JFrame {
         initComponents();
         this.setResizable(false);
         this.setLocationRelativeTo(null);
+        loadImages();
 
-        btnYes.setIcon(imgBtnYesDef);
+        btnYes.setIcon(imgBtnYesNo.get(0));
         this.add(btnYes, new AbsoluteConstraints(65, 200, -1, -1));
 
-        btnNo.setIcon(imgBtnNoDef);
+        btnNo.setIcon(imgBtnYesNo.get(3));
         this.add(btnNo, new AbsoluteConstraints(205, 200, -1, -1));
 
         frameBackground.setIcon(imgFrame);
@@ -144,15 +141,15 @@ public class GUI_Exit extends JFrame {
     }//GEN-LAST:event_frameDragMouseReleased
 
     private void btnYesMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnYesMouseEntered
-        btnYes.setIcon(imgBtnYesHov);
+        btnYes.setIcon(imgBtnYesNo.get(1));
     }//GEN-LAST:event_btnYesMouseEntered
 
     private void btnYesMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnYesMouseExited
-        btnYes.setIcon(imgBtnYesDef);
+        btnYes.setIcon(imgBtnYesNo.get(0));
     }//GEN-LAST:event_btnYesMouseExited
 
     private void btnYesMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnYesMousePressed
-        btnYes.setIcon(imgBtnYesPre);
+        btnYes.setIcon(imgBtnYesNo.get(2));
     }//GEN-LAST:event_btnYesMousePressed
 
     private void btnYesMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnYesMouseReleased
@@ -160,15 +157,15 @@ public class GUI_Exit extends JFrame {
     }//GEN-LAST:event_btnYesMouseReleased
 
     private void btnNoMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnNoMouseEntered
-        btnNo.setIcon(imgBtnNoHov);
+        btnNo.setIcon(imgBtnYesNo.get(4));
     }//GEN-LAST:event_btnNoMouseEntered
 
     private void btnNoMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnNoMouseExited
-        btnNo.setIcon(imgBtnNoDef);
+        btnNo.setIcon(imgBtnYesNo.get(3));
     }//GEN-LAST:event_btnNoMouseExited
 
     private void btnNoMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnNoMousePressed
-        btnNo.setIcon(imgBtnNoPre);
+        btnNo.setIcon(imgBtnYesNo.get(5));
     }//GEN-LAST:event_btnNoMousePressed
 
     private void btnNoMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnNoMouseReleased
@@ -176,6 +173,16 @@ public class GUI_Exit extends JFrame {
         new Close(this, false).frame();
     }//GEN-LAST:event_btnNoMouseReleased
 
+    // <editor-fold defaultstate="collapsed" desc="Carregar imagens">
+    private void loadImages() {
+        imgBtnYesNo.add(new ImageIcon("imgs/buttons/confirm/btnYesDef.png"));
+        imgBtnYesNo.add(new ImageIcon("imgs/buttons/confirm/btnYesHover.png"));
+        imgBtnYesNo.add(new ImageIcon("imgs/buttons/confirm/btnYesPressed.png"));
+        imgBtnYesNo.add(new ImageIcon("imgs/buttons/confirm/btnNoDef.png"));
+        imgBtnYesNo.add(new ImageIcon("imgs/buttons/confirm/btnNoHover.png"));
+        imgBtnYesNo.add(new ImageIcon("imgs/buttons/confirm/btnNoHover.png"));
+    }
+    // </editor-fold>
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel btnClose;

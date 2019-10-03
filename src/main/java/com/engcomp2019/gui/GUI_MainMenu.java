@@ -421,6 +421,8 @@ public class GUI_MainMenu extends JFrame {
 
         imgVolume.add(new ImageIcon("imgs/elements/volumeOn.png"));
         imgVolume.add(new ImageIcon("imgs/elements/volumeOff.png"));
+        
+        s.setFrameIcon(this);
     }
     // </editor-fold>
 

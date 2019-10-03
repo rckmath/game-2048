@@ -1,4 +1,8 @@
-# Portuguese readme
-[W.I.P] Jogo 2048 feito em Java.
+![2048 game logo gif](https://github.com/rckmath/2048-Game/blob/master/imgs/elements/gameLogoFinal.gif)
 
-Projeto destinado a faculdade, utilizando conceitos de orientação a objetos e colocando em prática herança e polimorfismo.
+# O Projeto
+
+Jogo 2048 desenvolvido em Java utilizando conceitos de orientação a objetos como herança e polimorfismo. Destinado a um projeto universitário.
+O jogo se encontra em português.
+
+Obrigado!

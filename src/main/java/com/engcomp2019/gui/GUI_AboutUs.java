@@ -5,6 +5,7 @@ import java.awt.Desktop;
 import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.ImageIcon;
@@ -20,9 +21,7 @@ public class GUI_AboutUs extends JFrame {
     private final JFrame previousFrame;
     private final DragWindow drag = new DragWindow();
     private final ImageIcon imgFrame = new ImageIcon("imgs/frames/frameAbout.png");
-    private final ImageIcon imgGitDef = new ImageIcon("imgs/buttons/other/btnGitDef.png");
-    private final ImageIcon imgGitHov = new ImageIcon("imgs/buttons/other/btnGitHover.png");
-    private final ImageIcon imgGitPre = new ImageIcon("imgs/buttons/other/btnGitPressed.png");
+    private final ArrayList<ImageIcon> imgGit = new ArrayList<>();
 
     /**
      * Constroi o frame "Sobre" e desativa o frame atual
@@ -39,7 +38,7 @@ public class GUI_AboutUs extends JFrame {
         this.setResizable(false);
         this.setLocationRelativeTo(null);
 
-        btnGit.setIcon(imgGitDef);
+        btnGit.setIcon(imgGit.get(0));
         this.add(btnGit, new AbsoluteConstraints(105, 160, -1, -1));
 
         frameBackground.setIcon(imgFrame);
@@ -129,19 +128,19 @@ public class GUI_AboutUs extends JFrame {
     }//GEN-LAST:event_frameDragMouseReleased
 
     private void btnGitMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnGitMouseEntered
-        btnGit.setIcon(imgGitHov);
+        btnGit.setIcon(imgGit.get(1));
     }//GEN-LAST:event_btnGitMouseEntered
 
     private void btnGitMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnGitMouseExited
-        btnGit.setIcon(imgGitDef);
+        btnGit.setIcon(imgGit.get(0));
     }//GEN-LAST:event_btnGitMouseExited
 
     private void btnGitMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnGitMousePressed
-        btnGit.setIcon(imgGitPre);
+        btnGit.setIcon(imgGit.get(2));
     }//GEN-LAST:event_btnGitMousePressed
 
     private void btnGitMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnGitMouseReleased
-        btnGit.setIcon(imgGitHov);
+        btnGit.setIcon(imgGit.get(1));
         try {
             Desktop d = Desktop.getDesktop();
             d.browse(new URI("https://github.com/rckmath/2048-Game"));
@@ -150,6 +149,15 @@ public class GUI_AboutUs extends JFrame {
         }
     }//GEN-LAST:event_btnGitMouseReleased
 
+    // <editor-fold defaultstate="collapsed" desc="Carregar imagens">
+    private void loadImages() {
+        /* Instancia e define nossos elementos na tela */
+        imgGit.add(new ImageIcon("imgs/buttons/other/btnGitDef.png"));
+        imgGit.add(new ImageIcon("imgs/buttons/other/btnGitHover.png"));
+        imgGit.add(new ImageIcon("imgs/buttons/other/btnGitPressed.png"));
+    }
+    // </editor-fold>
+    
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel btnClose;
     private javax.swing.JLabel btnGit;

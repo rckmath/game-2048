@@ -37,13 +37,7 @@ public class GUI_RestartConfirm extends JFrame {
         initComponents();
         this.setResizable(false);
         this.setLocationRelativeTo(null);
-
-        imgBtnYesNo.add(new ImageIcon("imgs/buttons/confirm/btnYesDef.png"));
-        imgBtnYesNo.add(new ImageIcon("imgs/buttons/confirm/btnYesHover.png"));
-        imgBtnYesNo.add(new ImageIcon("imgs/buttons/confirm/btnYesPressed.png"));
-        imgBtnYesNo.add(new ImageIcon("imgs/buttons/confirm/btnNoDef.png"));
-        imgBtnYesNo.add(new ImageIcon("imgs/buttons/confirm/btnNoHover.png"));
-        imgBtnYesNo.add(new ImageIcon("imgs/buttons/confirm/btnNoHover.png"));
+        loadImages();
 
         btnYes.setIcon(imgBtnYesNo.get(0));
         this.add(btnYes, new AbsoluteConstraints(65, 200, -1, -1));
@@ -198,6 +192,17 @@ public class GUI_RestartConfirm extends JFrame {
         previousFrame.setEnabled(true);
         new Close(this, false).frame();
     }//GEN-LAST:event_btnCloseMouseReleased
+
+    // <editor-fold defaultstate="collapsed" desc="Carregar imagens">
+    private void loadImages() {
+        imgBtnYesNo.add(new ImageIcon("imgs/buttons/confirm/btnYesDef.png"));
+        imgBtnYesNo.add(new ImageIcon("imgs/buttons/confirm/btnYesHover.png"));
+        imgBtnYesNo.add(new ImageIcon("imgs/buttons/confirm/btnYesPressed.png"));
+        imgBtnYesNo.add(new ImageIcon("imgs/buttons/confirm/btnNoDef.png"));
+        imgBtnYesNo.add(new ImageIcon("imgs/buttons/confirm/btnNoHover.png"));
+        imgBtnYesNo.add(new ImageIcon("imgs/buttons/confirm/btnNoHover.png"));
+    }
+    // </editor-fold>
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel btnClose;
