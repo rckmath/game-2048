@@ -13,10 +13,10 @@ import org.netbeans.lib.awtextra.AbsoluteConstraints;
 public class GUI_Exit extends JFrame {
 
     private final DragWindow drag = new DragWindow();
-    private final ImageIcon imgFrame = new ImageIcon("imgs/frames/frameExit.png");
+    private final ImageIcon imgFrame = new ImageIcon(this.getClass().getResource("/imgs/frames/frameExit.png"));
     private final ArrayList<ImageIcon> imgBtnYesNo = new ArrayList<>();
     private final JFrame previousFrame;
-    
+
     /**
      * Constroi o frame "Sair" e desativa o frame atual
      *
@@ -175,12 +175,12 @@ public class GUI_Exit extends JFrame {
 
     // <editor-fold defaultstate="collapsed" desc="Carregar imagens">
     private void loadImages() {
-        imgBtnYesNo.add(new ImageIcon("imgs/buttons/confirm/btnYesDef.png"));
-        imgBtnYesNo.add(new ImageIcon("imgs/buttons/confirm/btnYesHover.png"));
-        imgBtnYesNo.add(new ImageIcon("imgs/buttons/confirm/btnYesPressed.png"));
-        imgBtnYesNo.add(new ImageIcon("imgs/buttons/confirm/btnNoDef.png"));
-        imgBtnYesNo.add(new ImageIcon("imgs/buttons/confirm/btnNoHover.png"));
-        imgBtnYesNo.add(new ImageIcon("imgs/buttons/confirm/btnNoHover.png"));
+        imgBtnYesNo.add(new ImageIcon(this.getClass().getResource("/imgs/buttons/confirm/btnYesDef.png")));
+        imgBtnYesNo.add(new ImageIcon(this.getClass().getResource("/imgs/buttons/confirm/btnYesHover.png")));
+        imgBtnYesNo.add(new ImageIcon(this.getClass().getResource("/imgs/buttons/confirm/btnYesPressed.png")));
+        imgBtnYesNo.add(new ImageIcon(this.getClass().getResource("/imgs/buttons/confirm/btnNoDef.png")));
+        imgBtnYesNo.add(new ImageIcon(this.getClass().getResource("/imgs/buttons/confirm/btnNoHover.png")));
+        imgBtnYesNo.add(new ImageIcon(this.getClass().getResource("/imgs/buttons/confirm/btnNoHover.png")));
     }
     // </editor-fold>
 

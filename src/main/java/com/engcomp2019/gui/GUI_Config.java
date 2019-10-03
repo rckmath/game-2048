@@ -15,10 +15,10 @@ import org.netbeans.lib.awtextra.AbsoluteConstraints;
  */
 public class GUI_Config extends JFrame {
 
-    private final ImageIcon imgFrame = new ImageIcon("imgs/frames/frameBackground.png");
-    private final ImageIcon imgMenu = new ImageIcon("imgs/elements/configDropdown.png");
-    private final ImageIcon imgRecord = new ImageIcon("imgs/buttons/other/btnRecord.png");
-    private final ImageIcon imgLeoHead = new ImageIcon("imgs/easteregg/leoHeadDance.gif");
+    private final ImageIcon imgFrame = new ImageIcon(this.getClass().getResource("/imgs/frames/frameBackground.png"));
+    private final ImageIcon imgMenu = new ImageIcon(this.getClass().getResource("/imgs/elements/configDropdown.png"));
+    private final ImageIcon imgRecord = new ImageIcon(this.getClass().getResource("/imgs/buttons/other/btnRecord.png"));
+    private final ImageIcon imgLeoHead = new ImageIcon(this.getClass().getResource("/imgs/easteregg/leoHeadDance.gif"));
     private final ArrayList<ImageIcon> imgBtnReset = new ArrayList<>();
     private final ArrayList<ImageIcon> imgBtnTheme = new ArrayList<>();
     private final ArrayList<ImageIcon> imgVolume = new ArrayList<>();
@@ -375,19 +375,19 @@ public class GUI_Config extends JFrame {
     // <editor-fold defaultstate="collapsed" desc="Carregar imagens">
     private void loadImages() {
         /* Instancia e define nossos elementos na tela */
-        imgBtnTheme.add(new ImageIcon("imgs/buttons/other/btnTemaFDef.png"));
-        imgBtnTheme.add(new ImageIcon("imgs/buttons/other/btnTemaFHover.png"));
-        imgBtnTheme.add(new ImageIcon("imgs/buttons/other/btnTemaFPressed.png"));
-        imgBtnTheme.add(new ImageIcon("imgs/buttons/other/btnTemaTDef.png"));
-        imgBtnTheme.add(new ImageIcon("imgs/buttons/other/btnTemaTHover.png"));
-        imgBtnTheme.add(new ImageIcon("imgs/buttons/other/btnTemaTPressed.png"));
-        imgBtnReset.add(new ImageIcon("imgs/buttons/other/btnResetRDef.png"));
-        imgBtnReset.add(new ImageIcon("imgs/buttons/other/btnResetRHov.png"));
-        imgBtnReset.add(new ImageIcon("imgs/buttons/other/btnResetRPre.png"));
+        imgBtnTheme.add(new ImageIcon(this.getClass().getResource("/imgs/buttons/other/btnTemaFDef.png")));
+        imgBtnTheme.add(new ImageIcon(this.getClass().getResource("/imgs/buttons/other/btnTemaFHover.png")));
+        imgBtnTheme.add(new ImageIcon(this.getClass().getResource("/imgs/buttons/other/btnTemaFPressed.png")));
+        imgBtnTheme.add(new ImageIcon(this.getClass().getResource("/imgs/buttons/other/btnTemaTDef.png")));
+        imgBtnTheme.add(new ImageIcon(this.getClass().getResource("/imgs/buttons/other/btnTemaTHover.png")));
+        imgBtnTheme.add(new ImageIcon(this.getClass().getResource("/imgs/buttons/other/btnTemaTPressed.png")));
+        imgBtnReset.add(new ImageIcon(this.getClass().getResource("/imgs/buttons/other/btnResetRDef.png")));
+        imgBtnReset.add(new ImageIcon(this.getClass().getResource("/imgs/buttons/other/btnResetRHov.png")));
+        imgBtnReset.add(new ImageIcon(this.getClass().getResource("/imgs/buttons/other/btnResetRPre.png")));
 
-        imgVolume.add(new ImageIcon("imgs/elements/volumeOn.png"));
-        imgVolume.add(new ImageIcon("imgs/elements/volumeOff.png"));
-        
+        imgVolume.add(new ImageIcon(this.getClass().getResource("/imgs/elements/volumeOn.png")));
+        imgVolume.add(new ImageIcon(this.getClass().getResource("/imgs/elements/volumeOff.png")));
+
         s.setFrameIcon(this);
     }
     // </editor-fold>

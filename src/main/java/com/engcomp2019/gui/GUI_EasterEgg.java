@@ -3,6 +3,7 @@ package com.engcomp2019.gui;
 import com.engcomp2019.audio.Audio;
 import com.engcomp2019.core.*;
 import java.awt.Frame;
+import java.net.URL;
 import java.util.ArrayList;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
@@ -15,11 +16,11 @@ import org.netbeans.lib.awtextra.AbsoluteConstraints;
  */
 public class GUI_EasterEgg extends JFrame {
 
-    private final ImageIcon imgFrame = new ImageIcon("imgs/easteregg/frameEasterEgg.png");
-    private final ImageIcon imgMenu = new ImageIcon("imgs/elements/gameDropdown.png");
-    private final ImageIcon imgLeoHorse = new ImageIcon("imgs/easteregg/leoCavalo.gif");
-    private final ImageIcon imgLeoOx = new ImageIcon("imgs/easteregg/leoBoi.gif");
-    private final ImageIcon imgLeoHeadDance = new ImageIcon("imgs/easteregg/leoHeadDance.gif");
+    private final ImageIcon imgFrame = new ImageIcon(this.getClass().getResource("/imgs/easteregg/frameEasterEgg.png"));
+    private final ImageIcon imgMenu = new ImageIcon(this.getClass().getResource("/imgs/elements/gameDropdown.png"));
+    private final ImageIcon imgLeoHorse = new ImageIcon(this.getClass().getResource("/imgs/easteregg/leoCavalo.gif"));
+    private final ImageIcon imgLeoOx = new ImageIcon(this.getClass().getResource("/imgs/easteregg/leoBoi.gif"));
+    private final ImageIcon imgLeoHeadDance = new ImageIcon(this.getClass().getResource("/imgs/easteregg/leoHeadDance.gif"));
     private final DragWindow drag = new DragWindow();
     private final Close close = new Close();
     private ArrayList<JLabel> menuItems;
@@ -262,7 +263,8 @@ public class GUI_EasterEgg extends JFrame {
 
     // <editor-fold defaultstate="collapsed" desc="Inicializar áudio">
     private void initAudio() {
-        a.setAudioPath("src/main/resources/audio/easterEggMusic.wav");
+        URL url = this.getClass().getResource("/audio/easterEggMusic.wav");
+        a.setAudioPath(url);
         a.play(true);
     }
     // </editor-fold>

@@ -7,7 +7,9 @@ import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.net.URL;
 import java.util.ArrayList;
+import java.util.Objects;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.ImageIcon;
@@ -22,12 +24,13 @@ import org.netbeans.lib.awtextra.AbsoluteConstraints;
 public class GUI_Game extends JFrame {
 
     // ImageIcon
-    private final ImageIcon imgFrame = new ImageIcon("imgs/frames/frameGame.png");
-    private final ImageIcon imgMenu = new ImageIcon("imgs/elements/gameDropdown.png");
+    private final ImageIcon imgFrame = new ImageIcon(this.getClass().getResource("/imgs/frames/frameGame.png"));
+    private final ImageIcon imgMenu = new ImageIcon(this.getClass().getResource("/imgs/elements/gameDropdown.png"));
     private final ArrayList<ImageIcon> imgVolume = new ArrayList<>();
     private final ArrayList<ImageIcon> imgLeoHead = new ArrayList<>();
     private final ArrayList<ImageIcon> imgPad = new ArrayList<>();
     private final ArrayList<ImageIcon> imgBtnReset = new ArrayList<>();
+    private final ArrayList<ImageIcon> imgUndo = new ArrayList<>();
     // Labels
     private final ArrayList<JLabel> gameTiles = new ArrayList<>();
     private ArrayList<JLabel> menuItems;
@@ -38,6 +41,9 @@ public class GUI_Game extends JFrame {
     private Boolean menuActive = true;
     private final Audio a = new Audio();
     private final Session s;
+    private int undoBuffer = 1;
+    private int[][] gameAux;
+    private int scoreAux;
 
     /**
      * Inicializa e instancia a tela de jogo
@@ -46,6 +52,7 @@ public class GUI_Game extends JFrame {
      */
     public GUI_Game(Session s) {
         this.s = s;
+        gameAux = new int[s.getBoardSize()][s.getBoardSize()];
         initComponents();
         setResizable(false);
         setLocationRelativeTo(null);
@@ -56,6 +63,9 @@ public class GUI_Game extends JFrame {
         initMenu();
 
         this.add(btnAudio, new AbsoluteConstraints(32, 525, -1, -1));
+
+        btnUndo.setIcon(imgUndo.get(0));
+        this.add(btnUndo, new AbsoluteConstraints(510, 140, -1, -1));
 
         easterEgg.setIcon(imgLeoHead.get(0));
         this.add(easterEgg, new AbsoluteConstraints(511, 422, -1, -1));
@@ -89,6 +99,7 @@ public class GUI_Game extends JFrame {
         btnReset = new javax.swing.JLabel();
         lblRecord = new javax.swing.JLabel();
         lblScore = new javax.swing.JLabel();
+        btnUndo = new javax.swing.JLabel();
         arrowPadU = new javax.swing.JLabel();
         arrowPadD = new javax.swing.JLabel();
         arrowPadL = new javax.swing.JLabel();
@@ -199,6 +210,16 @@ public class GUI_Game extends JFrame {
         lblScore.setFont(new java.awt.Font("Dialog", 1, 24)); // NOI18N
         lblScore.setForeground(new java.awt.Color(77, 77, 77));
         getContentPane().add(lblScore, new org.netbeans.lib.awtextra.AbsoluteConstraints(668, 150, -1, -1));
+
+        btnUndo.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                btnUndoMousePressed(evt);
+            }
+            public void mouseReleased(java.awt.event.MouseEvent evt) {
+                btnUndoMouseReleased(evt);
+            }
+        });
+        getContentPane().add(btnUndo, new org.netbeans.lib.awtextra.AbsoluteConstraints(510, 140, -1, -1));
         getContentPane().add(arrowPadU, new org.netbeans.lib.awtextra.AbsoluteConstraints(519, 254, 28, 42));
         getContentPane().add(arrowPadD, new org.netbeans.lib.awtextra.AbsoluteConstraints(519, 328, 28, 42));
         getContentPane().add(arrowPadL, new org.netbeans.lib.awtextra.AbsoluteConstraints(475, 298, 42, 28));
@@ -388,6 +409,25 @@ public class GUI_Game extends JFrame {
         }
     }//GEN-LAST:event_mouseMoveMouseDragged
 
+    private void btnUndoMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnUndoMouseReleased
+        btnUndo.setIcon(imgUndo.get(0));
+        if (undoBuffer == 0) {
+            for (int i = 0; i < s.getBoardSize(); i++) {
+                System.arraycopy(gameAux[i], 0, s.getGameBoard()[i], 0, s.getBoardSize());
+            }
+            if (Objects.equals(s.getRoundScore(), s.getRecordScore())) {
+                s.setRecordScore(scoreAux);
+            }
+            s.setRoundScore(scoreAux);
+            updateInfo(true);
+            undoBuffer = 1;
+        }
+    }//GEN-LAST:event_btnUndoMouseReleased
+
+    private void btnUndoMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnUndoMousePressed
+        btnUndo.setIcon(imgUndo.get(1));
+    }//GEN-LAST:event_btnUndoMousePressed
+
     // <editor-fold defaultstate="collapsed" desc="Inicializar menu">
     private void initMenu() {
         menuItems = new ArrayList<JLabel>() {
@@ -406,9 +446,11 @@ public class GUI_Game extends JFrame {
     // <editor-fold defaultstate="collapsed" desc="Inicializar áudio">
     private void initAudio() {
         if (!s.getAltTheme()) {
-            a.setAudioPath("src/main/resources/audio/gameMusic.wav");
+            URL url = this.getClass().getResource("/audio/gameMusic.wav");
+            a.setAudioPath(url);
         } else {
-            a.setAudioPath("src/main/resources/audio/leoMusic.wav");
+            URL url = this.getClass().getResource("/audio/leoMusic.wav");
+            a.setAudioPath(url);
         }
 
         if (s.getAudioOn()) {
@@ -438,22 +480,25 @@ public class GUI_Game extends JFrame {
 
     // <editor-fold defaultstate="collapsed" desc="Carregar imagens">
     private void loadImages() {
-        imgPad.add(new ImageIcon("imgs/buttons/pad/bntPadDef.png"));
-        imgPad.add(new ImageIcon("imgs/buttons/pad/bntPadU.png"));
-        imgPad.add(new ImageIcon("imgs/buttons/pad/bntPadD.png"));
-        imgPad.add(new ImageIcon("imgs/buttons/pad/bntPadL.png"));
-        imgPad.add(new ImageIcon("imgs/buttons/pad/bntPadR.png"));
+        imgPad.add(new ImageIcon(this.getClass().getResource("/imgs/buttons/pad/bntPadDef.png")));
+        imgPad.add(new ImageIcon(this.getClass().getResource("/imgs/buttons/pad/bntPadU.png")));
+        imgPad.add(new ImageIcon(this.getClass().getResource("/imgs/buttons/pad/bntPadD.png")));
+        imgPad.add(new ImageIcon(this.getClass().getResource("/imgs/buttons/pad/bntPadL.png")));
+        imgPad.add(new ImageIcon(this.getClass().getResource("/imgs/buttons/pad/bntPadR.png")));
 
-        imgBtnReset.add(new ImageIcon("imgs/buttons/btnResetDef.png"));
-        imgBtnReset.add(new ImageIcon("imgs/buttons/btnResetHov.png"));
-        imgBtnReset.add(new ImageIcon("imgs/buttons/btnResetPre.png"));
+        imgBtnReset.add(new ImageIcon(this.getClass().getResource("/imgs/buttons/btnResetDef.png")));
+        imgBtnReset.add(new ImageIcon(this.getClass().getResource("/imgs/buttons/btnResetHov.png")));
+        imgBtnReset.add(new ImageIcon(this.getClass().getResource("/imgs/buttons/btnResetPre.png")));
 
-        imgLeoHead.add(new ImageIcon("imgs/easteregg/leoHead.png"));
-        imgLeoHead.add(new ImageIcon("imgs/easteregg/leoHeadTwo.png"));
+        imgLeoHead.add(new ImageIcon(this.getClass().getResource("/imgs/easteregg/leoHead.png")));
+        imgLeoHead.add(new ImageIcon(this.getClass().getResource("/imgs/easteregg/leoHeadTwo.png")));
 
-        imgVolume.add(new ImageIcon("imgs/elements/volumeOn.png"));
-        imgVolume.add(new ImageIcon("imgs/elements/volumeOff.png"));
-        
+        imgVolume.add(new ImageIcon(this.getClass().getResource("/imgs/elements/volumeOn.png")));
+        imgVolume.add(new ImageIcon(this.getClass().getResource("/imgs/elements/volumeOff.png")));
+
+        imgUndo.add(new ImageIcon(this.getClass().getResource("/imgs/elements/btnUndoDef.png")));
+        imgUndo.add(new ImageIcon(this.getClass().getResource("/imgs/elements/btnUndoPre.png")));
+
         s.setFrameIcon(this);
     }
     // </editor-fold>
@@ -574,7 +619,7 @@ public class GUI_Game extends JFrame {
         if (s.getRoundScore() > s.getRecordScore()) {
             s.setRecordScore(s.getRoundScore());
         }
-        s.printGameBoard();
+        // s.printGameBoard();
         lblScore.setText(String.format("%06d%n", s.getRoundScore()));
         lblRecord.setText(String.format("%06d%n", s.getRecordScore()));
     }
@@ -590,8 +635,8 @@ public class GUI_Game extends JFrame {
     private void doMove(char id) {
         Boolean notSpawnTile;
         Boolean invalidMove = false;
-        int[][] gameAux = new int[s.getBoardSize()][s.getBoardSize()];
         s.arrayCopy(gameAux);
+        scoreAux = s.getRoundScore();
 
         if (s.getGameStatus() != 2) {
             switch (id) {
@@ -622,6 +667,7 @@ public class GUI_Game extends JFrame {
             }
 
             if (!invalidMove) {
+                undoBuffer = 0;
                 updateInfo(notSpawnTile);
             }
         }
@@ -710,6 +756,7 @@ public class GUI_Game extends JFrame {
     private javax.swing.JLabel btnMinimize;
     private javax.swing.JLabel btnPad;
     private javax.swing.JLabel btnReset;
+    private javax.swing.JLabel btnUndo;
     private javax.swing.JLabel easterEgg;
     private javax.swing.JLabel exitGame;
     private javax.swing.JLabel frameBackground;

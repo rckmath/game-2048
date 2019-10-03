@@ -20,7 +20,7 @@ public class GUI_AboutUs extends JFrame {
 
     private final JFrame previousFrame;
     private final DragWindow drag = new DragWindow();
-    private final ImageIcon imgFrame = new ImageIcon("imgs/frames/frameAbout.png");
+    private final ImageIcon imgFrame = new ImageIcon(this.getClass().getResource("/imgs/frames/frameAbout.png"));
     private final ArrayList<ImageIcon> imgGit = new ArrayList<>();
 
     /**
@@ -35,6 +35,7 @@ public class GUI_AboutUs extends JFrame {
 
         // Inicializa este frame
         initComponents();
+        loadImages();
         this.setResizable(false);
         this.setLocationRelativeTo(null);
 
@@ -152,9 +153,9 @@ public class GUI_AboutUs extends JFrame {
     // <editor-fold defaultstate="collapsed" desc="Carregar imagens">
     private void loadImages() {
         /* Instancia e define nossos elementos na tela */
-        imgGit.add(new ImageIcon("imgs/buttons/other/btnGitDef.png"));
-        imgGit.add(new ImageIcon("imgs/buttons/other/btnGitHover.png"));
-        imgGit.add(new ImageIcon("imgs/buttons/other/btnGitPressed.png"));
+        imgGit.add(new ImageIcon(this.getClass().getResource("/imgs/buttons/other/btnGitDef.png")));
+        imgGit.add(new ImageIcon(this.getClass().getResource("/imgs/buttons/other/btnGitHover.png")));
+        imgGit.add(new ImageIcon(this.getClass().getResource("/imgs/buttons/other/btnGitPressed.png")));
     }
     // </editor-fold>
     

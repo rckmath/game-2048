@@ -5,6 +5,7 @@ import com.engcomp2019.core.Close;
 import com.engcomp2019.core.DragWindow;
 import com.engcomp2019.core.Session;
 import java.awt.Frame;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.Objects;
 import javax.swing.ImageIcon;
@@ -21,12 +22,12 @@ import org.netbeans.lib.awtextra.AbsoluteConstraints;
 public class GUI_EndGame extends JFrame {
 
     // ImageIcon
-    private final ImageIcon imgFrame = new ImageIcon("imgs/frames/frameVictory.png");
-    private final ImageIcon imgMenu = new ImageIcon("imgs/elements/gameDropdown.png");
-    private final ImageIcon imgWinGif = new ImageIcon("imgs/victory/victoryAnim.gif");
-    private final ImageIcon imgLoseGif = new ImageIcon("imgs/victory/loseAnim.gif");
-    private final ImageIcon imgFireworksGif = new ImageIcon("imgs/victory/fireworksAnim.gif");
-    private final ImageIcon imgStarGif = new ImageIcon("imgs/victory/marioStar.gif");
+    private final ImageIcon imgFrame = new ImageIcon(this.getClass().getResource("/imgs/frames/frameVictory.png"));
+    private final ImageIcon imgMenu = new ImageIcon(this.getClass().getResource("/imgs/elements/gameDropdown.png"));
+    private final ImageIcon imgWinGif = new ImageIcon(this.getClass().getResource("/imgs/victory/victoryAnim.gif"));
+    private final ImageIcon imgLoseGif = new ImageIcon(this.getClass().getResource("/imgs/victory/loseAnim.gif"));
+    private final ImageIcon imgFireworksGif = new ImageIcon(this.getClass().getResource("/imgs/victory/fireworksAnim.gif"));
+    private final ImageIcon imgStarGif = new ImageIcon(this.getClass().getResource("/imgs/victory/marioStar.gif"));
     private final ArrayList<ImageIcon> imgHead = new ArrayList<>();
     private final ArrayList<ImageIcon> imgBtnReset = new ArrayList<>();
     private final ArrayList<ImageIcon> imgBtnMain = new ArrayList<>();
@@ -410,9 +411,11 @@ public class GUI_EndGame extends JFrame {
     // <editor-fold defaultstate="collapsed" desc="Inicializar áudio">
     private void initAudio() {
         if (s.getGameStatus() == 1) {
-            a.setAudioPath("src/main/resources/audio/youWin.wav");
+            URL url = this.getClass().getResource("/audio/youWin.wav");
+            a.setAudioPath(url);
         } else {
-            a.setAudioPath("src/main/resources/audio/youLose.wav");
+            URL url = this.getClass().getResource("/audio/youLose.wav");
+            a.setAudioPath(url);
         }
 
         a.play(false);
@@ -421,17 +424,17 @@ public class GUI_EndGame extends JFrame {
 
     // <editor-fold defaultstate="collapsed" desc="Carregar imagens">
     private void loadImages() {
-        imgBtnReset.add(new ImageIcon("imgs/buttons/btnResetDef.png"));
-        imgBtnReset.add(new ImageIcon("imgs/buttons/btnResetHov.png"));
-        imgBtnReset.add(new ImageIcon("imgs/buttons/btnResetPre.png"));
+        imgBtnReset.add(new ImageIcon("src/main/resources/imgs/buttons/btnResetDef.png"));
+        imgBtnReset.add(new ImageIcon("src/main/resources/imgs/buttons/btnResetHov.png"));
+        imgBtnReset.add(new ImageIcon("src/main/resources/imgs/buttons/btnResetPre.png"));
 
-        imgBtnMain.add(new ImageIcon("imgs/buttons/btnMenuDef.png"));
-        imgBtnMain.add(new ImageIcon("imgs/buttons/btnMenuHov.png"));
-        imgBtnMain.add(new ImageIcon("imgs/buttons/btnMenuPre.png"));
+        imgBtnMain.add(new ImageIcon("src/main/resources/imgs/buttons/btnMenuDef.png"));
+        imgBtnMain.add(new ImageIcon("src/main/resources/imgs/buttons/btnMenuHov.png"));
+        imgBtnMain.add(new ImageIcon("src/main/resources/imgs/buttons/btnMenuPre.png"));
 
-        imgHead.add(new ImageIcon("imgs/victory/victoryHead.png"));
-        imgHead.add(new ImageIcon("imgs/victory/defeatedHead.png"));
-        
+        imgHead.add(new ImageIcon(this.getClass().getResource("/imgs/victory/victoryHead.png")));
+        imgHead.add(new ImageIcon(this.getClass().getResource("/imgs/victory/defeatedHead.png")));
+
         s.setFrameIcon(this);
     }
     // </editor-fold>
