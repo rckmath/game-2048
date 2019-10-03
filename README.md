@@ -16,7 +16,7 @@ it forms a 2048 block.
 
 1 - Clone the archive or download the last version on tab Releases.<br />
 2 - Extract the zip file.<br />
-3 - Open the 2048 v1.0.jar. file.<br />
+3 - If you downloaded the release, open the 2048-v1.0.jar file, otherwish compile the program<br />
 4 - Just play!
 
 OBS: Check if the machine has installed [JAVA SE 8+](https://www.oracle.com/technetwork/pt/java/javase/downloads/index.html)<br />
