@@ -1,4 +1,4 @@
-![2048 game logo gif](https://github.com/rckmath/2048-Game/blob/master/imgs/elements/gameLogoFinal.gif)
+![2048 game logo gif](https://github.com/rckmath/2048-Game/blob/master/src/main/resources/imgs/elements/gameLogoFinal.gif)
 
 # O Projeto
 
