@@ -3,7 +3,7 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>com.engcomp2019</groupId>
     <artifactId>prj2048</artifactId>
-    <version>v0.2</version>
+    <version>v1.0</version>
     <packaging>jar</packaging>
     <repositories>
         <repository>
