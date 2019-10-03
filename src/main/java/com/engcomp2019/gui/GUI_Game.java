@@ -453,6 +453,8 @@ public class GUI_Game extends JFrame {
 
         imgVolume.add(new ImageIcon("imgs/elements/volumeOn.png"));
         imgVolume.add(new ImageIcon("imgs/elements/volumeOff.png"));
+        
+        s.setFrameIcon(this);
     }
     // </editor-fold>
 
@@ -548,7 +550,6 @@ public class GUI_Game extends JFrame {
                     gameTiles.add(new JLabel(s.getTileImg(i, j)));
                     this.add(gameTiles.get(k), new AbsoluteConstraints(pos[0], pos[1], -1, -1));
                 } else {
-
                     gameTiles.get(k).setIcon(s.getTileImg(i, j));
                 }
                 pos[0] += 100;
@@ -580,68 +581,81 @@ public class GUI_Game extends JFrame {
     // </editor-fold>
 
     // <editor-fold defaultstate="collapsed" desc="Executar movimentos">
+    /**
+     * Executa o movimento
+     *
+     * @param id 'U' para cima, 'D' para baixo, 'L' para esquerda, 'R' para
+     * direita
+     */
     private void doMove(char id) {
         Boolean notSpawnTile;
         Boolean invalidMove = false;
         int[][] gameAux = new int[s.getBoardSize()][s.getBoardSize()];
         s.arrayCopy(gameAux);
 
-        switch (id) {
-            case 'U':
-                s.setRoundScore(s.getRoundScore() + s.moveUp(s.getGameBoard()));
-                break;
-            case 'D':
-                s.setRoundScore(s.getRoundScore() + s.moveDown(s.getGameBoard()));
-                break;
-            case 'L':
-                s.setRoundScore(s.getRoundScore() + s.moveLeft(s.getGameBoard()));
-                break;
-            case 'R':
-                s.setRoundScore(s.getRoundScore() + s.moveRight(s.getGameBoard()));
-                break;
-            default:
-                System.err.println("\nMovimento inválido.");
-                invalidMove = true;
-                break;
-        }
-        verifyGameOver();
+        if (s.getGameStatus() != 2) {
+            switch (id) {
+                case 'U':
+                    s.setRoundScore(s.getRoundScore() + s.moveUp(s.getGameBoard()));
+                    break;
+                case 'D':
+                    s.setRoundScore(s.getRoundScore() + s.moveDown(s.getGameBoard()));
+                    break;
+                case 'L':
+                    s.setRoundScore(s.getRoundScore() + s.moveLeft(s.getGameBoard()));
+                    break;
+                case 'R':
+                    s.setRoundScore(s.getRoundScore() + s.moveRight(s.getGameBoard()));
+                    break;
+                default:
+                    System.err.println("\nMovimento inválido.");
+                    invalidMove = true;
+                    break;
+            }
 
-        notSpawnTile = isGameFinished();
-        if (!notSpawnTile) {
-            notSpawnTile = verifyTileSpawn(gameAux);
-        }
+            verifyGameOver();
+            notSpawnTile = isGameFinished();
 
-        if (!invalidMove) {
-            updateInfo(notSpawnTile);
+            // Se notSpawnTile negado = true, verifica se deve spawnar tile
+            if (!notSpawnTile) {
+                notSpawnTile = verifyTileSpawn(gameAux);
+            }
+
+            if (!invalidMove) {
+                updateInfo(notSpawnTile);
+            }
         }
     }
     // </editor-fold>
 
-    // <editor-fold defaultstate="collapsed" desc="Verificar progresso do jogo">
+    // <editor-fold defaultstate="collapsed" desc="Verificar vitória">
     private Boolean isGameFinished() {
-        for (int i = 0; i < s.getBoardSize(); i++) {
-            for (int j = 0; j < s.getBoardSize(); j++) {
-                if (s.getGameBoardValue(i, j) == 2048) {
-                    new Thread() {
-                        public void run() {
-                            try {
-                                Thread.sleep(500);
-                                s.setGameStatus(1);
-                                dispose();
-                                if (s.getAudioOn()) {
-                                    a.stop();
+        if (s.getGameStatus() != 1) {
+            for (int i = 0; i < s.getBoardSize(); i++) {
+                for (int j = 0; j < s.getBoardSize(); j++) {
+                    if (s.getGameBoardValue(i, j) == 2048) {
+                        new Thread() {
+                            public void run() {
+                                try {
+                                    setEnabled(false);
+                                    Thread.sleep(500);
+                                    s.setGameStatus(1);
+                                    dispose();
+                                    if (s.getAudioOn()) {
+                                        a.stop();
+                                    }
+                                    if (s.getAltTheme()) {
+                                        new GUI_EasterEgg(s).setVisible(true);
+                                    } else {
+                                        new GUI_EndGame(s).setVisible(true);
+                                    }
+                                } catch (InterruptedException ex) {
+                                    Logger.getLogger(GUI_Game.class.getName()).log(Level.SEVERE, null, ex);
                                 }
-                                if (s.getAltTheme()) {
-                                    new GUI_EasterEgg(s).setVisible(true);
-                                } else {
-                                    new GUI_EndGame(s).setVisible(true);
-                                }
-                            } catch (InterruptedException ex) {
-                                Logger.getLogger(GUI_Game.class.getName()).log(Level.SEVERE, null, ex);
                             }
-                        }
-                    }.start();
-                    return true;
+                        }.start();
+                        return true;
+                    }
                 }
             }
         }
@@ -651,22 +665,20 @@ public class GUI_Game extends JFrame {
 
     // <editor-fold defaultstate="collapsed" desc="Verificar game over">
     public void verifyGameOver() {
-        if (s.isGameOver()) {
-            new Thread() {
-                public void run() {
-                    try {
-                        Thread.sleep(500);
-                        s.setGameStatus(2);
-                        dispose();
-                        if (s.getAudioOn()) {
-                            a.stop();
-                        }
-                        new GUI_EndGame(s).setVisible(true);
-                    } catch (InterruptedException ex) {
-                        Logger.getLogger(GUI_Game.class.getName()).log(Level.SEVERE, null, ex);
+        if (s.getGameStatus() != 2) {
+            if (s.isGameOver()) {
+                try {
+                    Thread.sleep(350);
+                    s.setGameStatus(2);
+                    dispose();
+                    if (s.getAudioOn()) {
+                        a.stop();
                     }
+                    new GUI_EndGame(s).setVisible(true);
+                } catch (InterruptedException ex) {
+                    Logger.getLogger(GUI_Game.class.getName()).log(Level.SEVERE, null, ex);
                 }
-            }.start();
+            }
         }
     }
     // </editor-fold>

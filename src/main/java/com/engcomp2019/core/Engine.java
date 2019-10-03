@@ -2,16 +2,19 @@ package com.engcomp2019.core;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 
 /**
  *
  * @author erick / rckmath
+ * @author leonardo / LeoSanavio
  */
 public abstract class Engine {
 
     private int[][] gameBoard; // Board do jogo
     private int boardSize; // Tamanho da board
+    private final ImageIcon imgLeoHead;
 
     /**
      * Construtor inicializando nossa board
@@ -19,6 +22,7 @@ public abstract class Engine {
      * @param bSizeOp Tamanho da board, 1 para 3x3 e qualquer para 4x4
      */
     public Engine(int bSizeOp) {
+        imgLeoHead = new ImageIcon("imgs/easteregg/leoHead.png");
         // Define o tamanho da gameBoard
         if (bSizeOp == 1) {
             this.boardSize = 3;
@@ -48,7 +52,9 @@ public abstract class Engine {
     }
 
     // Outros
-    // Printa a matriz (para fins de debug)
+    /**
+     * Printa a matriz (para fins de debug)
+     */
     public void printGameBoard() {
         for (int[] b : gameBoard) {
             System.out.println(Arrays.toString(b));
@@ -121,7 +127,6 @@ public abstract class Engine {
                             }
 
                             if (flag == 0) {
-
                                 gameBoard[i][j] = (gameBoard[i][j]) * 2;	// Junta/soma
                                 gameBoard[i][j - 1] = 0;	// Zera o outro
                                 moveScore += gameBoard[i][j];   // Soma score
@@ -304,7 +309,6 @@ public abstract class Engine {
                             if ((i == 1 && flag1 == 1) || (i == 1 && flag0 == 1)) {   // Verifica se ja foi feita a soma
                                 flag1 = 1;                                            // em alguma posicao repetida
                             }
-
                             if ((i == 2 && flag2 == 1) || (i == 2 && flag1 == 1)) {
                                 flag = 1;
                             }
@@ -313,7 +317,6 @@ public abstract class Engine {
                             }
 
                             if (flag == 0) {
-
                                 gameBoard[i][j] = (gameBoard[i][j]) * 2;    // Junta/soma
                                 gameBoard[i - 1][j] = 0;    // Zera o outro
                                 moveScore += gameBoard[i][j];   // Soma score
@@ -325,7 +328,6 @@ public abstract class Engine {
                                 }
                                 if (i == 2) {
                                     flag2 = 1;
-
                                 }
                                 if (i == 3) {
                                     flag3 = 1;
@@ -342,6 +344,10 @@ public abstract class Engine {
             }
         }
         return moveScore;
+    }
+    
+    public void setFrameIcon(JFrame frame){
+        frame.setIconImage(imgLeoHead.getImage());
     }
 
     public abstract int getGameBoardValue(int i, int j);

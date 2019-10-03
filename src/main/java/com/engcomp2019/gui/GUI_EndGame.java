@@ -55,6 +55,7 @@ public class GUI_EndGame extends JFrame {
         initMenu();
         loadImages();
 
+        imgLoseGif.getImage().flush();
         imgWinGif.getImage().flush();
 
         starGif.setIcon(imgStarGif);
@@ -430,6 +431,8 @@ public class GUI_EndGame extends JFrame {
 
         imgHead.add(new ImageIcon("imgs/victory/victoryHead.png"));
         imgHead.add(new ImageIcon("imgs/victory/defeatedHead.png"));
+        
+        s.setFrameIcon(this);
     }
     // </editor-fold>
 
