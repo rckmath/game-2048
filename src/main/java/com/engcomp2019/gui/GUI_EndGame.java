@@ -21,12 +21,12 @@ import org.netbeans.lib.awtextra.AbsoluteConstraints;
 public class GUI_EndGame extends JFrame {
 
     // ImageIcon
-    private final ImageIcon imgFrame = new ImageIcon("imgs/frames/frameVictory.png");
-    private final ImageIcon imgMenu = new ImageIcon("imgs/elements/gameDropdown.png");
-    private final ImageIcon imgWinGif = new ImageIcon("imgs/victory/victoryAnim.gif");
-    private final ImageIcon imgLoseGif = new ImageIcon("imgs/victory/loseAnim.gif");
-    private final ImageIcon imgFireworksGif = new ImageIcon("imgs/victory/fireworksAnim.gif");
-    private final ImageIcon imgStarGif = new ImageIcon("imgs/victory/marioStar.gif");
+    private final ImageIcon imgFrame = new ImageIcon("src/main/resources/imgs/frames/frameVictory.png");
+    private final ImageIcon imgMenu = new ImageIcon("src/main/resources/imgs/elements/gameDropdown.png");
+    private final ImageIcon imgWinGif = new ImageIcon("src/main/resources/imgs/victory/victoryAnim.gif");
+    private final ImageIcon imgLoseGif = new ImageIcon("src/main/resources/imgs/victory/loseAnim.gif");
+    private final ImageIcon imgFireworksGif = new ImageIcon("src/main/resources/imgs/victory/fireworksAnim.gif");
+    private final ImageIcon imgStarGif = new ImageIcon("src/main/resources/imgs/victory/marioStar.gif");
     private final ArrayList<ImageIcon> imgHead = new ArrayList<>();
     private final ArrayList<ImageIcon> imgBtnReset = new ArrayList<>();
     private final ArrayList<ImageIcon> imgBtnMain = new ArrayList<>();
@@ -421,16 +421,16 @@ public class GUI_EndGame extends JFrame {
 
     // <editor-fold defaultstate="collapsed" desc="Carregar imagens">
     private void loadImages() {
-        imgBtnReset.add(new ImageIcon("imgs/buttons/btnResetDef.png"));
-        imgBtnReset.add(new ImageIcon("imgs/buttons/btnResetHov.png"));
-        imgBtnReset.add(new ImageIcon("imgs/buttons/btnResetPre.png"));
+        imgBtnReset.add(new ImageIcon("src/main/resources/imgs/buttons/btnResetDef.png"));
+        imgBtnReset.add(new ImageIcon("src/main/resources/imgs/buttons/btnResetHov.png"));
+        imgBtnReset.add(new ImageIcon("src/main/resources/imgs/buttons/btnResetPre.png"));
 
-        imgBtnMain.add(new ImageIcon("imgs/buttons/btnMenuDef.png"));
-        imgBtnMain.add(new ImageIcon("imgs/buttons/btnMenuHov.png"));
-        imgBtnMain.add(new ImageIcon("imgs/buttons/btnMenuPre.png"));
+        imgBtnMain.add(new ImageIcon("src/main/resources/imgs/buttons/btnMenuDef.png"));
+        imgBtnMain.add(new ImageIcon("src/main/resources/imgs/buttons/btnMenuHov.png"));
+        imgBtnMain.add(new ImageIcon("src/main/resources/imgs/buttons/btnMenuPre.png"));
 
-        imgHead.add(new ImageIcon("imgs/victory/victoryHead.png"));
-        imgHead.add(new ImageIcon("imgs/victory/defeatedHead.png"));
+        imgHead.add(new ImageIcon("src/main/resources/imgs/victory/victoryHead.png"));
+        imgHead.add(new ImageIcon("src/main/resources/imgs/victory/defeatedHead.png"));
 
         s.setFrameIcon(this);
     }

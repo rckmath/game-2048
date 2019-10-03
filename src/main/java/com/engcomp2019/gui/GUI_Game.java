@@ -22,8 +22,8 @@ import org.netbeans.lib.awtextra.AbsoluteConstraints;
 public class GUI_Game extends JFrame {
 
     // ImageIcon
-    private final ImageIcon imgFrame = new ImageIcon("imgs/frames/frameGame.png");
-    private final ImageIcon imgMenu = new ImageIcon("imgs/elements/gameDropdown.png");
+    private final ImageIcon imgFrame = new ImageIcon("src/main/resources/imgs/frames/frameGame.png");
+    private final ImageIcon imgMenu = new ImageIcon("src/main/resources/imgs/elements/gameDropdown.png");
     private final ArrayList<ImageIcon> imgVolume = new ArrayList<>();
     private final ArrayList<ImageIcon> imgLeoHead = new ArrayList<>();
     private final ArrayList<ImageIcon> imgPad = new ArrayList<>();
@@ -471,24 +471,24 @@ public class GUI_Game extends JFrame {
 
     // <editor-fold defaultstate="collapsed" desc="Carregar imagens">
     private void loadImages() {
-        imgPad.add(new ImageIcon("imgs/buttons/pad/bntPadDef.png"));
-        imgPad.add(new ImageIcon("imgs/buttons/pad/bntPadU.png"));
-        imgPad.add(new ImageIcon("imgs/buttons/pad/bntPadD.png"));
-        imgPad.add(new ImageIcon("imgs/buttons/pad/bntPadL.png"));
-        imgPad.add(new ImageIcon("imgs/buttons/pad/bntPadR.png"));
+        imgPad.add(new ImageIcon("src/main/resources/imgs/buttons/pad/bntPadDef.png"));
+        imgPad.add(new ImageIcon("src/main/resources/imgs/buttons/pad/bntPadU.png"));
+        imgPad.add(new ImageIcon("src/main/resources/imgs/buttons/pad/bntPadD.png"));
+        imgPad.add(new ImageIcon("src/main/resources/imgs/buttons/pad/bntPadL.png"));
+        imgPad.add(new ImageIcon("src/main/resources/imgs/buttons/pad/bntPadR.png"));
 
-        imgBtnReset.add(new ImageIcon("imgs/buttons/btnResetDef.png"));
-        imgBtnReset.add(new ImageIcon("imgs/buttons/btnResetHov.png"));
-        imgBtnReset.add(new ImageIcon("imgs/buttons/btnResetPre.png"));
+        imgBtnReset.add(new ImageIcon("src/main/resources/imgs/buttons/btnResetDef.png"));
+        imgBtnReset.add(new ImageIcon("src/main/resources/imgs/buttons/btnResetHov.png"));
+        imgBtnReset.add(new ImageIcon("src/main/resources/imgs/buttons/btnResetPre.png"));
 
-        imgLeoHead.add(new ImageIcon("imgs/easteregg/leoHead.png"));
-        imgLeoHead.add(new ImageIcon("imgs/easteregg/leoHeadTwo.png"));
+        imgLeoHead.add(new ImageIcon("src/main/resources/imgs/easteregg/leoHead.png"));
+        imgLeoHead.add(new ImageIcon("src/main/resources/imgs/easteregg/leoHeadTwo.png"));
 
-        imgVolume.add(new ImageIcon("imgs/elements/volumeOn.png"));
-        imgVolume.add(new ImageIcon("imgs/elements/volumeOff.png"));
+        imgVolume.add(new ImageIcon("src/main/resources/imgs/elements/volumeOn.png"));
+        imgVolume.add(new ImageIcon("src/main/resources/imgs/elements/volumeOff.png"));
 
-        imgUndo.add(new ImageIcon("imgs/elements/btnUndoDef.png"));
-        imgUndo.add(new ImageIcon("imgs/elements/btnUndoPre.png"));
+        imgUndo.add(new ImageIcon("src/main/resources/imgs/elements/btnUndoDef.png"));
+        imgUndo.add(new ImageIcon("src/main/resources/imgs/elements/btnUndoPre.png"));
 
         s.setFrameIcon(this);
     }

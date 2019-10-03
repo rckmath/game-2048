@@ -28,10 +28,10 @@ public class Splash extends JFrame {
     public Splash(Session s) {
         this.s = s;
         if (!s.getAltTheme()) {
-            imgArt = new ImageIcon("imgs/elements/gameLogoFinal.gif");
+            imgArt = new ImageIcon("src/main/resources/imgs/elements/gameLogoFinal.gif");
         } else {
             System.out.println(s.getAltTheme());
-            imgArt = new ImageIcon("imgs/easteregg/leoSplash.gif");
+            imgArt = new ImageIcon("src/main/resources/imgs/easteregg/leoSplash.gif");
         }
 
         loadingBar();
@@ -68,8 +68,8 @@ public class Splash extends JFrame {
         this.addWindowListener(new WindowAdapter() {
             @Override
             public void windowActivated(WindowEvent arg0) {
-                // Carrega nossa barra em 1,5 seg
-                final Timer t = new Timer(15, (ActionEvent e) -> {
+                // Carrega nossa barra em 1,2 seg
+                final Timer t = new Timer(12, (ActionEvent e) -> {
                     // Incrementa a progress bar a cada "rodada" de timer
                     progressBar.setValue(progressBar.getValue() + 1);
                     if (progressBar.getValue() == 100) {

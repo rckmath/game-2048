@@ -22,7 +22,7 @@ public abstract class Engine {
      * @param bSizeOp Tamanho da board, 1 para 3x3 e qualquer para 4x4
      */
     public Engine(int bSizeOp) {
-        imgLeoHead = new ImageIcon("imgs/easteregg/leoHead.png");
+        imgLeoHead = new ImageIcon("src/main/resources/imgs/easteregg/leoHead.png");
         // Define o tamanho da gameBoard
         if (bSizeOp == 1) {
             this.boardSize = 3;
