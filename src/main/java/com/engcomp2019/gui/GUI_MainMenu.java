@@ -296,7 +296,7 @@ public class GUI_MainMenu extends JFrame {
 
     private void exitGameMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_exitGameMouseReleased
         menuActive = close.menu(0, menuActive, menuDropdown, menuItems);
-        GUI_Exit frameExit = new GUI_Exit(this);
+        GUI_Exit frameExit = new GUI_Exit(s, this);
         frameExit.setVisible(true);
     }//GEN-LAST:event_exitGameMouseReleased
 

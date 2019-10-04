@@ -196,6 +196,7 @@ public class GUI_EasterEgg extends JFrame {
     }//GEN-LAST:event_frameDragMouseReleased
 
     private void btnCloseMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnCloseMouseReleased
+        s.saveSession(s);
         new Close(this, true).frame();
     }//GEN-LAST:event_btnCloseMouseReleased
 
@@ -206,7 +207,7 @@ public class GUI_EasterEgg extends JFrame {
 
     private void exitGameMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_exitGameMouseReleased
         menuActive = close.menu(0, menuActive, menuDropdown, menuItems);
-        GUI_Exit frameExit = new GUI_Exit(this);
+        GUI_Exit frameExit = new GUI_Exit(s,this);
         frameExit.setVisible(true);
     }//GEN-LAST:event_exitGameMouseReleased
 

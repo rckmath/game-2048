@@ -16,17 +16,18 @@ public class GUI_Exit extends JFrame {
     private final ImageIcon imgFrame = new ImageIcon(this.getClass().getResource("/imgs/frames/frameExit.png"));
     private final ArrayList<ImageIcon> imgBtnYesNo = new ArrayList<>();
     private final JFrame previousFrame;
+    private final Session s;
 
     /**
      * Constroi o frame "Sair" e desativa o frame atual
      *
      * @param pPreviousFrame Recebe o frame atual
      */
-    public GUI_Exit(JFrame pPreviousFrame) {
+    public GUI_Exit(Session s, JFrame pPreviousFrame) {
         // Desativa o frame anterior para bloqueá-lo enquanto não fechar este
         previousFrame = pPreviousFrame;
         previousFrame.setEnabled(false);
-
+        this.s = s;
         // Inicializa este frame
         initComponents();
         this.setResizable(false);
@@ -153,6 +154,7 @@ public class GUI_Exit extends JFrame {
     }//GEN-LAST:event_btnYesMousePressed
 
     private void btnYesMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnYesMouseReleased
+        s.saveSession(s);
         new Close(this, true).frame();
     }//GEN-LAST:event_btnYesMouseReleased
 

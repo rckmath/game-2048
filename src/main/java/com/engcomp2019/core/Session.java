@@ -109,7 +109,7 @@ public class Session extends Engine {
             this.altTheme = ini.get("options", "altTheme", boolean.class);
             this.audioOn = ini.get("options", "audioOn", boolean.class);
             // Carregando a sessão de .ini
-            this.recordScore = ini.get("session", "recordScore", int.class);
+            this.recordScore = ini.get("session", "record", int.class);
         } catch (IOException e) {
             System.err.println("ERRO: " + e);
         }
