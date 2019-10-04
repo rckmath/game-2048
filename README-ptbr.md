@@ -1,4 +1,4 @@
-![2048 game logo gif](https://github.com/rckmath/2048-Game/blob/master/imgs/elements/gameLogoFinal.gif)
+![2048 game logo gif](https://github.com/rckmath/2048-Game/blob/master/src/main/resources/imgs/elements/gameLogoFinal.gif)
 
 # O Projeto
 
@@ -30,7 +30,7 @@ OBS²: Caso não consiga abrir diretamente o arquivo .jar no linux, abra o termi
 
 # Desenvolvedores
 
-Erick M. L. Pacheco, R.A. 18711630
+Erick M. L. Pacheco, R.A. 18711630</br >
 Leonardo Sanavio, R.A. 18054395
 
 Obrigado!
