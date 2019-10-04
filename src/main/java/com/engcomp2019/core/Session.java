@@ -6,6 +6,10 @@ import java.util.Arrays;
 import java.util.HashMap;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
+import java.io.File;
+import java.io.IOException;
+import java.net.URISyntaxException;
+import org.ini4j.*;
 
 /**
  *
@@ -83,16 +87,64 @@ public class Session extends Engine {
 
     // Outros
     /**
-     * Inicializa a sessão zerada
+     * Carrega nossas configurações a partir do que está salvo no arquivo
+     * "load.ini"
+     */
+    public void loadSession() {
+        try {
+            Wini ini;
+            File file = new File("load.ini");
+            // Se existir o arquivo, carrega ele, senão cria
+            if (file.exists()) {
+                ini = new Wini(file);
+            } else {
+                file.createNewFile();
+                ini = new Wini(file);
+                ini.put("options", "altTheme", false);
+                ini.put("options", "audioOn", true);
+                ini.put("session", "record", 0);
+                ini.store();
+            }
+            // Carregando as opções de .ini
+            this.altTheme = ini.get("options", "altTheme", boolean.class);
+            this.audioOn = ini.get("options", "audioOn", boolean.class);
+            // Carregando a sessão de .ini
+            this.recordScore = ini.get("session", "recordScore", int.class);
+        } catch (IOException e) {
+            System.err.println("ERRO: " + e);
+        }
+    }
+
+    /**
+     * Salva a sessão atual localmente
+     *
+     * @param s Recebe a sessão atual
+     */
+    public void saveSession(Session s) {
+        try {
+            Wini ini;
+            File file = new File("load.ini");
+            // Se existir o arquivo, carrega ele, senão cria
+            if (file.exists()) {
+                ini = new Wini(file);
+                ini.put("options", "altTheme", s.altTheme);
+                ini.put("options", "audioOn", s.audioOn);
+                ini.put("session", "record", s.recordScore);
+                ini.store();
+            }
+        } catch (IOException e) {
+            System.err.println("ERRO: " + e);
+        }
+    }
+
+    /**
+     * Chama loadSession e inicializa zerado o status de jogo e o round score
      */
     public void initializeSession() {
-        if (this.altTheme == null) {
-            this.altTheme = false;
-        }
+        loadSession();
+
         this.gameStatus = -1;
         this.roundScore = 0;
-        this.recordScore = 0;
-        this.audioOn = true;
     }
 
     /**

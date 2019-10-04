@@ -343,8 +343,8 @@ public abstract class Engine {
         }
         return moveScore;
     }
-    
-    public void setFrameIcon(JFrame frame){
+
+    public void setFrameIcon(JFrame frame) {
         frame.setIconImage(new ImageIcon(getClass().getResource("/imgs/easteregg/leoHead.png")).getImage());
     }
 

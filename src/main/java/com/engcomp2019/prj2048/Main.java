@@ -23,6 +23,7 @@ public class Main {
     public Main(Session s) {
         this.s = s;
         this.s.initializeSession();
+        
         Splash splash = new Splash(s);
         // Propriedades da nossa janela splash (tamanho, etc)
         splash.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
