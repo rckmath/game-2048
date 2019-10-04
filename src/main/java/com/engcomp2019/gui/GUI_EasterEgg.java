@@ -207,7 +207,7 @@ public class GUI_EasterEgg extends JFrame {
 
     private void exitGameMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_exitGameMouseReleased
         menuActive = close.menu(0, menuActive, menuDropdown, menuItems);
-        GUI_Exit frameExit = new GUI_Exit(s,this);
+        GUI_Exit frameExit = new GUI_Exit(s, this);
         frameExit.setVisible(true);
     }//GEN-LAST:event_exitGameMouseReleased
 
@@ -230,11 +230,9 @@ public class GUI_EasterEgg extends JFrame {
     }//GEN-LAST:event_menuDropdownMouseReleased
 
     private void mainMenuMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_mainMenuMouseReleased
-        menuActive = close.menu(0, menuActive, menuDropdown, menuItems);
-        // Chamar frame para confirmar ação
-        GUI_MainConfirm frameConfirm;
-        frameConfirm = new GUI_MainConfirm(this, s);
-        frameConfirm.setVisible(true);
+        a.stop();
+        this.dispose();
+        new GUI_MainMenu(s).setVisible(true);
     }//GEN-LAST:event_mainMenuMouseReleased
 
     private void formWindowClosed(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosed
@@ -243,8 +241,9 @@ public class GUI_EasterEgg extends JFrame {
     }//GEN-LAST:event_formWindowClosed
 
     private void newGameMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_newGameMouseReleased
-        menuActive = close.menu(0, menuActive, menuDropdown, menuItems);
-        s.restart(this);
+        a.stop();
+        this.dispose();
+        s.newGame(s);
     }//GEN-LAST:event_newGameMouseReleased
 
     // <editor-fold defaultstate="collapsed" desc="Inicializar menu">

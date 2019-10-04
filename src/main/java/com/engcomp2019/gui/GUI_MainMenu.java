@@ -267,7 +267,9 @@ public class GUI_MainMenu extends JFrame {
     private void btnStartMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnStartMouseReleased
         try {
             btnStart.setIcon(imgBtnStart.get(1));
-            a.stop();
+            if (s.getAudioOn()) {
+                a.stop();
+            }
             this.dispose();
             start();
             s.newGame(s);

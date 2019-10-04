@@ -42,7 +42,7 @@ public class GUI_Game extends JFrame {
     private final Audio a = new Audio();
     private final Session s;
     private int undoBuffer = 1;
-    private int[][] gameAux;
+    private final int[][] gameAux;
     private int scoreAux;
 
     /**

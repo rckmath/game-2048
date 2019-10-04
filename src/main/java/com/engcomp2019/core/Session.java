@@ -8,7 +8,6 @@ import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import java.io.File;
 import java.io.IOException;
-import java.net.URISyntaxException;
 import org.ini4j.*;
 
 /**
