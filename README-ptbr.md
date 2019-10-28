@@ -1,4 +1,4 @@
-![2048 game logo gif](src/main/resources/imgs/elements/gameLogoFinal.gif)
+![2048 game logo gif](game/src/main/resources/imgs/elements/gameLogoFinal.gif)
 
 # O Projeto
 
