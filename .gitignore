@@ -1,6 +1,4 @@
-/Concept.txt
-/PSDs/
-/Tiles HEX Colors.txt
-/ending.veg
-/target/
-/load.ini
+game/PSDs/
+game/ending.veg
+game/load.ini
+game/target/
