@@ -1,2 +1,2 @@
 include ':app'
-rootProject.name='mobile_controller'
+rootProject.name='Control'

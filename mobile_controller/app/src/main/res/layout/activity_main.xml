@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#63C7F8"
+    tools:context=".MainActivity">
+
+    <ImageView
+        android:id="@+id/imageView5"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        app:srcCompat="@drawable/control"
+        tools:layout_editor_absoluteX="-143dp"
+        tools:layout_editor_absoluteY="-122dp" />
+
+    <ImageView
+        android:id="@+id/imageView10"
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        app:srcCompat="@drawable/butcontrol"
+        tools:layout_editor_absoluteX="78dp"
+        tools:layout_editor_absoluteY="404dp"
+        android:onClick="chamaTela"
+        />
+
+    <ImageView
+        android:id="@+id/imageView12"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        app:srcCompat="@drawable/gittt"
+        tools:layout_editor_absoluteX="55dp"
+        tools:layout_editor_absoluteY="615dp"
+        android:onClick="openGit"
+        />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
