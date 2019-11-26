@@ -1,5 +1,8 @@
 package com.engcomp2019.ws;
 
+
+import java.io.File;
+import java.io.IOException;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.UriInfo;
 import javax.ws.rs.Produces;
@@ -13,10 +16,11 @@ import org.ini4j.*;
 /**
  * REST Web Service
  *
- * @author 18711630
+ * @author rckmath
  */
 @Path("moves")
 public class Moves {
+
     @Context
     private UriInfo context;
     public String move;
@@ -25,6 +29,7 @@ public class Moves {
      * Creates a new instance of Moves
      */
     public Moves() {
+        this.move = "X";
     }
 
     /**
@@ -35,19 +40,55 @@ public class Moves {
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     public String getJson() {
-        //TODO return proper representation object
-        throw new UnsupportedOperationException();
+        String var = loadIniMovingDirection();
+        writeIni("X");
+        return var;
     }
 
     @POST
     @Consumes("application/json")
-    @Path("update")
-    public void putInserir(String content) {
+    @Path("direction")
+    public void postMove(String content) {
         writeIni(content);
         move = content;
     }
-    
-    public void writeIni(String content){
-        
+
+    public void writeIni(String content) {
+        try {
+            Wini ini;
+            new File(System.getenv("APPDATA") + "\\2048").mkdir();
+            File file = new File(System.getenv("APPDATA") + "\\2048\\" + "load.ini");
+
+            if (!file.exists()) {
+                file.createNewFile();
+                ini = new Wini(file);
+                ini.put("options", "altTheme", false);
+                ini.put("options", "audioOn", true);
+                ini.put("session", "record", 0);
+            } else {
+                ini = new Wini(file);
+            }
+            ini.put("session", "move", content);
+            ini.store();
+        } catch (IOException e) {
+            System.err.println("ERRO: " + e);
+        }
+    }
+
+    public String loadIniMovingDirection() {
+        Wini ini;
+        new File(System.getenv("APPDATA") + "\\2048").mkdir();
+        File file = new File(System.getenv("APPDATA") + "\\2048\\" + "load.ini");
+
+        if (file.exists()) {
+            try {
+                ini = new Wini(file);
+                return ini.get("session", "move");
+            } catch (IOException e) {
+                System.err.println("ERRO: " + e);
+                return "X";
+            }
+        }
+        return "X";
     }
 }

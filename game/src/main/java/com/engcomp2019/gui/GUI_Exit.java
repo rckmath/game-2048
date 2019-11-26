@@ -154,7 +154,7 @@ public class GUI_Exit extends JFrame {
     }//GEN-LAST:event_btnYesMousePressed
 
     private void btnYesMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnYesMouseReleased
-        s.saveSession(s);
+        s.saveSession();
         new Close(this, true).frame();
     }//GEN-LAST:event_btnYesMouseReleased
 

@@ -37,7 +37,7 @@ public class GUI_MainMenu extends JFrame {
      */
     public GUI_MainMenu(Session s) {
         this.s = s;
-
+        
         // Propriedades da janela e inicialização dos componentes
         initComponents();
         this.setResizable(false);
@@ -231,7 +231,7 @@ public class GUI_MainMenu extends JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnCloseMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnCloseMouseReleased
-        s.saveSession(s);
+        s.saveSession();
         new Close(this, true).frame();
     }//GEN-LAST:event_btnCloseMouseReleased
 

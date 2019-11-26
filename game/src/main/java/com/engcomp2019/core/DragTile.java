@@ -30,10 +30,6 @@ public class DragTile extends Drag {
     public void setFinal() {
         this.deltaX = super.getFinalX() - super.getX();
         this.deltaY = super.getFinalY() - super.getY();
-
-        /*System.out.println("Delta X: " + deltaX);
-        System.out.println("Delta Y: " + deltaY);
-        System.out.println();*/
     }
 
     /**
