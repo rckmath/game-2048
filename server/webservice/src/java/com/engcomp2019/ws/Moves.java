@@ -50,6 +50,7 @@ public class Moves {
     @Path("direction")
     public void postMove(String content) {
         writeIni(content);
+        System.out.println("Mov: " + content);
         move = content;
     }
 

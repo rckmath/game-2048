@@ -5,34 +5,43 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#63C7F8"
-    tools:context=".MainActivity">
+    tools:context="com.engcomp2019.controller.MainActivity">
 
     <ImageView
         android:id="@+id/imageView5"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        app:srcCompat="@drawable/control"
-        tools:layout_editor_absoluteX="-143dp"
-        tools:layout_editor_absoluteY="-122dp" />
+        android:layout_width="1181dp"
+        android:layout_height="345dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.082"
+        app:srcCompat="@drawable/control" />
 
     <ImageView
         android:id="@+id/imageView10"
-        android:layout_width="wrap_content"
-        android:layout_height="0dp"
-        app:srcCompat="@drawable/butcontrol"
-        tools:layout_editor_absoluteX="78dp"
-        tools:layout_editor_absoluteY="404dp"
+        android:layout_width="300dp"
+        android:layout_height="100dp"
         android:onClick="chamaTela"
-        />
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.495"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.689"
+        app:srcCompat="@drawable/butcontrol" />
 
     <ImageView
         android:id="@+id/imageView12"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        app:srcCompat="@drawable/gittt"
-        tools:layout_editor_absoluteX="55dp"
-        tools:layout_editor_absoluteY="615dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:onClick="openGit"
-        />
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.495"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.938"
+        app:srcCompat="@drawable/gittt" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
