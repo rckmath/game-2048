@@ -2,12 +2,16 @@ package com.engcomp2019.core;
 
 import com.engcomp2019.gui.GUI_Game;
 import com.engcomp2019.gui.GUI_RestartConfirm;
+import java.io.BufferedReader;
 import java.util.Arrays;
 import java.util.HashMap;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import java.io.File;
 import java.io.IOException;
+import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
+import java.net.URL;
 import org.ini4j.*;
 
 /**
@@ -23,6 +27,9 @@ public class Session extends Engine {
     private Boolean audioOn;
     private ImageIcon imgTileDef;
     private final HashMap<Integer, ImageIcon> imgTiles = new HashMap<>();
+    private final String USER_AGENT = "Mozilla/5.0";
+    private File file = new File(System.getenv("APPDATA") + "\\2048\\" + "load.ini");
+    private Wini ini;
 
     public Session(int bSizeOp) {
         super(bSizeOp);
@@ -91,25 +98,12 @@ public class Session extends Engine {
      */
     public void loadSession() {
         try {
-            Wini ini;
-            File file = new File("load.ini");
-            // Se existir o arquivo, carrega ele, senão cria
-            if (file.exists()) {
-                ini = new Wini(file);
-            } else {
-                file.createNewFile();
-                ini = new Wini(file);
-                ini.put("options", "altTheme", false);
-                ini.put("options", "audioOn", true);
-                ini.put("session", "record", 0);
-                ini.store();
-            }
             // Carregando as opções de .ini
             this.altTheme = ini.get("options", "altTheme", boolean.class);
             this.audioOn = ini.get("options", "audioOn", boolean.class);
             // Carregando a sessão de .ini
             this.recordScore = ini.get("session", "record", int.class);
-        } catch (IOException e) {
+        } catch (Exception e) {
             System.err.println("ERRO: " + e);
         }
     }
@@ -119,29 +113,44 @@ public class Session extends Engine {
      *
      * @param s Recebe a sessão atual
      */
-    public void saveSession(Session s) {
+    public void saveSession() {
         try {
-            Wini ini;
-            File file = new File("load.ini");
-            // Se existir o arquivo, carrega ele, senão cria
-            if (file.exists()) {
-                ini = new Wini(file);
-                ini.put("options", "altTheme", s.altTheme);
-                ini.put("options", "audioOn", s.audioOn);
-                ini.put("session", "record", s.recordScore);
-                ini.store();
-            }
+            ini = new Wini(file);
+            ini.put("options", "altTheme", altTheme);
+            ini.put("options", "audioOn", audioOn);
+            ini.put("session", "record", recordScore);
+            ini.put("session", "move", "X");
+            ini.store();
         } catch (IOException e) {
             System.err.println("ERRO: " + e);
         }
     }
 
     /**
-     * Chama loadSession e inicializa zerado o status de jogo e o round score
+     * Chama loadSession e inicializa zerado os status de jogo
+     *
+     * @throws java.io.IOException
      */
     public void initializeSession() {
-        loadSession();
+        // Se não existir o arquivo, cria ele
+        try {
+            if (!file.exists()) {
+                new File(System.getenv("APPDATA") + "\\2048").mkdir();
+                file.createNewFile();
+                ini = new Wini(file);
 
+                ini.put("options", "altTheme", false);
+                ini.put("options", "audioOn", true);
+                ini.put("session", "record", 0);
+                ini.put("session", "move", "X");
+                ini.store();
+            } else {
+                ini = new Wini(file);
+            }
+        } catch (IOException e) {
+            System.err.println("ERRO: " + e);
+        }
+        loadSession();
         this.gameStatus = -1;
         this.roundScore = 0;
     }
@@ -262,5 +271,34 @@ public class Session extends Engine {
      */
     public Boolean areEqual(int array2D[][]) {
         return Arrays.deepEquals(array2D, getGameBoard());
+    }
+
+    /**
+     *
+     * @return Move direction
+     * @throws Exception
+     */
+    public StringBuffer getRequest() throws Exception {
+        String url = "http://localhost:8080/game-ws/webresources/moves";
+
+        URL obj = new URL(url);
+        HttpURLConnection con = (HttpURLConnection) obj.openConnection();
+
+        // Optional default is GET
+        con.setRequestMethod("GET");
+        // Add request header
+        con.setRequestProperty("User-Agent", USER_AGENT);
+
+        StringBuffer response;
+        try (BufferedReader in = new BufferedReader(new InputStreamReader(con.getInputStream()))) {
+            String inputLine;
+            response = new StringBuffer();
+            while ((inputLine = in.readLine()) != null) {
+                response.append(inputLine);
+            }
+        }
+
+        System.out.println(response.toString());
+        return response;
     }
 }

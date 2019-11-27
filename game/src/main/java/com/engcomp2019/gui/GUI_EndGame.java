@@ -288,7 +288,7 @@ public class GUI_EndGame extends JFrame {
     }//GEN-LAST:event_btnAboutMouseReleased
 
     private void btnCloseMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnCloseMouseReleased
-        s.saveSession(s);
+        s.saveSession();
         new Close(this, true).frame();
     }//GEN-LAST:event_btnCloseMouseReleased
 

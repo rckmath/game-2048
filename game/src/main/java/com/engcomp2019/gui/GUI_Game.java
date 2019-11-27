@@ -7,6 +7,7 @@ import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import static java.lang.Thread.sleep;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.Objects;
@@ -44,6 +45,7 @@ public class GUI_Game extends JFrame {
     private int undoBuffer = 1;
     private final int[][] gameAux;
     private int scoreAux;
+    private Thread WS;
 
     /**
      * Inicializa e instancia a tela de jogo
@@ -58,6 +60,7 @@ public class GUI_Game extends JFrame {
         setLocationRelativeTo(null);
         initArrowPadListener();
         initKeyboardListener();
+        initWSListener();
         initGame();
         initAudio();
         initMenu();
@@ -285,7 +288,8 @@ public class GUI_Game extends JFrame {
     }//GEN-LAST:event_btnMinimizeMouseReleased
 
     private void btnCloseMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnCloseMouseReleased
-        s.saveSession(s);
+        WS.interrupt();
+        s.saveSession();
         new Close(this, true).frame();
     }//GEN-LAST:event_btnCloseMouseReleased
 
@@ -606,6 +610,33 @@ public class GUI_Game extends JFrame {
     }
     // </editor-fold>
 
+    // <editor-fold defaultstate="collapsed" desc="Web-services listener">
+    private void initWSListener() {
+        Runnable Run;
+        Run = () -> {
+            while (true) {
+                try {
+                    String moveDirection = s.getRequest().toString();
+                    if(moveDirection.charAt(0) != 'X'){
+                        doMove(moveDirection.charAt(0));
+                    }
+                } catch (Exception e) {
+                    System.out.println("ERRO: " + e);
+                }
+
+                try {
+                    Thread.sleep(250);
+                } catch (InterruptedException e) {
+                    System.out.println("ERRO: " + e);
+                    break;
+                }
+            }
+        };
+        WS = new Thread(Run);
+        WS.start();
+    }
+    // </editor-fold>
+
     // <editor-fold defaultstate="collapsed" desc="Atualizar informações na tela">
     /**
      *
@@ -684,6 +715,7 @@ public class GUI_Game extends JFrame {
                         new Thread() {
                             public void run() {
                                 try {
+                                    WS.interrupt();
                                     setEnabled(false);
                                     Thread.sleep(500);
                                     s.setGameStatus(1);
@@ -714,6 +746,7 @@ public class GUI_Game extends JFrame {
     public void verifyGameOver() {
         if (s.getGameStatus() != 2) {
             if (s.isGameOver()) {
+                WS.interrupt();
                 try {
                     Thread.sleep(350);
                     s.setGameStatus(2);
