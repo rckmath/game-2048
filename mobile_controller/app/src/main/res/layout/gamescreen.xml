@@ -10,7 +10,7 @@
         android:id="@+id/btnBack"
         android:layout_width="60dp"
         android:layout_height="100dp"
-        android:onClick="voltarTela"
+        android:onClick="goBack"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.045"
@@ -23,6 +23,7 @@
         android:id="@+id/btnUndo"
         android:layout_width="54dp"
         android:layout_height="60dp"
+        android:onClick="onClick"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.924"
@@ -93,17 +94,5 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.503"
         app:srcCompat="@drawable/arrowleft" />
-
-    <ImageView
-        android:id="@+id/imageView13"
-        android:layout_width="97dp"
-        android:layout_height="78dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.057"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.957"
-        app:srcCompat="@drawable/refresh" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
