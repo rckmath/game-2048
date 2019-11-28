@@ -9,9 +9,9 @@ import java.net.MalformedURLException;
 import java.net.URL;
 
 public class WSClient extends AsyncTask<Void, Void, String> {
-    public String data;
+    private String data;
 
-    public WSClient(String data) {
+    WSClient(String data) {
         this.data = data;
     }
 
@@ -19,18 +19,22 @@ public class WSClient extends AsyncTask<Void, Void, String> {
     protected String doInBackground(Void... voids) {
         try {
             URL url = new URL("http://192.168.0.13:8080/game-ws/webresources/moves/direction");
-            HttpURLConnection urlConnection = null;
-
             try {
-                urlConnection = (HttpURLConnection) url.openConnection();
-                urlConnection.setDoInput(true);
-                urlConnection.setDoOutput(true);
-                urlConnection.setRequestProperty("Content-Type", "application/json");
-                urlConnection.setRequestMethod("POST");
+                HttpURLConnection con = (HttpURLConnection) url.openConnection();
+                con.setConnectTimeout(250);
+                con.setReadTimeout(250);
 
-                OutputStreamWriter writer = new OutputStreamWriter(urlConnection.getOutputStream());
+                con.setDoInput(true);
+                con.setDoOutput(true);
+                con.setRequestProperty("Content-Type", "application/json");
+                con.setRequestMethod("POST");
+
+                OutputStreamWriter writer = new OutputStreamWriter(con.getOutputStream());
                 writer.write(data);
                 writer.flush();
+
+                con.getResponseCode();
+                con.disconnect();
             } catch (MalformedURLException e) {
                 e.printStackTrace();
             }

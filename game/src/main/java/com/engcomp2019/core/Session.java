@@ -93,8 +93,7 @@ public class Session extends Engine {
 
     // Outros
     /**
-     * Carrega nossas configurações a partir do que está salvo no arquivo
-     * "load.ini"
+     * Carrega nossas configurações a partir do que está salva no arquivo "load.ini"
      */
     public void loadSession() {
         try {
@@ -111,7 +110,6 @@ public class Session extends Engine {
     /**
      * Salva a sessão atual localmente
      *
-     * @param s Recebe a sessão atual
      */
     public void saveSession() {
         try {
@@ -129,7 +127,6 @@ public class Session extends Engine {
     /**
      * Chama loadSession e inicializa zerado os status de jogo
      *
-     * @throws java.io.IOException
      */
     public void initializeSession() {
         // Se não existir o arquivo, cria ele
@@ -274,19 +271,19 @@ public class Session extends Engine {
     }
 
     /**
-     *
-     * @return Move direction
-     * @throws Exception
+     * Envia um requisição GET para o web-service para obter o movimento 
+     * 
+     * @return Direção de movimento
+     * @throws Exception Qualquer possível exceção
      */
     public StringBuffer getRequest() throws Exception {
         String url = "http://localhost:8080/game-ws/webresources/moves";
 
         URL obj = new URL(url);
         HttpURLConnection con = (HttpURLConnection) obj.openConnection();
+        con.setConnectTimeout(250);
 
-        // Optional default is GET
         con.setRequestMethod("GET");
-        // Add request header
         con.setRequestProperty("User-Agent", USER_AGENT);
 
         StringBuffer response;
@@ -297,8 +294,9 @@ public class Session extends Engine {
                 response.append(inputLine);
             }
         }
-
-        System.out.println(response.toString());
+        con.getResponseCode();
+        con.disconnect();
+        
         return response;
     }
 }
