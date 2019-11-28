@@ -10,15 +10,20 @@ import java.net.URL;
 
 public class WSClient extends AsyncTask<Void, Void, String> {
     private String data;
+    private String ip;
 
-    WSClient(String data) {
+    WSClient(String ip, String data) {
+        this.ip = ip;
         this.data = data;
     }
 
     @Override
     protected String doInBackground(Void... voids) {
         try {
-            URL url = new URL("http://192.168.0.13:8080/game-ws/webresources/moves/direction");
+            if (ip == null || ip.equals("")) {
+                ip = "192.168.0.13";
+            }
+            URL url = new URL("http://" + ip + ":8080/game-ws/webresources/moves/direction");
             try {
                 HttpURLConnection con = (HttpURLConnection) url.openConnection();
                 con.setConnectTimeout(250);
