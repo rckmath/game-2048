@@ -7,7 +7,6 @@ import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import static java.lang.Thread.sleep;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.Objects;
@@ -415,18 +414,7 @@ public class GUI_Game extends JFrame {
     }//GEN-LAST:event_mouseMoveMouseDragged
 
     private void btnUndoMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnUndoMouseReleased
-        btnUndo.setIcon(imgUndo.get(0));
-        if (undoBuffer == 0) {
-            for (int i = 0; i < s.getBoardSize(); i++) {
-                System.arraycopy(gameAux[i], 0, s.getGameBoard()[i], 0, s.getBoardSize());
-            }
-            if (Objects.equals(s.getRoundScore(), s.getRecordScore())) {
-                s.setRecordScore(scoreAux);
-            }
-            s.setRoundScore(scoreAux);
-            updateInfo(true);
-            undoBuffer = 1;
-        }
+        undoMove();
     }//GEN-LAST:event_btnUndoMouseReleased
 
     private void btnUndoMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnUndoMousePressed
@@ -612,23 +600,23 @@ public class GUI_Game extends JFrame {
 
     // <editor-fold defaultstate="collapsed" desc="Web-services listener">
     private void initWSListener() {
+        // Abre a execução de um thread
         Runnable Run;
         Run = () -> {
             while (true) {
                 try {
-                    String moveDirection = s.getRequest().toString();
-                    if(moveDirection.charAt(0) != 'X'){
-                        doMove(moveDirection.charAt(0));
+                    // Recebe o movimento via get através do método
+                    char moveDirection = s.getRequest().toString().charAt(0);
+                    if (moveDirection != 'X') {
+                        if (moveDirection == 'Z') {
+                            undoMove();
+                        } else {
+                            doMove(moveDirection);
+                        }
                     }
+                    Thread.sleep(325);
                 } catch (Exception e) {
                     System.out.println("ERRO: " + e);
-                }
-
-                try {
-                    Thread.sleep(250);
-                } catch (InterruptedException e) {
-                    System.out.println("ERRO: " + e);
-                    break;
                 }
             }
         };
@@ -778,6 +766,23 @@ public class GUI_Game extends JFrame {
     }
     // </editor-fold>
 
+    // <editor-fold defaultstate="collapsed" desc="Volta o movimento">
+    private void undoMove() {
+        btnUndo.setIcon(imgUndo.get(0));
+        if (undoBuffer == 0) {
+            for (int i = 0; i < s.getBoardSize(); i++) {
+                System.arraycopy(gameAux[i], 0, s.getGameBoard()[i], 0, s.getBoardSize());
+            }
+            if (Objects.equals(s.getRoundScore(), s.getRecordScore())) {
+                s.setRecordScore(scoreAux);
+            }
+            s.setRoundScore(scoreAux);
+            updateInfo(true);
+            undoBuffer = 1;
+        }
+    }
+    // </editor-fold>
+    
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel arrowPadD;
     private javax.swing.JLabel arrowPadL;

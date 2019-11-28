@@ -9,8 +9,6 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.engcomp2019.prj2048.R;
 
-import java.util.concurrent.ExecutionException;
-
 public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -18,17 +16,16 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
     }
 
-    public void voltarTela(View view){
+    public void goBack(View view) {
         setContentView(R.layout.activity_main);
     }
 
-    public void chamaTela(View view) {
+    public void callController(View view) {
         setContentView(R.layout.gamescreen);
     }
 
     public void openGit(View view) {
-        Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://github.com/rckmath/2048-Game"));
-        startActivity(browserIntent);
+        startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://github.com/rckmath/2048-Game")));
     }
 
     public void onClick(View view) {
@@ -46,16 +43,13 @@ public class MainActivity extends AppCompatActivity {
             case R.id.btnR:
                 client = new WSClient("R");
                 break;
+            case R.id.btnUndo:
+                client = new WSClient("Z");
+                break;
             default:
                 client = new WSClient("X");
                 break;
         }
-        try {
-            client.execute().get();
-        } catch (ExecutionException e) {
-            e.printStackTrace();
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
+        client.execute();
     }
 }
