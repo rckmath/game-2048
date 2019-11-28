@@ -21,6 +21,7 @@ blocos de mesmo valor até conseguir formar o valor 2048.
 
 OBS: Certifique-se de ter o [JAVA SE 8+](https://www.oracle.com/technetwork/pt/java/javase/downloads/index.html) instalado na máquina.</br >
 OBS²: Caso não consiga abrir diretamente o arquivo .jar no linux, abra o terminal na pasta raiz e execute o comando "java -jar 2048-v1.0.jar".
+
 OBS³: Download Android Studio: [ANDROID STUDIO](https://developer.android.com/studio/?hl=pt-br)
 
 # Como jogar através do celular
