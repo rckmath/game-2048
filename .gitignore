@@ -1,8 +1,9 @@
-game/PSDs/
 game/ending.veg
 game/load.ini
 game/target/
 server/webservice/build/
+
+*.psd
 
 ### Android ###
 # Built application files
@@ -114,3 +115,6 @@ mobile_controller/!gradle-wrapper.jar
 
 # Cache of project
 mobile_controller/.gradletasknamecache
+/webservice/build/
+/webservice/dist/
+/webservice/nbproject/private/

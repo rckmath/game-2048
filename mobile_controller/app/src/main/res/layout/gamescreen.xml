@@ -4,7 +4,7 @@
     android:id="@+id/gamescreen"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#00C7B1">
+    android:background="#4e4e4e">
 
     <ImageView
         android:id="@+id/btnBack"
