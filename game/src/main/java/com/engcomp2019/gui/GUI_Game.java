@@ -612,6 +612,7 @@ public class GUI_Game extends JFrame {
                             undoMove();
                         } else {
                             doMove(moveDirection);
+                            verifyGameOver();
                         }
                     }
                     Thread.sleep(325);
@@ -678,7 +679,6 @@ public class GUI_Game extends JFrame {
                     break;
             }
 
-            verifyGameOver();
             notSpawnTile = isGameFinished();
 
             // Se notSpawnTile negado = true, verifica se deve spawnar tile
@@ -782,7 +782,7 @@ public class GUI_Game extends JFrame {
         }
     }
     // </editor-fold>
-    
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel arrowPadD;
     private javax.swing.JLabel arrowPadL;

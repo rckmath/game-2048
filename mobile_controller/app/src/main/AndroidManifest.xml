@@ -11,10 +11,10 @@
         android:roundIcon="@drawable/iconcontrol"
         android:supportsRtl="true"
         android:theme="@style/AppTheme.NoActionBar">
+        android:screenOrientation="portrait">
         <activity android:name="com.engcomp2019.controller.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
