@@ -1,26 +1,23 @@
-![2048 game logo gif](https://github.com/rckmath/2048-Game/blob/master/src/main/resources/imgs/elements/gameLogoFinal.gif)
+![2048 game logo gif](game/src/main/resources/imgs/elements/gameLogoFinal.gif)
 
 # The project
 
-A 2048 game written in Java to a university project from my course.
-Developed with inheritance and polymorphism concepts.
-
+A 2048 game written in Java to a university project from my course. Developed with inheritance and polymorphism concepts.
 The game itself is in portuguese language.
 
 # The game
 
-2048 is a thinking game that the objective is to merge blocks with the same value until 
-it forms a 2048 block.
+2048 is a thinking game that the objective is to merge blocks with the same value until it forms a 2048 block.
 
 # Install instructions
 
 1. Clone the archive or download the last version on tab Releases.</br >
 2. Extract the zip file.</br >
 3. Open the 2048-v1.0.jar file or just clone, compile with a IDE and run the game.</br >
-4. Just play!
+4. Play! =)
 
 OBS: Check if the machine has installed [JAVA SE 8+](https://www.oracle.com/technetwork/pt/java/javase/downloads/index.html).</br >
-OBS²: If the Archive .jar does not open in Linux, open the terminal on the root folder, and execute the command "java -jar 2048-v1.0.jar".
+OBS²: If the .jar does not open in Linux, open the terminal on the root folder, and execute the command "java -jar 2048-v1.0.jar".
 
 # Instructions in game
 
