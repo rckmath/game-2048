@@ -10,15 +10,25 @@ O jogo se encontra em português.
 2048 é um jogo de raciocínio no qual o objetivo é juntar 
 blocos de mesmo valor até conseguir formar o valor 2048.
 
-# Instruções de instalação
+# Instruções de instalação do jogo
 
 1. Clone o arquivo ou baixe o .zip da versão mais recente na aba Releases.</br >
 2. Extraia o arquivo zip.</br >
 3. Abra o arquivo 2048-v1.0.jar ou clone o repositório, compile numa IDE e rode.</br >
-4. Jogue! :)
+4. Abra o arquivo do "mobile_controller".
+5. Conecte o celular na maquina e compile o programa.
+6. Com os dois programas abertos e rodando, é só jogar! :)
 
 OBS: Certifique-se de ter o [JAVA SE 8+](https://www.oracle.com/technetwork/pt/java/javase/downloads/index.html) instalado na máquina.</br >
 OBS²: Caso não consiga abrir diretamente o arquivo .jar no linux, abra o terminal na pasta raiz e execute o comando "java -jar 2048-v1.0.jar".
+OBS³: Download Android Studio: [ANDROID STUDIO](https://developer.android.com/studio/?hl=pt-br)
+
+# Como jogar através do celular
+
+1. Com a pasta "mobile_controller" instalada baixada, abra o Android Studio e abra o projeto baixado.
+2. Com o projeto aberto, siga os seguinte diretórios: "mobile_controller/app/src/main/java/com/engcomp2019/controller" e 
+"mobile_controller/app/src/main/res/xml/network_security_config.xml", altere os campos inicialiados com um IP padrão para o IP da sua máquina.
+3. Salvar as mudanças realizadas, e seguir instruções de instalação do jogo.
 
 # Instruções de jogo
 
