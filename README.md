@@ -1,4 +1,8 @@
+<h1 align="center">
+
 ![2048 game logo gif](game/src/main/resources/imgs/elements/gameLogoFinal.gif)
+
+</h1>
 
 # The project
 
